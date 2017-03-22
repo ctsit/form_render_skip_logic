@@ -16,7 +16,7 @@ render_form_skip_logic(json);
 function render_form_skip_logic(json) {
 
     //check if we recieved the right json
-    if(!json[0].hasOwnProperty("action") && json[0]["action"] === "for_render_skip_logic") {
+    if(!json[0].hasOwnProperty("action") && json[0]["action"] === "form_render_skip_logic") {
         return null;
     }
     
