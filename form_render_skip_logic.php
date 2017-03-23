@@ -1,5 +1,11 @@
 <?php
-
+    $stated_pt = file_get_contents('/var/www/redcap/hooks/sample.json');
+    //print $stated_pt;
+//TODO: 
+//use json_decode? or pass json to JS for more familiar parsing
+//locate patient_type and pass it to the REDCap::getData function call
+//use json_encode? to port REDCap::getData output to JS
+//check for instruments of concern on returned json/JS object and enable their links
 return function() {
     print "<script>
     console.log('hello');</script>";
