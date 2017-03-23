@@ -1,3 +1,5 @@
+<?php
+<script>
 var json = [
   { "action":"form_render_skip_logic",
     "instruments_to_show" : [
@@ -15,8 +17,15 @@ render_form_skip_logic(json);
 
 function render_form_skip_logic(json) {
 
+    // Check the current url to make sure you are on the record status dashboard page
+    if(!/recor_status_dashboard/.test(document.URL)) {
+        console.log("render_form_skip_logic is not running!");
+        return null;
+    }
+
     //check if we recieved the right json
     if(!json[0].hasOwnProperty("action") && json[0]["action"] === "form_render_skip_logic") {
+        console.log("render_form_skip_logic is not running due to a json error");
         return null;
     }
     
@@ -76,6 +85,7 @@ function disableLinksWithProp(property) {
             }
         }
     }    
-}
+}</script>
+?>
 
 
