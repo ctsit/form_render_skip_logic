@@ -1,5 +1,5 @@
 <?php
-    $stated_pt = file_get_contents('/var/www/redcap/hooks/sample.json');
+    //$stated_pt = file_get_contents('/var/www/redcap/hooks/sample.json');
     //print $stated_pt;
 //TODO: 
 //use json_decode? or pass json to JS for more familiar parsing
@@ -7,10 +7,32 @@
 //use json_encode? to port REDCap::getData output to JS
 //check for instruments of concern on returned json/JS object and enable their links
 return function() {
-    print "<script>
-    console.log('hello');</script>";
-print '<script>
-    $(\'document\').ready(function(){
+    $SDH_type = REDCap::getData(13,'json',null,null,1,null,false,false,false,'[patient_type] = "1"',null,null);
+    print $SDH_type;
+    $SAH_type = REDCap::getData(13,'json',null,null,1,null,false,false,false,'[patient_type] = "2"',null,    null);
+    $SAH_type = REDCap::getData(13,'json',null,null,1,null,false,false,false,'[patient_type] = "2"',null,    null);
+    ?>
+    <script>
+    console.log("hello");
+    //var record;
+    var sdh_type = <?php echo $SDH_type ?>;
+    //var sdh_records = JSON.parse(sdh_type);
+    var sdh_records = [];
+    // console.log(sdh_records);
+    for (var record in sdh_type) {
+        sdh_records.push(sdh_type[record].unique_id);
+    }
+    function contains(obj1) {
+        for (element in obj1){
+            console.log("Record: " + element);
+        }
+    }
+    console.log(sdh_type);
+    console.log(sdh_type[0].unique_id);
+    console.log(sdh_type[3].unique_id);
+    console.log(contains(sdh_records));
+    console.log(sdh_records);
+    /*$(\'document\').ready(function(){
         var json = [
           { "action":"form_render_skip_logic",
             "instruments_to_show" : [
@@ -105,8 +127,9 @@ print '<script>
             }    
         }
 }
-);
-</script>';
+);*/
+</script>
+<?php
 }
 ?>
 
