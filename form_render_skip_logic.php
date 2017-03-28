@@ -1,6 +1,4 @@
 <?php
-    //$stated_pt = file_get_contents('/var/www/redcap/hooks/sample.json');
-    //print $stated_pt;
 //TODO: 
 //use json_decode? or pass json to JS for more familiar parsing
 //locate patient_type and pass it to the REDCap::getData function call
@@ -8,39 +6,38 @@
 //check for instruments of concern on returned json/JS object and enable their links
 return function() {
     $SDH_type = REDCap::getData(13,'json',null,null,1,null,false,false,false,'[patient_type] = "1"',null,null);
-    print $SDH_type;
+    //print $SDH_type;
     $SAH_type = REDCap::getData(13,'json',null,null,1,null,false,false,false,'[patient_type] = "2"',null,    null);
-    $SAH_type = REDCap::getData(13,'json',null,null,1,null,false,false,false,'[patient_type] = "2"',null,    null);
+    $UBI_type = REDCap::getData(13,'json',null,null,1,null,false,false,false,'[patient_type] = "3"',null,    null);
     ?>
     <script>
     console.log("hello");
-    //var record;
-    var sdh_type = <?php echo $SDH_type ?>;
-    //var sdh_records = JSON.parse(sdh_type);
-    var sdh_records = [];
-    // console.log(sdh_records);
-    for (var record in sdh_type) {
-        sdh_records.push(sdh_type[record].unique_id);
-    }
-    function contains(obj1) {
-        for (element in obj1){
-            console.log("Record: " + element);
+    var patient_types = {
+        "sdh" : {"type": <?php echo $SDH_type ?>, "records": []},
+        "sah" : {"type": <?php echo $SAH_type ?>, "records": []},
+        "ubi" : {"type": <?php echo $UBI_type ?>, "records": []}
+    };
+    function pop_records(patient_types) {
+        for (var patient_type in patient_types) {
+            //console.log(Object.values(type));
+            var patient_json = patient_types[patient_type];
+            //var record = patient_json[type];
+            for (var record in patient_json["type"]) {
+               patient_json["records"].push(patient_json["type"][record].unique_id); 
+            }
+            console.log(patient_json.records);
         }
     }
-    console.log(sdh_type);
-    console.log(sdh_type[0].unique_id);
-    console.log(sdh_type[3].unique_id);
-    console.log(contains(sdh_records));
-    console.log(sdh_records);
-    /*$(\'document\').ready(function(){
+    pop_records(patient_types);
+    $('document').ready(function(){
         var json = [
           { "action":"form_render_skip_logic",
             "instruments_to_show" : [
-                {"logic":"[visit_1_arm_1][patient_type] = \'1\'",
+                {"logic":"[visit_1_arm_1][patient_type] = '1'",
                  "instrument_names": ["sdh_details", "past_medical_history_sah_sdh"]},
-                {"logic":"[visit_1_arm_1][patient_type] = \'2\'",
+                {"logic":"[visit_1_arm_1][patient_type] = '2'",
                  "instrument_names": ["sah_details", "past_medical_history_sah_sdh"]},
-                {"logic":"[visit_1_arm_1][patient_type] = \'3\'",
+                {"logic":"[visit_1_arm_1][patient_type] = '3'",
                  "instrument_names": ["medications_sah_sdh"]}
                 ]
             }
@@ -75,7 +72,15 @@ return function() {
             }
             
             if(json[0].hasOwnProperty("instruments_to_show")) {
-                for(var i = 0; i < json[0]["instruments_to_show"];i++) {
+                for(var index in json[0]["instruments_to_show"]) {
+                    var pair = json[0]["instruments_to_show"][index];
+                    if(pair.logic){
+                            console.log(pair.instrument_names);
+                        for(var instrument in pair.instrument_names) {
+                            console.log('enableing ' + pair.instrument_names[instrument]);
+                            enableLinksWithProp(pair.instrument_names[instrument]);
+                        }
+                    } 
                     //go through each cell
                     //if right visit_and_arm and right patient_type
                     //then enable all instruments in instruments_to_show
@@ -85,7 +90,7 @@ return function() {
 
         //disables all links within the record table.
         function disableAllLinks() {
-            var rows = document.querySelectorAll(\'#record_status_table tbody tr\');
+            var rows = document.querySelectorAll('#record_status_table tbody tr');
             
             for(var i = 0; i < rows.length;i++) {
                 for(var j = 0; j < rows[i].cells.length; j++) {
@@ -95,30 +100,48 @@ return function() {
         } 
 
         function disableLink(cell) {
-            cell.firstElementChild.style.pointerEvents = \'none\';
+            cell.firstElementChild.style.pointerEvents = 'none';
             if(cell.firstElementChild.firstElementChild) {
-                cell.firstElementChild.firstElementChild.style.opacity = \'.1\';
+                cell.firstElementChild.firstElementChild.style.opacity = '.1';
             }
         }
 
         function enableLink(cell) {
-            cell.firstElementChild.style.pointerEvents = \'auto\';
+            cell.firstElementChild.style.pointerEvents = 'auto';
             if(cell.firstElementChild.firstElementChild) {
-                cell.firstElementChild.firstElementChild.style.opacity = \'1\';
+                cell.firstElementChild.firstElementChild.style.opacity = '1';
             }
         }
                 
 
 
-        //disables all links with the given property inside their link name
-        function disableLinksWithProp(property) {
+        //enables all links with the given property inside their link name
+        function enableLinksWithProp(property) {
 
-            var rows = document.querySelectorAll(\'#record_status_table tbody tr\');
+            var rows = document.querySelectorAll('#record_status_table tbody tr');
             var reg = new RegExp(property);
 
             for(var i = 0; i < rows.length;i++) {
                 for(var j = 0; j < rows[i].cells.length; j++) {
-                    var link = table.rows[i].cells[j].firstElementChild.href;
+                    var link = rows[i].cells[j].firstElementChild.href;
+
+                    if(reg.test(link)) {
+                        enableLink(rows[i].cells[j]);
+                    }
+                }
+            }    
+        }
+    
+    
+        //disables all links with the given property inside their link name
+        function disableLinksWithProp(property) {
+
+            var rows = document.querySelectorAll('#record_status_table tbody tr');
+            var reg = new RegExp(property);
+
+            for(var i = 0; i < rows.length;i++) {
+                for(var j = 0; j < rows[i].cells.length; j++) {
+                    var link = rows[i].cells[j].firstElementChild.href;
 
                     if(reg.test(link)) {
                         disableLink(rows[i].cells[j]);
@@ -126,8 +149,8 @@ return function() {
                 }
             }    
         }
-}
-);*/
+    }
+);
 </script>
 <?php
 }
