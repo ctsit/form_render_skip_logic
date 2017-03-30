@@ -56,9 +56,11 @@ return function() {
         }
 
         function disableUnionOfForms(json) {
-            for (var names in json[0].instruments_to_show) {
-                for (var form in json[0].instruments_to_show[names].instrument_names) {
-                    var form_to_disable = json[0].instruments_to_show[names].instrument_names[form];
+            var instruments = json[0].instruments_to_show
+            for (var names in instruments) {
+                var forms = instruments[names].instrument_names
+                for (var form in forms) {
+                    var form_to_disable = forms[form];
                     disableFormsWithProp(form_to_disable);
                 }
             }
@@ -69,8 +71,9 @@ return function() {
             for (var type in patient_types) {
                 var record = patient_types[type].records;
                 for (var rec in record) {
-                    for (var instrument in json[0].instruments_to_show[index].instrument_names) {
-                        enableFormsForPatientId(record[rec], json[0].instruments_to_show[index].instrument_names[instrument]);
+                    var instruments = json[0].instruments_to_show[index].instrument_names
+                    for (var instrument in instruments) {
+                        enableFormsForPatientId(record[rec], instruments[instrument]);
                     }
                 }
                 index++;
