@@ -1,9 +1,13 @@
 <?php
-//TODO: 
-//use json_decode? or pass json to JS for more familiar parsing
-//locate patient_type and pass it to the REDCap::getData function call
-//use json_encode? to port REDCap::getData output to JS
-//check for instruments of concern on returned json/JS object and enable their links
+/*
+ * Takes a json file and disables/enables certain forms for certain patients on
+ * record_status_dashboard based on the given json file.
+ *
+ * TODO: 
+ * 1. test frsl_dashboard
+ *	a. check to see how it handles changes in the json file
+ * 2. factor out repeated code across all fsrl hooks into a common library
+ */ 
 return function($project_id) {
 
     if ($project_id != NULL) {
