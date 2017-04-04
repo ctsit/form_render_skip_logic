@@ -4,13 +4,15 @@
 //locate patient_type and pass it to the REDCap::getData function call
 //use json_encode? to port REDCap::getData output to JS
 //check for instruments of concern on returned json/JS object and enable their links
-return function() {
+return function($project_id) {
 
-    $SDH_type = REDCap::getData(12,'json',null,null,1,null,false,false,false,'[patient_type] = "1"',null,null);
+    if ($project_id != NULL) {
+    $SDH_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "1"',null,null);
 
-    $SAH_type = REDCap::getData(12,'json',null,null,1,null,false,false,false,'[patient_type] = "2"',null,    null);
+    $SAH_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "2"',null,    null);
 
-    $UBI_type = REDCap::getData(12,'json',null,null,1,null,false,false,false,'[patient_type] = "3"',null,    null);
+    $UBI_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "3"',null,    null);
+    }
     ?>
 
     <script>
@@ -33,15 +35,15 @@ return function() {
 
         var patient_types = {
             "sdh": {
-                "type": <?php echo $SDH_type ?>,
+                "type": <?php echo ($project_id != NULL) ? $SDH_type : "''";?>,
                 "records": []
             },
             "sah": {
-                "type": <?php echo $SAH_type ?>,
+                "type": <?php echo ($project_id != NULL) ? $SAH_type : "''";?>,
                 "records": []
             },
             "ubi": {
-                "type": <?php echo $UBI_type ?>,
+                "type": <?php echo ($project_id != NULL) ? $UBI_type : "''";?>,
                 "records": []
             }
         };
@@ -157,8 +159,10 @@ return function() {
         }
 
         $('document').ready(function() {
-            pop_records(patient_types);
-            render_form_skip_logic(json);
+            if ( <?php echo ($project_id != NULL) ? "true" : "false";?> ) {
+                pop_records(patient_types);
+                render_form_skip_logic(json);
+            }
         });
     </script>
     <?php
