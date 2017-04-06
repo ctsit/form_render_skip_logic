@@ -6,37 +6,40 @@
  *
  * TODO:
  * 1. write the hook
- * 	a. find current patient unique id
- * 	a. see if a diagnosis has been selected for said patient
+ * 	a. find current patient unique id <DONE>
+ * 	a. see if a diagnosis has been selected for said patient <DONE>
  *	b. disable all forms except demographics until diagnosis is selected
  *	c. enable forms depending on the diagnosis one it has been selected
  * 2. test the hook
  * 3. factor out repeated code across all fsrl hooks into a common library
  */
 return function($project_id) {
+
+	$patient_id = $_GET["id"];
+	$patient_data = REDcap::getData($project_id, 'json', $patient_id, "patient_type", 1, null, false, false, null, null, null);
+
 	?>
 	<script>
-		function getCurrentPatientId(){
-			var id;
-			var url = document.URL;
-			
-			//search url for "&id={some number}" query string
-			var idString = /&id=\d+/g.exec(url);
-			if(idString !== null && idString.length === 1) {
-				idString = idString[0];
-			}else {
-				//could not find or found too many ids
-				return null;
-			}
-			
-			//extract patient id number from idString
-			id = /\d+/g.exec(idString)[0];
-
-			return id;
-		}
+		var patient_data = <?php echo $patient_data ?>;
+		var patient_type;
+		var enableForms = false;
 
 		//printing patient id for debugging purposes
-		console.log("current unique patient id: " + getCurrentPatientId());
+		console.log("php unique id is: " + " <?php echo $patient_id ?>");
+		console.log(patient_data);
+
+		if(patient_data.length > 1) {
+			console.log("cannot find patient type, too much data returned");
+		} else if(patient_data.length === 0) {
+			console.log("patient_type is not yet defined");
+		} else {
+			console.log("patient type is defined and is " + patient_data[0]["patient_type"]);
+			patient_type = patient_data[0];
+			enableForms = true;
+		}
+
+
+
 	</script>
 	<?php	
 }
