@@ -4,22 +4,44 @@
  *instruments appropriate to diagnosis
  *
  * TODO:
- * 1. write frsl_data_collection_instruments
- * 	a. find out patient diagnosis
- * 	b. find out which instruments are appropriate to show
- * 	c. find out how to manipulate left-hand menu to show only desired
- * 	   insturments
- * 2. test frsl_data_collection_instruments
- * 3. factor out repeated code across all fsrl hooks into a common library
+ * 
+ * 1. factor out repeated code across all fsrl hooks into a common library
  */
 
 return function($project_id) {
 
-	$patient_id = $_GET["id"];
-	$patient_data = REDcap::getData($project_id, 'json', $patient_id, "patient_type", 1, null, false, false, null, null, null);
+	$URL = $_SERVER['REQUEST_URI'];
+	if(preg_match('/event_id=40/',$URL) == 1){
+		$patient_id = $_GET["id"];
 
+		$SDH_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "1"',null,null);
+
+    	$SAH_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "2"',null,null);
+
+    	$UBI_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "3"',null,null);
+
+    	$patient_data = REDcap::getData($project_id, 'json', "$patient_id", "patient_type", 1, null,false, false, false, null, null, null);
+	}
+	else{
+		return;
+	}
+
+?>
     <script>
 
+    var patient_data = <?php echo $patient_data ?>;
+    var patient_type = patient_data[0].patient_type;
+
+    var str;
+    if(patient_type == 1){
+    	str = "sdh";
+    }
+    if(patient_type == 2){
+    	str = "sah";
+    }
+    if(patient_type == 3){
+    	str = "ubi"
+    }
     
     var json = [{
             "action": "form_render_skip_logic",
@@ -38,36 +60,40 @@ return function($project_id) {
             ]
         }];
 
-    function enableDesiredForms(json, type) {
-        var index = 0;
-        var record = patient_types[type].records;
-        for (var rec in record) {
-            var instruments = json[0].instruments_to_show[index].instrument_names
-            for (var instrument in instruments) {
-                enable_required_forms(instruments[instrument]);
-            }
+    function enable_desired_forms(type) {
+        var index = patient_type - 1;
+        var instruments = json[0].instruments_to_show[index].instrument_names
+        for (var instrument in instruments) {
+            enable_required_forms(instruments[instrument]);
         }
-        index++; 
+        
     }
 
     function disable_all_forms(){
     	var arr = document.getElementsByClassName('formMenuList')
     	for(var i=0;i<arr.length;i++){
-			document.getElementsByClassName('formMenuList')[i].style.visibility = 'hidden';
+			document.getElementsByClassName('formMenuList')[i].style.display = 'none';
 		}
     }
 
     function enable_required_forms(form){
+    	
     	var arr = document.getElementsByClassName('formMenuList')
     	for(var i=0; i<arr.length;i++){
-    		var str = arr[i].getElementsByTagName('a')[1].getAttribute('id');
+    		var str = arr[i].getElementsByTagName('a')[1].getAttribute('id').match(/\[(.*?)\]/)[1];
     		if(str == form)
-    			arr[i].style.visibility = 'visible';
+    			arr[i].style.display = 'block';
     	}
     }
 
+    $('document').ready(function() {
+    		disable_all_forms();
+    		enable_desired_forms(str);
+            
+        });
 
     </script>
+    <?php
 
 }
 ?>
