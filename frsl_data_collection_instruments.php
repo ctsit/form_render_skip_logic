@@ -25,7 +25,6 @@ return function($project_id) {
 	else{
 		return;
 	}
-
 ?>
     <script>
 
@@ -42,7 +41,6 @@ return function($project_id) {
     if(patient_type == 3){
     	str = "ubi"
     }
-    
     var json = [{
             "action": "form_render_skip_logic",
             "instruments_to_show": [{
@@ -65,8 +63,7 @@ return function($project_id) {
         var instruments = json[0].instruments_to_show[index].instrument_names
         for (var instrument in instruments) {
             enable_required_forms(instruments[instrument]);
-        }
-        
+        }    
     }
 
     function disable_all_forms(){
