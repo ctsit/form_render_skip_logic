@@ -8,9 +8,10 @@
  * 1. write the hook
  * 	a. find current patient unique id <DONE>
  * 	a. see if a diagnosis has been selected for said patient <DONE>
- *	b. disable all forms except demographics until diagnosis is selected
- *	c. enable forms depending on the diagnosis one it has been selected
+ *	b. disable all forms except demographics until diagnosis is selected <DONE>
+ *	c. enable forms depending on the diagnosis one it has been selected <DONE>
  *	d. do not screw up function of the drop down button
+ *	e. verify that it works for other types of logic
  * 2. test the hook
  * 3. factor out repeated code across all fsrl hooks into a common library
  */
@@ -20,12 +21,10 @@ return function($project_id) {
 	
 	//check if we are on the right page
 	if(preg_match('/record_home\.php\?.*&id=\d+/', $URL) == 1) {
-
 		//get necesary information	
 		$patient_id = $_GET["id"];
 		$patient_data = REDcap::getData($project_id, 'json', $patient_id, "patient_type", 1, null, false, false, null, null, null);
 		$instrument_names = json_encode(REDcap::getInstrumentNames());
-
 	}else {
 		//abort the hook
 		echo "<script> console.log('aborting frsl record home page') </script>";
@@ -35,7 +34,7 @@ return function($project_id) {
 
 	<script>
 
-		var json = [{"action ":"form_render_skip_logic",
+		var json = [{"action":"form_render_skip_logic",
 			    "instruments_to_show" : [
 				            {"logic":"[visit_1_arm_1][patient_type] = '1'",
 					     "instrument_names": ["sdh_details", "past_medical_history_sah_sdh"]},
@@ -70,7 +69,7 @@ return function($project_id) {
 			var even = false;
 			for(i = 0; i < rows.length; i++) {
 				var currentRow = $(rows[i]);
-				if(!CurrentRow.is(":hidden")) {
+				if(!currentRow.is(":hidden")) {
 					if(even && currentRow.hasClass("odd")) {
 						currentRow.removeClass("odd");
 						currentRow.addClass("even");
@@ -81,14 +80,6 @@ return function($project_id) {
 					even = !even;
 				}
 			}
-		}
-
-		function swapKeyValue(json) {
-			var swappedJson = {};
-			for(var key in json) {
-				swappedJson[json[key]] = key;
-			}
-			return swappedJson;
 		}
 
 		function disableRows(rows, targets) {
@@ -134,28 +125,90 @@ return function($project_id) {
 		}
 			
 
-		function frsl_record_home_page(json, instrumentNames, patientData, patientType) {
-			var rows = $('.labelform').parent();
-			$("table.dataTable.no-footer.DTFC_Cloned").hide();
+		function getFrslJson(json) {
+			for(var i = 0; i < json.length; i++){
+				if(json[i].hasOwnProperty("action")) {
+					if(/form_render_skip_logic/.test(json[i]["action"])){
+						return json[i];
+					}
+				}
+			}
 
-			if(!patientTypeFound(patientData)) {
-				disableAllRows(rows);
-				enableRows(rows, ['Demographic Data (SAH & SDH)']);
-				return;
-			}	
+			return null;
+		}
 
-			var instruments_to_show = json["instruments_to_show"];
-			for(var i = 0; i < instruments_to_show.length; i++) {
-				var logic = instruments_to_show[i]["logic"];
-				
-				//parse logic to find right patient type object
+		function getLogicValue(logic) {
+			var value = /\d+'$/.exec(logic);
+			value = value[0];
+			value = value.substr(0, value.length - 1);
 
-				
-			}	
+			return value;
+		}
+
+		function convertNamesToLabels(instrumentNames) {
+			var conversionTable = <?php echo $instrument_names ?>;	
+			var output = [];
+
+			for(var i = 0; i < instrumentNames.length; i++) {
+				output.push(conversionTable[instrumentNames[i]]);
+			}
+
+			return output;
+		}
+
+		function getUnion(arrOfarr) {
+			var output = [];
+
+			for(var i = 0; i < arrOfarr.length; i++) {
+				output.concat(arrOfarr[i]);
+			}
+
+			return output;
 
 		}
 
+		function frsl_record_home_page(json, patientData, patientType) {
+			var rows = $('.labelform').parent();
+			$("table.dataTable.no-footer.DTFC_Cloned").hide();
 
+			console.log(patientTypeFound(patientData));
+			if(!patientTypeFound(patientData)) {
+				disableAllRows(rows);
+				enableRows(rows, ['Demographic Data (SAH & SDH)']);
+				console.log("patient type undefined");
+				return;
+			}	
+
+			json = getFrslJson(json);
+
+			if(json === null) {
+				console.log("invalid json");
+				return
+			}
+
+			var instruments_to_show = json["instruments_to_show"];
+			
+			for(var i = 0; i < instruments_to_show.length; i++) {
+				var instrumentNames = instruments_to_show[i]["instrument_names"];
+				var instrumentLabels = convertNamesToLabels(instrumentNames);
+
+				disableRows(rows, instrumentLabels);
+			}
+
+			for(var i = 0; i < instruments_to_show.length; i++) {
+				//parse logic to find right patient type object
+				var logic = instruments_to_show[i]["logic"];
+				var value = getLogicValue(logic);
+				var instrumentNames = instruments_to_show[i]["instrument_names"];
+				var instrumentLabels = convertNamesToLabels(instrumentNames);
+
+				if(value == patientType) {
+					enableRows(rows, instrumentLabels);
+					console.log("enableing: " + instrumentLabels);
+
+				}
+			}	
+		}
 
 		$('document').ready(function(){
 			//printing for debugging purposes
@@ -163,7 +216,7 @@ return function($project_id) {
 			console.log("php unique id is: " + " <?php echo $patient_id ?>");
 			console.log(<?php print("'$URL'") ?>);
 
-			frsl_record_home_page(json, instrumentNames, patient_data, patient_type);
+			frsl_record_home_page(json, patient_data, patient_type);
 		});
 
 			
