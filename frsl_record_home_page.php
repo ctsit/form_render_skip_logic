@@ -12,6 +12,7 @@
  *	c. enable forms depending on the diagnosis one it has been selected <DONE>
  *	d. do not screw up function of the drop down button
  *	e. verify that it works for other types of logic
+ *	f. fix row coloring issue
  * 2. test the hook
  * 3. factor out repeated code across all fsrl hooks into a common library
  */
@@ -43,7 +44,7 @@ return function($project_id) {
 					    {"logic":"[visit_1_arm_1][patient_type] = '3'",
 					     "instrument_names": ["medications_sah_sdh"]}
 				       ]
-	}];
+		}];
 
 		var instrumentNames = <?php echo $instrument_names ?>;
 		var patient_data = <?php echo $patient_data ?>;
@@ -82,6 +83,7 @@ return function($project_id) {
 			}
 		}
 
+		//disables all rows in rows that have row headers that are a member of targets
 		function disableRows(rows, targets) {
 
 		    for (var i = 0; i < rows.length; i++) {
@@ -94,14 +96,14 @@ return function($project_id) {
 		    recolorRows(rows);
 		}
 
-
+		//disables all rows in rows 
 		function disableAllRows(rows) {
 		    for (var i = 0; i < rows.length; i++) {
 			    hideRow(rows[i]);
 			}
-		    }
+		   }
 
-
+		//disables all rows in rows that have row headers that are a member of targets
 		function enableRows(rows, targets) {
 		    console.log(rows.length);
 		    for (var i = 0; i < rows.length; i++) {
@@ -115,16 +117,17 @@ return function($project_id) {
 		    recolorRows(rows);
 		}
 
-				
+		//given a row, it displayes the row on the page	
 		function showRow(row) {
 		    $(row).show();
 		}
 
+		//given a row, it displayes the row on the page	
 		function hideRow(row) {
 		    $(row).hide();
 		}
 			
-
+		//parses the given json for the json object that pertains to form render skip logic
 		function getFrslJson(json) {
 			for(var i = 0; i < json.length; i++){
 				if(json[i].hasOwnProperty("action")) {
@@ -137,6 +140,7 @@ return function($project_id) {
 			return null;
 		}
 
+		//given a logic expression from the frsl json file, it parses it for the expression's value
 		function getLogicValue(logic) {
 			var value = /\d+'$/.exec(logic);
 			value = value[0];
@@ -145,6 +149,7 @@ return function($project_id) {
 			return value;
 		}
 
+		//given an array of instrument names, return an array of their corresponding labels in the same order
 		function convertNamesToLabels(instrumentNames) {
 			var conversionTable = <?php echo $instrument_names ?>;	
 			var output = [];
@@ -156,26 +161,17 @@ return function($project_id) {
 			return output;
 		}
 
-		function getUnion(arrOfarr) {
-			var output = [];
-
-			for(var i = 0; i < arrOfarr.length; i++) {
-				output.concat(arrOfarr[i]);
-			}
-
-			return output;
-
-		}
 
 		function frsl_record_home_page(json, patientData, patientType) {
 			var rows = $('.labelform').parent();
+
+			//disable the table layered on top table we want to modify
 			$("table.dataTable.no-footer.DTFC_Cloned").hide();
 
-			console.log(patientTypeFound(patientData));
+			//disable all instruments if patientType has not been set yet and end hook
 			if(!patientTypeFound(patientData)) {
 				disableAllRows(rows);
 				enableRows(rows, ['Demographic Data (SAH & SDH)']);
-				console.log("patient type undefined");
 				return;
 			}	
 
@@ -187,7 +183,8 @@ return function($project_id) {
 			}
 
 			var instruments_to_show = json["instruments_to_show"];
-			
+
+			//disable union of all instruments in instruments to show	
 			for(var i = 0; i < instruments_to_show.length; i++) {
 				var instrumentNames = instruments_to_show[i]["instrument_names"];
 				var instrumentLabels = convertNamesToLabels(instrumentNames);
@@ -195,8 +192,8 @@ return function($project_id) {
 				disableRows(rows, instrumentLabels);
 			}
 
+			//parse logic and show only the desired instruments
 			for(var i = 0; i < instruments_to_show.length; i++) {
-				//parse logic to find right patient type object
 				var logic = instruments_to_show[i]["logic"];
 				var value = getLogicValue(logic);
 				var instrumentNames = instruments_to_show[i]["instrument_names"];
@@ -205,7 +202,6 @@ return function($project_id) {
 				if(value == patientType) {
 					enableRows(rows, instrumentLabels);
 					console.log("enableing: " + instrumentLabels);
-
 				}
 			}	
 		}
