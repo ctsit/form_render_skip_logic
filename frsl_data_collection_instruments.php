@@ -6,6 +6,8 @@
  * TODO:
  * 
  * 1. factor out repeated code across all fsrl hooks into a common library
+ * 2. Information retrieval of patient data fails without calling redcap getdata for SDH_TYPE,
+ *    SAH_TYPE and UBI_TYPE
  */
 
 return function($project_id) {
