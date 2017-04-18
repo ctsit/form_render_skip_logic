@@ -12,7 +12,7 @@
  *	c. enable forms depending on the diagnosis one it has been selected <DONE>
  *	d. do not screw up function of the drop down button
  *	e. verify that it works for other types of logic
- *	f. fix row coloring issue
+ *	f. fix row coloring issue <DONE>
  * 2. test the hook
  * 3. factor out repeated code across all fsrl hooks into a common library
  */
@@ -26,6 +26,19 @@ return function($project_id) {
 		$patient_id = $_GET["id"];
 		$patient_data = REDcap::getData($project_id, 'json', $patient_id, "patient_type", 1, null, false, false, null, null, null);
 		$instrument_names = json_encode(REDcap::getInstrumentNames());
+		$project_json = json_decode('[{"action":"form_render_skip_logic",
+					    "instruments_to_show" : [
+						    {"logic":"[visit_1_arm_1][patient_type] = \'1\'",
+						     "instrument_names": ["sdh_details", "past_medical_history_sah_sdh"]},
+						    {"logic":"[visit_1_arm_1][patient_type] = \'2\'",
+						      "instrument_names": ["sah_details", "past_medical_history_sah_sdh"]},
+						    {"logic":"[visit_1_arm_1][patient_type] = \'3\'",
+						     "instrument_names": ["medications_sah_sdh"]}
+					       ]
+					}]
+
+				');
+
 	}else {
 		//abort the hook
 		echo "<script> console.log('aborting frsl record home page') </script>";
@@ -35,17 +48,7 @@ return function($project_id) {
 
 	<script>
 
-		var json = [{"action":"form_render_skip_logic",
-			    "instruments_to_show" : [
-				            {"logic":"[visit_1_arm_1][patient_type] = '1'",
-					     "instrument_names": ["sdh_details", "past_medical_history_sah_sdh"]},
-					    {"logic":"[visit_1_arm_1][patient_type] = '2'",
-					      "instrument_names": ["sah_details", "past_medical_history_sah_sdh"]},
-					    {"logic":"[visit_1_arm_1][patient_type] = '3'",
-					     "instrument_names": ["medications_sah_sdh"]}
-				       ]
-		}];
-
+		var json = <?php echo json_encode($project_json) ?>;
 		var instrumentNames = <?php echo $instrument_names ?>;
 		var patient_data = <?php echo $patient_data ?>;
 		var patient_type;
@@ -66,17 +69,16 @@ return function($project_id) {
 		}
 
 		//resets the color of the rows after elements have been hidden
-		function recolorRows(rows) {
+		function recolorRows() {
+			var rows = $('.labelform').parent();
 			var even = false;
 			for(i = 0; i < rows.length; i++) {
 				var currentRow = $(rows[i]);
-				if(!currentRow.is(":hidden")) {
+				if(currentRow.is(":visible")) {
 					if(even && currentRow.hasClass("odd")) {
-						currentRow.removeClass("odd");
-						currentRow.addClass("even");
+						currentRow.attr('style', 'background-color: #eeeeee !important');
 					} else if (!even && currentRow.hasClass("even")) {
-						currentRow.removeClass("even")
-						currentRow.addClass("odd");
+						currentRow.attr('style', 'background-color: #fcfef5 !important');	
 					}
 					even = !even;
 				}
@@ -93,7 +95,6 @@ return function($project_id) {
 			 }
 		    }
 		
-		    recolorRows(rows);
 		}
 
 		//disables all rows in rows 
@@ -103,9 +104,8 @@ return function($project_id) {
 			}
 		   }
 
-		//disables all rows in rows that have row headers that are a member of targets
+		//enables all rows in rows that have row headers that are a member of targets
 		function enableRows(rows, targets) {
-		    console.log(rows.length);
 		    for (var i = 0; i < rows.length; i++) {
 			var rowText = $(rows[i].cells[0]).text();
 
@@ -114,7 +114,6 @@ return function($project_id) {
 			}
 		    }
 
-		    recolorRows(rows);
 		}
 
 		//given a row, it displayes the row on the page	
@@ -201,17 +200,14 @@ return function($project_id) {
 
 				if(value == patientType) {
 					enableRows(rows, instrumentLabels);
-					console.log("enableing: " + instrumentLabels);
 				}
 			}	
+			
+			recolorRows(rows);
+			//need to disable everything first and then begin enabling because some instrument_names have the same field
 		}
 
 		$('document').ready(function(){
-			//printing for debugging purposes
-			console.log('patient_type: ' + patient_type);	
-			console.log("php unique id is: " + " <?php echo $patient_id ?>");
-			console.log(<?php print("'$URL'") ?>);
-
 			frsl_record_home_page(json, patient_data, patient_type);
 		});
 
