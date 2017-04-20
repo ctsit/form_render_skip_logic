@@ -4,7 +4,7 @@
  *instruments appropriate to diagnosis
  *
  * TODO:
- * 
+ *
  * 1. factor out repeated code across all fsrl hooks into a common library
  * 2. Information retrieval of patient data fails without calling redcap getdata for SDH_TYPE,
  *    SAH_TYPE and UBI_TYPE
@@ -13,7 +13,7 @@
 return function($project_id) {
 
 	$URL = $_SERVER['REQUEST_URI'];
-	if(preg_match('/event_id=40/',$URL) == 1){
+    if(preg_match('/DataEntry/', $URL) == 1) {
 		$patient_id = $_GET["id"];
 
 		$SDH_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "1"',null,null);
@@ -65,7 +65,7 @@ return function($project_id) {
         var instruments = json[0].instruments_to_show[index].instrument_names
         for (var instrument in instruments) {
             enable_required_forms(instruments[instrument]);
-        }    
+        }
     }
 
     function disable_all_forms(){
@@ -76,7 +76,7 @@ return function($project_id) {
     }
 
     function enable_required_forms(form){
-    	
+
     	var arr = document.getElementsByClassName('formMenuList')
     	for(var i=0; i<arr.length;i++){
     		var str = arr[i].getElementsByTagName('a')[1].getAttribute('id').match(/\[(.*?)\]/)[1];
@@ -88,7 +88,7 @@ return function($project_id) {
     $('document').ready(function() {
     		disable_all_forms();
     		enable_desired_forms(str);
-            
+
         });
 
     </script>
