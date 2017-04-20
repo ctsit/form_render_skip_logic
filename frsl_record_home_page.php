@@ -16,6 +16,7 @@
  * 2. test the hook
  * 3. factor out repeated code across all fsrl hooks into a common library
  */
+
 return function($project_id) {
 
 	$URL = $_SERVER['REQUEST_URI'];
@@ -24,21 +25,40 @@ return function($project_id) {
 	if(preg_match('/record_home\.php\?.*&id=\d+/', $URL) == 1) {
 		//get necesary information	
 		$patient_id = $_GET["id"];
-		$patient_data = REDcap::getData($project_id, 'json', $patient_id, "patient_type", 1, null, false, false, null, null, null);
+		$project_json = json_decode('{  
+						   "control_field":{  
+						      "arm_name":"visit_1_arm_1",
+						      "field_name":"patient_type"
+						   },
+						   "instruments_to_show":[  
+						      {  
+							 "control_field_value":"1",
+							 "instrument_names":[  
+							    "sdh_details",
+							    "past_medical_history_sah_sdh"
+							 ]
+						      },
+						      {  
+							 "control_field_value":"2",
+							 "instrument_names":[  
+							    "sah_details",
+							    "past_medical_history_sah_sdh"
+							 ]
+						      },
+						      {  
+							 "control_field_value":"3",
+							 "instrument_names":[  
+							    "medications_sah_sdh"
+							 ]
+						      }
+						   ]
+						}'
+						, true);
+
+		$arm_name = $project_json['control_field']['arm_name'];
+		$field_name = $project_json['control_field']['field_name']; 
+		$patient_data = REDcap::getData($project_id, 'json', $patient_id, $field_name, $arm_name, null, false, false, null, null, null);
 		$instrument_names = json_encode(REDcap::getInstrumentNames());
-		$project_json = json_decode('[{"action":"form_render_skip_logic",
-					    "instruments_to_show" : [
-						    {"logic":"[visit_1_arm_1][patient_type] = \'1\'",
-						     "instrument_names": ["sdh_details", "past_medical_history_sah_sdh"]},
-						    {"logic":"[visit_1_arm_1][patient_type] = \'2\'",
-						      "instrument_names": ["sah_details", "past_medical_history_sah_sdh"]},
-						    {"logic":"[visit_1_arm_1][patient_type] = \'3\'",
-						     "instrument_names": ["medications_sah_sdh"]}
-					       ]
-					}]
-
-				');
-
 	}else {
 		//abort the hook
 		echo "<script> console.log('aborting frsl record home page') </script>";
@@ -51,18 +71,19 @@ return function($project_id) {
 		var json = <?php echo json_encode($project_json) ?>;
 		var instrumentNames = <?php echo $instrument_names ?>;
 		var patient_data = <?php echo $patient_data ?>;
-		var patient_type;
+		var control_field_name = "<?php echo $field_name ?>";
+		var control_field_value;
 
 		//set patient type if it exists	
-		if(patientTypeFound(patient_data)){
-			patient_type = patient_data[0]['patient_type'];
+		if(ControlFieldValueIsSet(patient_data)){
+			control_field_value = patient_data[0][control_field_name];
 		} else {
-			patient_type = false;	
+			control_field_value = false;	
 		}	
 
 		//checks to see if a patient type has been selected for the current patient	
-		function patientTypeFound(data) {
-			if (data.length == 1 && data[0].hasOwnProperty("patient_type")) {
+		function ControlFieldValueIsSet(data) {
+			if (data.length == 1 && data[0].hasOwnProperty(control_field_name)) {
 				return true;
 			}
 			return false;	
@@ -94,15 +115,7 @@ return function($project_id) {
 				   hideRow(rows[i]);
 			 }
 		    }
-		
 		}
-
-		//disables all rows in rows 
-		function disableAllRows(rows) {
-		    for (var i = 0; i < rows.length; i++) {
-			    hideRow(rows[i]);
-			}
-		   }
 
 		//enables all rows in rows that have row headers that are a member of targets
 		function enableRows(rows, targets) {
@@ -113,7 +126,6 @@ return function($project_id) {
 			    showRow(rows[i]);
 			}
 		    }
-
 		}
 
 		//given a row, it displayes the row on the page	
@@ -126,19 +138,6 @@ return function($project_id) {
 		    $(row).hide();
 		}
 			
-		//parses the given json for the json object that pertains to form render skip logic
-		function getFrslJson(json) {
-			for(var i = 0; i < json.length; i++){
-				if(json[i].hasOwnProperty("action")) {
-					if(/form_render_skip_logic/.test(json[i]["action"])){
-						return json[i];
-					}
-				}
-			}
-
-			return null;
-		}
-
 		//given a logic expression from the frsl json file, it parses it for the expression's value
 		function getLogicValue(logic) {
 			var value = /\d+'$/.exec(logic);
@@ -161,25 +160,11 @@ return function($project_id) {
 		}
 
 
-		function frsl_record_home_page(json, patientData, patientType) {
+		function frsl_record_home_page(json, control_field_value) {
 			var rows = $('.labelform').parent();
 
 			//disable the table layered on top table we want to modify
 			$("table.dataTable.no-footer.DTFC_Cloned").hide();
-
-			//disable all instruments if patientType has not been set yet and end hook
-			if(!patientTypeFound(patientData)) {
-				disableAllRows(rows);
-				enableRows(rows, ['Demographic Data (SAH & SDH)']);
-				return;
-			}	
-
-			json = getFrslJson(json);
-
-			if(json === null) {
-				console.log("invalid json");
-				return
-			}
 
 			var instruments_to_show = json["instruments_to_show"];
 
@@ -191,14 +176,18 @@ return function($project_id) {
 				disableRows(rows, instrumentLabels);
 			}
 
+			if(control_field_value === false) {
+				recolorRows(rows);
+				return;
+			}
+
 			//parse logic and show only the desired instruments
 			for(var i = 0; i < instruments_to_show.length; i++) {
-				var logic = instruments_to_show[i]["logic"];
-				var value = getLogicValue(logic);
+				var value = instruments_to_show[i]["control_field_value"]; 
 				var instrumentNames = instruments_to_show[i]["instrument_names"];
 				var instrumentLabels = convertNamesToLabels(instrumentNames);
 
-				if(value == patientType) {
+				if(value == control_field_value) {
 					enableRows(rows, instrumentLabels);
 				}
 			}	
@@ -208,7 +197,10 @@ return function($project_id) {
 		}
 
 		$('document').ready(function(){
-			frsl_record_home_page(json, patient_data, patient_type);
+			frsl_record_home_page(json, control_field_value);
+
+			$('button[title="Collapse/uncollapse table]"').hide();
+
 		});
 
 			
