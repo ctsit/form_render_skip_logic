@@ -12,26 +12,55 @@
 
 return function($project_id) {
 
-	$URL = $_SERVER['REQUEST_URI'];
+    $URL = $_SERVER['REQUEST_URI'];
     if(preg_match('/DataEntry/', $URL) == 1) {
-		$patient_id = $_GET["id"];
 
-		$SDH_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "1"',null,null);
+        //get necesary information
+        $patient_id = $_GET["id"];
+        $project_json = json_decode('{
+                                         "control_field":{
+                                            "arm_name":"visit_1_arm_1",
+                                            "field_name":"patient_type"
+                                         },
+                                         "instruments_to_show":[
+                                            {
+                                               "control_field_value":"1",
+                                               "instrument_names":[
+                                                  "sdh_details",
+                                                  "past_medical_history_sah_sdh"
+                                               ]
+                                            },
+                                            {
+                                               "control_field_value":"2",
+                                               "instrument_names":[
+                                                  "sah_details",
+                                                  "past_medical_history_sah_sdh"
+                                               ]
+                                            },
+                                            {
+                                               "control_field_value":"3",
+                                               "instrument_names":[
+                                                  "medications_sah_sdh"
+                                               ]
+                                            }
+                                         ]
+                                      }'
+                                      , true);
 
-    	$SAH_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "2"',null,null);
-
-    	$UBI_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "3"',null,null);
-
-    	$patient_data = REDcap::getData($project_id, 'json', "$patient_id", "patient_type", 1, null,false, false, false, null, null, null);
-	}
-	else{
-		return;
-	}
+        $arm_name = $project_json['control_field']['arm_name'];
+        $field_name = $project_json['control_field']['field_name'];
+        $patient_type = REDCap::getData($project_id, 'json', $patient_id, $field_name, $arm_name, null, false, false, null, null, null);
+        print($patient_type);
+    } else {
+        //abort the hook
+        echo "<script> console.log('aborting frsl record home page') </script>";
+        return;
+    }
 ?>
     <script>
 
-    var patient_data = <?php echo $patient_data ?>;
-    var patient_type = patient_data[0].patient_type;
+    var patient_type_json = <?php echo $patient_type ?>;
+    var patient_type = patient_type_json[0].patient_type;
 
     var str;
     if(patient_type == 1){
