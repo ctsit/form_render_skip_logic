@@ -90,26 +90,21 @@ return function($project_id) {
     if(control_value == 3){
     	str = "ubi"
     }
-    var json = [{
-            "action": "form_render_skip_logic",
-            "instruments_to_show": [{
-                    "logic": "[visit_1_arm_1][patient_type] = '1'",
-                    "instrument_names": ["sdh_details", "past_medical_history_sah_sdh"]
-                },
-                {
-                    "logic": "[visit_1_arm_1][patient_type] = '2'",
-                    "instrument_names": ["sah_details", "past_medical_history_sah_sdh"]
-                },
-                {
-                    "logic": "[visit_1_arm_1][patient_type] = '3'",
-                    "instrument_names": ["medications_sah_sdh"]
-                }
-            ]
-        }];
+
+    function get_instrument_names_object(control_value, json) {
+        for(var i = 0; i < json.instruments_to_show.length; i++)
+        {
+          if(json.instruments_to_show[i].control_field_value == control_value)
+          {
+            return json.instruments_to_show[i].instrument_names;
+          }
+        }
+    }
 
     function enable_desired_forms(type) {
-        var index = control_value - 1;
-        var instruments = json[0].instruments_to_show[index].instrument_names
+        var instruments = get_instrument_names_object(control_value, json)
+
+        // json.instruments_to_show[index].instrument_names
         for (var instrument in instruments) {
             enable_required_forms(instruments[instrument]);
         }
