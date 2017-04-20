@@ -79,18 +79,6 @@ return function($project_id) {
         return false;
     }
 
-
-    var str;
-    if(control_value == 1){
-    	str = "sdh";
-    }
-    if(control_value == 2){
-    	str = "sah";
-    }
-    if(control_value == 3){
-    	str = "ubi"
-    }
-
     function get_instrument_names_object(control_value, json) {
         for(var i = 0; i < json.instruments_to_show.length; i++)
         {
@@ -101,7 +89,7 @@ return function($project_id) {
         }
     }
 
-    function enable_desired_forms(type) {
+    function enable_desired_forms() {
         var instruments = get_instrument_names_object(control_value, json)
 
         // json.instruments_to_show[index].instrument_names
@@ -128,8 +116,8 @@ return function($project_id) {
     }
 
     $('document').ready(function() {
-    		disable_all_forms();
-    		enable_desired_forms(str);
+        disable_all_forms();
+        enable_desired_forms();
 
         });
 
