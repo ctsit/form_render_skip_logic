@@ -49,8 +49,8 @@ return function($project_id) {
 
         $arm_name = $project_json['control_field']['arm_name'];
         $field_name = $project_json['control_field']['field_name'];
-        $patient_type = REDCap::getData($project_id, 'json', $patient_id, $field_name, $arm_name, null, false, false, null, null, null);
-        print($patient_type);
+        $control_field_value = REDCap::getData($project_id, 'json', $patient_id, $field_name, $arm_name, null, false, false, null, null, null);
+        print($control_field_value);
     } else {
         //abort the hook
         echo "<script> console.log('aborting frsl record home page') </script>";
@@ -59,17 +59,35 @@ return function($project_id) {
 ?>
     <script>
 
-    var patient_type_json = <?php echo $patient_type ?>;
-    var patient_type = patient_type_json[0].patient_type;
+    var json = <?php echo json_encode($project_json) ?>;
+    var control_field_value = <?php echo $control_field_value ?>;
+    var control_field_name = "<?php echo $field_name ?>";
+    var control_value;
+
+    //set control value if it exists
+    if(controlValueFound(control_field_value)){
+        control_value = control_field_value[0][control_field_name];
+    } else {
+        control_value = false;
+    }
+
+    //checks to see if a control value has been set for the subject record
+    function controlValueFound(data) {
+        if (data.length == 1 && data[0].hasOwnProperty(control_field_name)) {
+            return true;
+        }
+        return false;
+    }
+
 
     var str;
-    if(patient_type == 1){
+    if(control_value == 1){
     	str = "sdh";
     }
-    if(patient_type == 2){
+    if(control_value == 2){
     	str = "sah";
     }
-    if(patient_type == 3){
+    if(control_value == 3){
     	str = "ubi"
     }
     var json = [{
@@ -90,7 +108,7 @@ return function($project_id) {
         }];
 
     function enable_desired_forms(type) {
-        var index = patient_type - 1;
+        var index = control_value - 1;
         var instruments = json[0].instruments_to_show[index].instrument_names
         for (var instrument in instruments) {
             enable_required_forms(instruments[instrument]);
