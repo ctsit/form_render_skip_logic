@@ -50,7 +50,6 @@ return function($project_id) {
         $arm_name = $project_json['control_field']['arm_name'];
         $field_name = $project_json['control_field']['field_name'];
         $control_field_value = REDCap::getData($project_id, 'json', $patient_id, $field_name, $arm_name, null, false, false, null, null, null);
-        print($control_field_value);
     } else {
         //abort the hook
         echo "<script> console.log('aborting frsl record home page') </script>";
