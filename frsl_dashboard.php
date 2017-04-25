@@ -51,10 +51,27 @@ return function($project_id) {
         $arm_name = $project_json['control_field']['arm_name'];
         $field_name = $project_json['control_field']['field_name'];
         $patient_data = REDcap::getData($project_id, 'json', $patient_id, $field_name, $arm_name, null, false, false, null, null, null);
-
         $SDH_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "1"',null,null);
-        $SAH_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "2"',null,    null);
-        $UBI_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "3"',null,    null);
+        $SAH_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "2"',null,null);
+        $UBI_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "3"',null,null);
+
+	$patient_data_structure = '{ ';
+
+	for($i = 0; $i < count($project_json['instruments_to_show']); $i++) {
+		$control_field_value = $project_json['instruments_to_show'][$i]['control_field_value'];
+
+		if($i != 0) {
+			$patient_data_structure .= ',';
+		}
+
+		$patient_data_structure .= '"' . $control_field_value . '":';
+		$control_field_value_patients = REDCap::getData($project_id,'json',null,'unique_id',$arm_name,null,false,false,false,'[' . $field_name . '] = "' . $control_field_value . '"',null,null);
+		$patient_data_structure .=  $control_field_value_patients;
+
+	}
+
+	$patient_data_structure .= '}';
+
 
     }else {
         //abort the hook
@@ -67,7 +84,8 @@ return function($project_id) {
         // frsl_dashboard hook
 
         var json = <?php echo json_encode($project_json) ?>;
-        var patient_data = <?php echo $patient_data ?>;
+	var patient_data = <?php echo $patient_data ?>;
+	var patient_data_structure = <?php echo $patient_data_structure ?>;
         var control_field_name = "<?php echo $field_name ?>";
         var control_field_value;
 
