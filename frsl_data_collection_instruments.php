@@ -52,7 +52,7 @@ return function($project_id) {
         $control_field_value = REDCap::getData($project_id, 'json', $patient_id, $field_name, $arm_name, null, false, false, null, null, null);
     } else {
         //abort the hook
-        echo "<script> console.log('aborting frsl record home page') </script>";
+        echo "<script> console.log('aborting frsl data collection instruments page') </script>";
         return;
     }
 ?>
