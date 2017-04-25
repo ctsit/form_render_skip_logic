@@ -13,7 +13,7 @@
 return function($project_id) {
 
     $URL = $_SERVER['REQUEST_URI'];
-    if(preg_match('/DataEntry/', $URL) == 1) {
+    if(preg_match('/DataEntry\/index.php/', $URL) == 1) {
 
         //get necesary information
         $patient_id = $_GET["id"];
