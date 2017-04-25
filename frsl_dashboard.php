@@ -50,9 +50,6 @@ return function($project_id) {
 
         $arm_name = $project_json['control_field']['arm_name'];
         $field_name = $project_json['control_field']['field_name'];
-        $SDH_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "1"',null,null);
-        $SAH_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "2"',null,null);
-        $UBI_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "3"',null,null);
 
 	$patient_data_structure = '{ ';
 
@@ -84,49 +81,7 @@ return function($project_id) {
         var control_field_name = "<?php echo $field_name ?>";
         var control_field_value;
 
-	/*
-                json = [{
-            "action": "form_render_skip_logic",
-            "instruments_to_show": [{
-                    "logic": "[visit_1_arm_1][patient_type] = '1'",
-                    "instrument_names": ["sdh_details", "past_medical_history_sah_sdh"]
-                },
-                {
-                    "logic": "[visit_1_arm_1][patient_type] = '2'",
-                    "instrument_names": ["sah_details", "past_medical_history_sah_sdh"]
-                },
-                {
-                    "logic": "[visit_1_arm_1][patient_type] = '3'",
-                    "instrument_names": ["medications_sah_sdh"]
-                }
-            ]
-        }];
-	 */
-        var patient_types = {
-            "sdh": {
-                "type": <?php echo ($project_id != NULL) ? $SDH_type : "''";?>,
-                "records": []
-            },
-            "sah": {
-                "type": <?php echo ($project_id != NULL) ? $SAH_type : "''";?>,
-                "records": []
-            },
-            "ubi": {
-                "type": <?php echo ($project_id != NULL) ? $UBI_type : "''";?>,
-                "records": []
-            }
-        };
-
-        function pop_records(patient_types) {
-            for (var patient_type in patient_types) {
-                var patient_json = patient_types[patient_type];
-                for (var record in patient_json["type"]) {
-                    patient_json["records"].push(patient_json["type"][record].unique_id);
-                }
-            }
-        }
-
-        function disableUnionOfForms(json) {
+	function disableUnionOfForms(json) {
             var instruments = json.instruments_to_show;
             for (var names in instruments) {
                 var forms = instruments[names].instrument_names;
@@ -187,7 +142,6 @@ return function($project_id) {
         }
 
         function disableFormsWithProp(property) {
-
             var rows = document.querySelectorAll('#record_status_table tbody tr');
             var reg = new RegExp(property);
 
@@ -203,10 +157,7 @@ return function($project_id) {
         }
 
         $('document').ready(function() {
-            if ( <?php echo ($project_id != NULL) ? "true" : "false";?> ) {
-                pop_records(patient_types);
                 form_render_skip_logic(json, patient_data_structure);
-            }
         });
     </script>
     <?php
