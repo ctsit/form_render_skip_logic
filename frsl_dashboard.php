@@ -50,7 +50,6 @@ return function($project_id) {
 
         $arm_name = $project_json['control_field']['arm_name'];
         $field_name = $project_json['control_field']['field_name'];
-        $patient_data = REDcap::getData($project_id, 'json', $patient_id, $field_name, $arm_name, null, false, false, null, null, null);
         $SDH_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "1"',null,null);
         $SAH_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "2"',null,null);
         $UBI_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "3"',null,null);
@@ -74,37 +73,18 @@ return function($project_id) {
 
 
     }else {
-        //abort the hook
         echo "<script> console.log('aborting frsl dashboard home page') </script>";
         return;
     }
 ?>
 
     <script>
-        // frsl_dashboard hook
-
         var json = <?php echo json_encode($project_json) ?>;
-	var patient_data = <?php echo $patient_data ?>;
 	var patient_data_structure = <?php echo $patient_data_structure ?>;
         var control_field_name = "<?php echo $field_name ?>";
         var control_field_value;
 
-        //set patient type if it exists
-        if(ControlFieldValueIsSet(patient_data)){
-            control_field_value = patient_data[0][control_field_name];
-        } else {
-            control_field_value = false;
-        }
-
-        //checks to see if a patient type has been selected for the current patient
-        function ControlFieldValueIsSet(data) {
-            if (data.length == 1 && data[0].hasOwnProperty(control_field_name)) {
-                return true;
-            }
-            return false;
-        }
-
-        json = [{
+                json = [{
             "action": "form_render_skip_logic",
             "instruments_to_show": [{
                     "logic": "[visit_1_arm_1][patient_type] = '1'",
