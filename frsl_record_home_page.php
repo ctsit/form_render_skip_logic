@@ -52,8 +52,7 @@ return function($project_id) {
 							 ]
 						      }
 						   ]
-						}'
-						, true);
+						}', true);
 
 		$arm_name = $project_json['control_field']['arm_name'];
 		$field_name = $project_json['control_field']['field_name']; 
@@ -137,15 +136,6 @@ return function($project_id) {
 		function hideRow(row) {
 		    $(row).hide();
 		}
-			
-		//given a logic expression from the frsl json file, it parses it for the expression's value
-		function getLogicValue(logic) {
-			var value = /\d+'$/.exec(logic);
-			value = value[0];
-			value = value.substr(0, value.length - 1);
-
-			return value;
-		}
 
 		//given an array of instrument names, return an array of their corresponding labels in the same order
 		function convertNamesToLabels(instrumentNames) {
@@ -172,7 +162,6 @@ return function($project_id) {
 			for(var i = 0; i < instruments_to_show.length; i++) {
 				var instrumentNames = instruments_to_show[i]["instrument_names"];
 				var instrumentLabels = convertNamesToLabels(instrumentNames);
-
 				disableRows(rows, instrumentLabels);
 			}
 
@@ -198,8 +187,11 @@ return function($project_id) {
 
 		$('document').ready(function(){
 			frsl_record_home_page(json, control_field_value);
+			$('button[title="Collapse/uncollapse table"]').hide();
 
-			$('button[title="Collapse/uncollapse table]"').hide();
+			if($('button[title="Collapse/uncollapse table"]').is(':hidden')) {
+				console.log('button is hidden');
+			}
 
 		});
 
