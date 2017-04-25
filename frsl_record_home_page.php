@@ -137,18 +137,6 @@ return function($project_id) {
 		function hideRow(row) {
 		    $(row).hide();
 		}
-<<<<<<< Updated upstream
-=======
-
-		//given a logic expression from the frsl json file, it parses it for the expression's value
-		function getLogicValue(logic) {
-			var value = /\d+'$/.exec(logic);
-			value = value[0];
-			value = value.substr(0, value.length - 1);
-
-			return value;
-		}
->>>>>>> Stashed changes
 
 		//given an array of instrument names, return an array of their corresponding labels in the same order
 		function convertNamesToLabels(instrumentNames) {
