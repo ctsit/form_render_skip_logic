@@ -167,22 +167,8 @@ return function($project_id) {
         }
 
         function render_form_skip_logic(json) {
-
-            // Check the current url to make sure you are on the record status dashboard page
-            if (!/record_status_dashboard/.test(document.URL)) {
-                console.log("render_form_skip_logic is not running!");
-                return null;
-            } else {
-                console.log("it is running!");
-            }
-
-            //check if we recieved the right json
-            if (!json[0].hasOwnProperty("action") && json[0]["action"] === "form_render_skip_logic") {
-                console.log("render_form_skip_logic is not running due to a invalid json object");
-                return null;
-            }
-
-            //check if we only want to hide a certain elements, defaults to hiding union of instruments to show
+    
+      	//check if we only want to hide a certain elements, defaults to hiding union of instruments to show
             if (json[0].hasOwnProperty("instruments_to_hide")) {
                 for (var i = 0; i < json[0]["instruments_to_hide"].length; i++) {
                     disableFormsWithProp(json[0]["instruments_to_hide"][i]);
