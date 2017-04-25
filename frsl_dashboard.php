@@ -64,7 +64,29 @@ return function($project_id) {
 ?>
 
     <script>
-        var json = [{
+        // frsl_dashboard hook
+
+        var json = <?php echo json_encode($project_json) ?>;
+        var patient_data = <?php echo $patient_data ?>;
+        var control_field_name = "<?php echo $field_name ?>";
+        var control_field_value;
+
+        //set patient type if it exists
+        if(ControlFieldValueIsSet(patient_data)){
+            control_field_value = patient_data[0][control_field_name];
+        } else {
+            control_field_value = false;
+        }
+
+        //checks to see if a patient type has been selected for the current patient
+        function ControlFieldValueIsSet(data) {
+            if (data.length == 1 && data[0].hasOwnProperty(control_field_name)) {
+                return true;
+            }
+            return false;
+        }
+
+        json = [{
             "action": "form_render_skip_logic",
             "instruments_to_show": [{
                     "logic": "[visit_1_arm_1][patient_type] = '1'",
