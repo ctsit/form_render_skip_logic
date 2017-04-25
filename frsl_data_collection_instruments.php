@@ -57,7 +57,7 @@ return function($project_id) {
     }
 ?>
     <script>
-
+    // frsl_data_collection_instruments hook
     var json = <?php echo json_encode($project_json) ?>;
     var control_field_value = <?php echo $control_field_value ?>;
     var control_field_name = "<?php echo $field_name ?>";

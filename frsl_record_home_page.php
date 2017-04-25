@@ -20,34 +20,34 @@
 return function($project_id) {
 
 	$URL = $_SERVER['REQUEST_URI'];
-	
+
 	//check if we are on the right page
 	if(preg_match('/record_home\.php\?.*&id=\d+/', $URL) == 1) {
-		//get necesary information	
+		//get necesary information
 		$patient_id = $_GET["id"];
-		$project_json = json_decode('{  
-						   "control_field":{  
+		$project_json = json_decode('{
+						   "control_field":{
 						      "arm_name":"visit_1_arm_1",
 						      "field_name":"patient_type"
 						   },
-						   "instruments_to_show":[  
-						      {  
+						   "instruments_to_show":[
+						      {
 							 "control_field_value":"1",
-							 "instrument_names":[  
+							 "instrument_names":[
 							    "sdh_details",
 							    "past_medical_history_sah_sdh"
 							 ]
 						      },
-						      {  
+						      {
 							 "control_field_value":"2",
-							 "instrument_names":[  
+							 "instrument_names":[
 							    "sah_details",
 							    "past_medical_history_sah_sdh"
 							 ]
 						      },
-						      {  
+						      {
 							 "control_field_value":"3",
-							 "instrument_names":[  
+							 "instrument_names":[
 							    "medications_sah_sdh"
 							 ]
 						      }
@@ -55,7 +55,7 @@ return function($project_id) {
 						}', true);
 
 		$arm_name = $project_json['control_field']['arm_name'];
-		$field_name = $project_json['control_field']['field_name']; 
+		$field_name = $project_json['control_field']['field_name'];
 		$patient_data = REDcap::getData($project_id, 'json', $patient_id, $field_name, $arm_name, null, false, false, null, null, null);
 		$instrument_names = json_encode(REDcap::getInstrumentNames());
 	}else {
@@ -66,6 +66,7 @@ return function($project_id) {
 ?>
 
 	<script>
+		// frsl_record_home_page hook
 
 		var json = <?php echo json_encode($project_json) ?>;
 		var instrumentNames = <?php echo $instrument_names ?>;
@@ -73,19 +74,19 @@ return function($project_id) {
 		var control_field_name = "<?php echo $field_name ?>";
 		var control_field_value;
 
-		//set patient type if it exists	
+		//set patient type if it exists
 		if(ControlFieldValueIsSet(patient_data)){
 			control_field_value = patient_data[0][control_field_name];
 		} else {
-			control_field_value = false;	
-		}	
+			control_field_value = false;
+		}
 
-		//checks to see if a patient type has been selected for the current patient	
+		//checks to see if a patient type has been selected for the current patient
 		function ControlFieldValueIsSet(data) {
 			if (data.length == 1 && data[0].hasOwnProperty(control_field_name)) {
 				return true;
 			}
-			return false;	
+			return false;
 		}
 
 		//resets the color of the rows after elements have been hidden
@@ -98,7 +99,7 @@ return function($project_id) {
 					if(even && currentRow.hasClass("odd")) {
 						currentRow.attr('style', 'background-color: #eeeeee !important');
 					} else if (!even && currentRow.hasClass("even")) {
-						currentRow.attr('style', 'background-color: #fcfef5 !important');	
+						currentRow.attr('style', 'background-color: #fcfef5 !important');
 					}
 					even = !even;
 				}
@@ -127,19 +128,31 @@ return function($project_id) {
 		    }
 		}
 
-		//given a row, it displayes the row on the page	
+		//given a row, it displayes the row on the page
 		function showRow(row) {
 		    $(row).show();
 		}
 
-		//given a row, it displayes the row on the page	
+		//given a row, it displayes the row on the page
 		function hideRow(row) {
 		    $(row).hide();
 		}
+<<<<<<< Updated upstream
+=======
+
+		//given a logic expression from the frsl json file, it parses it for the expression's value
+		function getLogicValue(logic) {
+			var value = /\d+'$/.exec(logic);
+			value = value[0];
+			value = value.substr(0, value.length - 1);
+
+			return value;
+		}
+>>>>>>> Stashed changes
 
 		//given an array of instrument names, return an array of their corresponding labels in the same order
 		function convertNamesToLabels(instrumentNames) {
-			var conversionTable = <?php echo $instrument_names ?>;	
+			var conversionTable = <?php echo $instrument_names ?>;
 			var output = [];
 
 			for(var i = 0; i < instrumentNames.length; i++) {
@@ -158,7 +171,7 @@ return function($project_id) {
 
 			var instruments_to_show = json["instruments_to_show"];
 
-			//disable union of all instruments in instruments to show	
+			//disable union of all instruments in instruments to show
 			for(var i = 0; i < instruments_to_show.length; i++) {
 				var instrumentNames = instruments_to_show[i]["instrument_names"];
 				var instrumentLabels = convertNamesToLabels(instrumentNames);
@@ -172,15 +185,15 @@ return function($project_id) {
 
 			//parse logic and show only the desired instruments
 			for(var i = 0; i < instruments_to_show.length; i++) {
-				var value = instruments_to_show[i]["control_field_value"]; 
+				var value = instruments_to_show[i]["control_field_value"];
 				var instrumentNames = instruments_to_show[i]["instrument_names"];
 				var instrumentLabels = convertNamesToLabels(instrumentNames);
 
 				if(value == control_field_value) {
 					enableRows(rows, instrumentLabels);
 				}
-			}	
-			
+			}
+
 			recolorRows(rows);
 			//need to disable everything first and then begin enabling because some instrument_names have the same field
 		}
@@ -195,8 +208,8 @@ return function($project_id) {
 
 		});
 
-			
+
 	</script>
-	<?php	
+	<?php
 }
 ?>
