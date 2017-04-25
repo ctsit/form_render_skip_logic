@@ -3,23 +3,65 @@
  * Takes a json file and disables/enables certain forms for certain patients on
  * record_status_dashboard based on the given json file.
  *
- * TODO: 
+ * TODO:
  * 1. adjust php json calls to use given json object
  * 2. test frsl_dashboard
  *	a. check to see how it handles changes in the json file
  *	b. check how it handles enableing instruments on certain visits/arms
  * 3. factor out repeated code across all fsrl hooks into a common library
- */ 
+ */
 return function($project_id) {
 
-    if ($project_id != NULL) {
-    $SDH_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "1"',null,null);
+    $URL = $_SERVER['REQUEST_URI'];
 
-    $SAH_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "2"',null,    null);
+    //check if we are on the right page
+    if(preg_match('/DataEntry\/record_status_dashboard/', $URL) == 1) {
+        //get necesary information
+        $patient_id = $_GET["id"];
+        $project_json = json_decode('{
+                           "control_field":{
+                              "arm_name":"visit_1_arm_1",
+                              "field_name":"patient_type"
+                           },
+                           "instruments_to_show":[
+                              {
+                             "control_field_value":"1",
+                             "instrument_names":[
+                                "sdh_details",
+                                "past_medical_history_sah_sdh"
+                             ]
+                              },
+                              {
+                             "control_field_value":"2",
+                             "instrument_names":[
+                                "sah_details",
+                                "past_medical_history_sah_sdh"
+                             ]
+                              },
+                              {
+                             "control_field_value":"3",
+                             "instrument_names":[
+                                "medications_sah_sdh"
+                             ]
+                              }
+                           ]
+                        }'
+                        , true);
 
-    $UBI_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "3"',null,    null);
+        $arm_name = $project_json['control_field']['arm_name'];
+        $field_name = $project_json['control_field']['field_name'];
+        $patient_data = REDcap::getData($project_id, 'json', $patient_id, $field_name, $arm_name, null, false, false, null, null, null);
+
+        $SDH_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "1"',null,null);
+        $SAH_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "2"',null,    null);
+        $UBI_type = REDCap::getData($project_id,'json',null,null,1,null,false,false,false,'[patient_type] = "3"',null,    null);
+
+    }else {
+        //abort the hook
+        echo "<script> console.log('aborting frsl dashboard home page') </script>";
+        return;
     }
-    ?>
+?>
 
     <script>
         var json = [{
