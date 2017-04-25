@@ -28,20 +28,31 @@ return function($project_id) {
                              "control_field_value":"1",
                              "instrument_names":[
                                 "sdh_details",
-                                "past_medical_history_sah_sdh"
+                                "radiology_sdh",
+                                "surgical_data_sdh",
+                                "moca_sdh",
+                                "gose_sdh",
+                                "telephone_interview_of_cognitive_status_sdh",
+                                "surgical_data",
+                                "moca",
+                                "gose",
+                                "telephone_interview_of_cognitive_status"
                              ]
                               },
                               {
                              "control_field_value":"2",
                              "instrument_names":[
                                 "sah_details",
-                                "past_medical_history_sah_sdh"
+                                "radiology_sah",
+                                "delayed_neurologic_deterioration_sah",
+                                "ventriculostomysurgical_data_sah"
                              ]
                               },
                               {
                              "control_field_value":"3",
                              "instrument_names":[
-                                "medications_sah_sdh"
+                                "sdh_details",
+                                "sah_details"
                              ]
                               }
                            ]
@@ -93,7 +104,7 @@ return function($project_id) {
         }
 
         function enableDesiredForms(json, patient_data_structure) {
-		var instruments_to_show = json.instruments_to_show; 
+		var instruments_to_show = json.instruments_to_show;
 		for(var i = 0; i < instruments_to_show.length; i++) {
 			var control_value = instruments_to_show[i]['control_field_value'];
 			var instruments_to_enable = instruments_to_show[i]['instrument_names'];
