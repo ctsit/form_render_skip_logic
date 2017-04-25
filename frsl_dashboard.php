@@ -84,6 +84,7 @@ return function($project_id) {
         var control_field_name = "<?php echo $field_name ?>";
         var control_field_value;
 
+	/*
                 json = [{
             "action": "form_render_skip_logic",
             "instruments_to_show": [{
@@ -100,7 +101,7 @@ return function($project_id) {
                 }
             ]
         }];
-
+	 */
         var patient_types = {
             "sdh": {
                 "type": <?php echo ($project_id != NULL) ? $SDH_type : "''";?>,
@@ -126,9 +127,9 @@ return function($project_id) {
         }
 
         function disableUnionOfForms(json) {
-            var instruments = json[0].instruments_to_show
+            var instruments = json.instruments_to_show;
             for (var names in instruments) {
-                var forms = instruments[names].instrument_names
+                var forms = instruments[names].instrument_names;
                 for (var form in forms) {
                     var form_to_disable = forms[form];
                     disableFormsWithProp(form_to_disable);
@@ -136,19 +137,19 @@ return function($project_id) {
             }
         }
 
-        function enableDesiredForms(json, patient_types) {
-            var index = 0;
-            for (var type in patient_types) {
-                var record = patient_types[type].records;
-                for (var rec in record) {
-                    var instruments = json[0].instruments_to_show[index].instrument_names
-                    for (var instrument in instruments) {
-                        enableFormsForPatientId(record[rec], instruments[instrument]);
-                    }
-                }
-                index++;
-            }
-        }
+        function enableDesiredForms(json, patient_data_structure) {
+		var instruments_to_show = json.instruments_to_show; 
+		for(var i = 0; i < instruments_to_show.length; i++) {
+			var control_value = instruments_to_show[i]['control_field_value'];
+			var instruments_to_enable = instruments_to_show[i]['instrument_names'];
+			var patients = patient_data_structure[control_value];
+			for(var j = 0; j < patients.length; j++) {
+				for(var k = 0; k < instruments_to_enable.length; k++) {
+					enableFormsForPatientId(patients[j]['unique_id'], instruments_to_enable[k]);
+				}
+			}
+		}
+	}
 
         function enableFormsForPatientId(id, form) {
             var rows = document.querySelectorAll('#record_status_table tbody tr');
@@ -166,21 +167,10 @@ return function($project_id) {
             }
         }
 
-        function render_form_skip_logic(json) {
-    
-      	//check if we only want to hide a certain elements, defaults to hiding union of instruments to show
-            if (json[0].hasOwnProperty("instruments_to_hide")) {
-                for (var i = 0; i < json[0]["instruments_to_hide"].length; i++) {
-                    disableFormsWithProp(json[0]["instruments_to_hide"][i]);
-                }
-            } else {
-                disableUnionOfForms(json);
-            }
-
-            if (json[0].hasOwnProperty("instruments_to_show")) {
-                enableDesiredForms(json, patient_types);
-            }
-        }
+        function form_render_skip_logic(json, patient_data_structure) {
+		disableUnionOfForms(json);
+		enableDesiredForms(json, patient_data_structure);
+	}
 
         function disableForm(cell) {
             cell.firstElementChild.style.pointerEvents = 'none';
@@ -215,7 +205,7 @@ return function($project_id) {
         $('document').ready(function() {
             if ( <?php echo ($project_id != NULL) ? "true" : "false";?> ) {
                 pop_records(patient_types);
-                render_form_skip_logic(json);
+                form_render_skip_logic(json, patient_data_structure);
             }
         });
     </script>
