@@ -186,14 +186,12 @@ return function($project_id) {
 			//need to disable everything first and then begin enabling because some instrument_names have the same field
 		}
 
-		$('document').ready(function(){
+		$(document).ready(function(){
 			frsl_record_home_page(json, control_field_value);
+		});
+
+		$(window).load(function(){
 			$('button[title="Collapse/uncollapse table"]').hide();
-
-			if($('button[title="Collapse/uncollapse table"]').is(':hidden')) {
-				console.log('button is hidden');
-			}
-
 		});
 
 
