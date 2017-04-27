@@ -18,34 +18,41 @@ return function($project_id) {
         //get necesary information
         $patient_id = $_GET["id"];
         $project_json = json_decode('{
-                                         "control_field":{
-                                            "arm_name":"visit_1_arm_1",
-                                            "field_name":"patient_type"
-                                         },
-                                         "instruments_to_show":[
-                                            {
-                                               "control_field_value":"1",
-                                               "instrument_names":[
-                                                  "sdh_details",
-                                                  "past_medical_history_sah_sdh"
-                                               ]
-                                            },
-                                            {
-                                               "control_field_value":"2",
-                                               "instrument_names":[
-                                                  "sah_details",
-                                                  "past_medical_history_sah_sdh"
-                                               ]
-                                            },
-                                            {
-                                               "control_field_value":"3",
-                                               "instrument_names":[
-                                                  "medications_sah_sdh"
-                                               ]
-                                            }
-                                         ]
-                                      }'
-                                      , true);
+                           "control_field":{
+                              "arm_name":"visit_1_arm_1",
+                              "field_name":"patient_type"
+                           },
+                           "instruments_to_show":[
+                              {
+                             "control_field_value":"1",
+                             "instrument_names":[
+                                "sdh_details",
+                                "radiology_sdh",
+                                "surgical_data_sdh",
+                                "moca_sdh",
+                                "gose_sdh",
+                                "telephone_interview_of_cognitive_status_sdh"
+                             ]
+                              },
+                              {
+                             "control_field_value":"2",
+                             "instrument_names":[
+                                "sah_details",
+                                "radiology_sah",
+                                "delayed_neurologic_deterioration_sah",
+                                "ventriculostomysurgical_data_sah"
+                             ]
+                              },
+                              {
+                             "control_field_value":"3",
+                             "instrument_names":[
+                                "sdh_details",
+                                "sah_details"
+                             ]
+                              }
+                           ]
+                        }'
+                        , true);
 
         $arm_name = $project_json['control_field']['arm_name'];
         $field_name = $project_json['control_field']['field_name'];
