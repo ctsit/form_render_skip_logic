@@ -20,7 +20,7 @@ return function($project_id) {
         $patient_id = $_GET["id"];
         $project_json = json_decode('{
                            "control_field":{
-                              "arm_name":"visit_1_arm_1",
+                              "arm_name":"baseline_arm_1",
                               "field_name":"patient_type"
                            },
                            "instruments_to_show":[
