@@ -100,7 +100,7 @@ return function($project_id) {
 	var event_name_to_id_table = <?php echo json_encode($event_name_to_id_table) ?>;
         var control_field_name = "<?php echo $field_name ?>";
         var control_field_value;
-	var arm_name = <?php echo $arm_name ?>;
+	var arm_name = "<?php echo $arm_name ?>";
 
 	function disableUnionOfForms(json) {
             var instruments = json.instruments_to_show;
@@ -121,27 +121,26 @@ return function($project_id) {
 			var patients = patient_data_structure[control_value];
 			for(var j = 0; j < patients.length; j++) {
 				for(var k = 0; k < instruments_to_enable.length; k++) {
-					enableFormsForPatientId(patients[j]['unique_id'], instruments_to_enable[k]);
+					enableFormForPatient(patients[j], instruments_to_enable[k]);
 				}
 			}
 		}
 	}
 
-        function enableFormsForPatientId(id, form) {
-            var rows = document.querySelectorAll('#record_status_table tbody tr');
-            var reg = new RegExp('&page=' + form + '&');
+        function enableFormForPatient(patient, form) {
+		var rows = document.querySelectorAll('#record_status_table tbody tr');
+		var event_id = event_name_to_id_table[arm_name]; 
+		var reg = new RegExp('id=' + patient['unique_id'] + '&page=' + form + '&event_id=' + event_id);
 
-            for (var i = 0; i < rows.length; i++) {
-                if (rows[i].cells[0].innerText == id) {
-                    for (var j = 0; j < rows[i].cells.length; j++) {
-                        if (reg.test(rows[i].cells[j].firstElementChild.href)) {
-                            enableForm(rows[i].cells[j]);
-                            return;
-                        }
-                    }
-                }
-            }
-        }
+		for (var i = 0; i < rows.length; i++) {
+			for (var j = 0; j < rows[i].cells.length; j++) {
+				if (reg.test(rows[i].cells[j].firstElementChild.href)) {
+					enableForm(rows[i].cells[j]);
+					return;
+				}
+			}
+		}
+	}
 
         function form_render_skip_logic(json, patient_data_structure) {
 		disableUnionOfForms(json);
