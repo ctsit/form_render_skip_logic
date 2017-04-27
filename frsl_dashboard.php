@@ -81,9 +81,6 @@ return function($project_id) {
 		return;
 	}
 
-	// need to flip array since getEventNames returns the data in event_id => redcap_event_name format
-	$event_name_to_id_table = array_flip(REDCap::getEventNames(true, true));
-
     }else {
         echo "<script> console.log('aborting frsl dashboard home page') </script>";
         return;
@@ -93,7 +90,6 @@ return function($project_id) {
     <script>
         var json = <?php echo json_encode($project_json) ?>;
 	var patient_data_structure = <?php echo $patient_data_structure ?>;
-	var event_name_to_id_table = <?php echo json_encode($event_name_to_id_table) ?>;
         var control_field_name = "<?php echo $field_name ?>";
         var control_field_value;
 	var arm_name = "<?php echo $arm_name ?>";
@@ -138,14 +134,12 @@ return function($project_id) {
 
         function enableFormForPatient(patient, form) {
 		var rows = document.querySelectorAll('#record_status_table tbody tr');
-		var event_id = event_name_to_id_table[arm_name];
-		var reg = new RegExp('id=' + patient['unique_id'] + '&page=' + form + '&event_id=' + event_id);
+		var reg = new RegExp('id=' + patient['unique_id'] + '&page=' + form);
 
 		for (var i = 0; i < rows.length; i++) {
 			for (var j = 0; j < rows[i].cells.length; j++) {
 				if (reg.test(rows[i].cells[j].firstElementChild.href)) {
 					enableForm(rows[i].cells[j]);
-					return;
 				}
 			}
 		}
@@ -172,8 +166,7 @@ return function($project_id) {
 
 	function disableFormForEveryPatient(form) {
 		var rows = document.querySelectorAll('#record_status_table tbody tr');
-		var event_id = event_name_to_id_table[arm_name];
-		var reg = new RegExp('&page=' + form + '&event_id=' + event_id);
+		var reg = new RegExp('&page=' + form);
 
 		for (var i = 0; i < rows.length; i++) {
 			for (var j = 0; j < rows[i].cells.length; j++) {
