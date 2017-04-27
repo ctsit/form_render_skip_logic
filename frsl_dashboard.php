@@ -72,13 +72,21 @@ return function($project_id) {
 		}
 
 		$patient_data_structure .= '"' . $control_field_value . '":';
-		$control_field_value_patients = REDCap::getData($project_id,'json',null,'unique_id',$arm_name,null,false,false,false,'[' . $field_name . '] = "' . $control_field_value . '"',null,null);
+		$control_field_value_patients = REDCap::getData($project_id,'json',null,'unique_id',$arm_name,null,false,false,false,'[' . $field_name . '] = "' . $control_field_value . '"',false,null);
 		$patient_data_structure .=  $control_field_value_patients;
 
 	}
 
 	$patient_data_structure .= '}';
 
+	// Check if project is longitdudinal 
+	if (!REDCap::isLongitudinal()) {
+		print('<script> console.log("frsl_dashboard could not run because the project is not longitudinal") </script>');
+		return;
+	}
+
+	// need to flip array since getEventNames returns the data in event_id => redcap_event_name format
+	$event_name_to_id_table = array_flip(REDCap::getEventNames(true, true));
 
     }else {
         echo "<script> console.log('aborting frsl dashboard home page') </script>";
@@ -89,8 +97,10 @@ return function($project_id) {
     <script>
         var json = <?php echo json_encode($project_json) ?>;
 	var patient_data_structure = <?php echo $patient_data_structure ?>;
+	var event_name_to_id_table = <?php echo json_encode($event_name_to_id_table) ?>;
         var control_field_name = "<?php echo $field_name ?>";
         var control_field_value;
+	var arm_name = <?php echo $arm_name ?>;
 
 	function disableUnionOfForms(json) {
             var instruments = json.instruments_to_show;
