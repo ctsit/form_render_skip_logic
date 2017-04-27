@@ -25,3 +25,5 @@ Note: We do not recommend activating this hook globally. The references to commo
 * Change global javascript variable names to reduce the risk of name collisions.
 * Refactor components common to all three hooks into a library.
 * Refactor all three hooks to read configuration data from a common, external, project-centered data source.
+* Add an Apache LICENSE file
+* Add a Contributors file
