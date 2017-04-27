@@ -3,12 +3,6 @@
  * Takes a json file and disables/enables certain forms for certain patients on
  * record_status_dashboard based on the given json file.
  *
- * TODO:
- * 1. adjust php json calls to use given json object
- * 2. test frsl_dashboard
- *	a. check to see how it handles changes in the json file
- *	b. check how it handles enableing instruments on certain visits/arms
- * 3. factor out repeated code across all fsrl hooks into a common library
  */
 return function($project_id) {
 

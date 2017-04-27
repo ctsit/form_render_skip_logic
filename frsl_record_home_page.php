@@ -4,17 +4,6 @@
  * until the desired form, diagnosis, in demographics is filled. Afterwards user
  * can only certain forms based on the diagnosis they entered.
  *
- * TODO:
- * 1. write the hook
- * 	a. find current patient unique id <DONE>
- * 	a. see if a diagnosis has been selected for said patient <DONE>
- *	b. disable all forms except demographics until diagnosis is selected <DONE>
- *	c. enable forms depending on the diagnosis one it has been selected <DONE>
- *	d. do not screw up function of the drop down button
- *	e. verify that it works for other types of logic
- *	f. fix row coloring issue <DONE>
- * 2. test the hook
- * 3. factor out repeated code across all fsrl hooks into a common library
  */
 
 return function($project_id) {
