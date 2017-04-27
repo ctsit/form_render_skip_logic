@@ -102,16 +102,29 @@ return function($project_id) {
         var control_field_value;
 	var arm_name = "<?php echo $arm_name ?>";
 
+	function unionOfForms(json) {
+		var instruments = json.instruments_to_show;
+		var union = [];
+		for (var names in instruments) {
+			var forms = instruments[names].instrument_names;
+			for (var form in forms) {
+				var form_name = forms[form];
+				if (union.indexOf(form_name) === -1) {
+					union.push(form_name);
+				}
+			}
+		}
+		return union;
+	}
+
+
+
 	function disableUnionOfForms(json) {
-            var instruments = json.instruments_to_show;
-            for (var names in instruments) {
-                var forms = instruments[names].instrument_names;
-                for (var form in forms) {
-                    var form_to_disable = forms[form];
-                    disableFormsWithProp(form_to_disable);
-                }
-            }
-        }
+		var union = unionOfForms(json); 
+		for (var form in union) {
+			disableFormsWithProp(union[form]);
+		}
+	}
 
         function enableDesiredForms(json, patient_data_structure) {
 		var instruments_to_show = json.instruments_to_show;
