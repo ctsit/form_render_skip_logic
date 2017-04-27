@@ -122,7 +122,7 @@ return function($project_id) {
 	function disableUnionOfForms(json) {
 		var union = unionOfForms(json); 
 		for (var form in union) {
-			disableFormsWithProp(union[form]);
+			disableFormForEveryPatient(union[form]);
 		}
 	}
 
@@ -174,20 +174,21 @@ return function($project_id) {
             }
         }
 
-        function disableFormsWithProp(property) {
-            var rows = document.querySelectorAll('#record_status_table tbody tr');
-            var reg = new RegExp('&page=' + property + '&');
+	function disableFormForEveryPatient(form) {
+		var rows = document.querySelectorAll('#record_status_table tbody tr');
+		var event_id = event_name_to_id_table[arm_name]; 
+		var reg = new RegExp('&page=' + form + '&event_id=' + event_id);
 
-            for (var i = 0; i < rows.length; i++) {
-                for (var j = 0; j < rows[i].cells.length; j++) {
-                    var link = rows[i].cells[j].firstElementChild.href;
+		for (var i = 0; i < rows.length; i++) {
+			for (var j = 0; j < rows[i].cells.length; j++) {
+				var link = rows[i].cells[j].firstElementChild.href;
 
-                    if (reg.test(link)) {
-                        disableForm(rows[i].cells[j]);
-                    }
-                }
-            }
-        }
+				if (reg.test(link)) {
+					disableForm(rows[i].cells[j]);
+				}
+			}
+		}
+	}
 
         $('document').ready(function() {
                 form_render_skip_logic(json, patient_data_structure);
