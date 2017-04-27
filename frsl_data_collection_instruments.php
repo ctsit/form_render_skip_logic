@@ -147,6 +147,13 @@ return function($project_id) {
 
         });
 
+    // Remap SaveNextForm to SaveContinue
+    $(window).load(function()  {
+      $('a[onclick="dataEntrySubmit(\'submit-btn-savenextform\');return false;"]').text('Save & Stay');
+      $('a[onclick="dataEntrySubmit(\'submit-btn-savenextform\');return false;"]').attr('onClick','dataEntrySubmit(\'submit-btn-savecontinue\');return false;');
+    });
+
+
     </script>
     <?php
 
