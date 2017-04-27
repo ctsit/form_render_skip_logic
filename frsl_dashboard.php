@@ -119,7 +119,7 @@ return function($project_id) {
 
         function enableFormsForPatientId(id, form) {
             var rows = document.querySelectorAll('#record_status_table tbody tr');
-            var reg = new RegExp(form);
+            var reg = new RegExp('&page=' + form + '&');
 
             for (var i = 0; i < rows.length; i++) {
                 if (rows[i].cells[0].innerText == id) {
@@ -154,7 +154,7 @@ return function($project_id) {
 
         function disableFormsWithProp(property) {
             var rows = document.querySelectorAll('#record_status_table tbody tr');
-            var reg = new RegExp(property);
+            var reg = new RegExp('&page=' + property + '&');
 
             for (var i = 0; i < rows.length; i++) {
                 for (var j = 0; j < rows[i].cells.length; j++) {
