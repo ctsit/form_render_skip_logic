@@ -36,10 +36,10 @@ return function($project_id) {
                              "instrument_names":[
                                 "sdh_details",
                                 "radiology_sdh",
-                                "surgical_data_sdh",
-                                "moca_sdh",
-                                "gose_sdh",
-                                "telephone_interview_of_cognitive_status_sdh"
+                                "surgical_data",
+                                "moca",
+                                "gose",
+                                "telephone_interview_of_cognitive_status"
                              ]
                               },
                               {
@@ -47,8 +47,8 @@ return function($project_id) {
                              "instrument_names":[
                                 "sah_details",
                                 "radiology_sah",
-                                "delayed_neurologic_deterioration_sah",
-                                "ventriculostomysurgical_data_sah"
+                                "delayed_neurologic_deterioration",
+                                "ventriculostomysurgical_data"
                              ]
                               },
                               {

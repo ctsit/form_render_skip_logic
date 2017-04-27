@@ -29,10 +29,6 @@ return function($project_id) {
                              "instrument_names":[
                                 "sdh_details",
                                 "radiology_sdh",
-                                "surgical_data_sdh",
-                                "moca_sdh",
-                                "gose_sdh",
-                                "telephone_interview_of_cognitive_status_sdh",
                                 "surgical_data",
                                 "moca",
                                 "gose",
@@ -44,8 +40,8 @@ return function($project_id) {
                              "instrument_names":[
                                 "sah_details",
                                 "radiology_sah",
-                                "delayed_neurologic_deterioration_sah",
-                                "ventriculostomysurgical_data_sah"
+                                "delayed_neurologic_deterioration",
+                                "ventriculostomysurgical_data"
                              ]
                               },
                               {
@@ -79,7 +75,7 @@ return function($project_id) {
 
 	$patient_data_structure .= '}';
 
-	// Check if project is longitdudinal 
+	// Check if project is longitdudinal
 	if (!REDCap::isLongitudinal()) {
 		print('<script> console.log("frsl_dashboard could not run because the project is not longitudinal") </script>');
 		return;
@@ -120,7 +116,7 @@ return function($project_id) {
 
 
 	function disableUnionOfForms(json) {
-		var union = unionOfForms(json); 
+		var union = unionOfForms(json);
 		for (var form in union) {
 			disableFormForEveryPatient(union[form]);
 		}
@@ -142,7 +138,7 @@ return function($project_id) {
 
         function enableFormForPatient(patient, form) {
 		var rows = document.querySelectorAll('#record_status_table tbody tr');
-		var event_id = event_name_to_id_table[arm_name]; 
+		var event_id = event_name_to_id_table[arm_name];
 		var reg = new RegExp('id=' + patient['unique_id'] + '&page=' + form + '&event_id=' + event_id);
 
 		for (var i = 0; i < rows.length; i++) {
@@ -176,7 +172,7 @@ return function($project_id) {
 
 	function disableFormForEveryPatient(form) {
 		var rows = document.querySelectorAll('#record_status_table tbody tr');
-		var event_id = event_name_to_id_table[arm_name]; 
+		var event_id = event_name_to_id_table[arm_name];
 		var reg = new RegExp('&page=' + form + '&event_id=' + event_id);
 
 		for (var i = 0; i < rows.length; i++) {
