@@ -77,6 +77,22 @@ return function($project_id) {
         control_value = false;
     }
 
+    function unionOfForms(json) {
+        var instruments = json.instruments_to_show;
+        var union = [];
+        for (var names in instruments) {
+            var forms = instruments[names].instrument_names;
+            for (var form in forms) {
+                var form_name = forms[form];
+                if (union.indexOf(form_name) === -1) {
+                  union.push(form_name);
+                }
+            }
+        }
+        return union;
+    }
+
+
     //checks to see if a control value has been set for the subject record
     function controlValueFound(data) {
         if (data.length == 1 && data[0].hasOwnProperty(control_field_name)) {
