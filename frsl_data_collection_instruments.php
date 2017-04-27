@@ -121,10 +121,14 @@ return function($project_id) {
     }
 
     function disable_all_forms(){
-    	var arr = document.getElementsByClassName('formMenuList')
-    	for(var i=0;i<arr.length;i++){
-			document.getElementsByClassName('formMenuList')[i].style.display = 'none';
-		}
+      var arr = document.getElementsByClassName('formMenuList');
+      var formsToDisable = unionOfForms(json);
+      for(var i=0;i<arr.length;i++){
+        var str = arr[i].getElementsByTagName('a')[1].getAttribute('id').match(/\[(.*?)\]/)[1];
+        if(formsToDisable.indexOf(str) !== -1) {
+          document.getElementsByClassName('formMenuList')[i].style.display = 'none';
+        }
+      }
     }
 
     function enable_required_forms(form){
