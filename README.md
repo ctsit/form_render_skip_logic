@@ -33,9 +33,18 @@ These hooks are designed to be activated as redcap_every_page_top hook functions
 Each hook has its configuration data embedded in `$project_json` variable near the top of the file.  This field needs to be edited with data appropriate to the project.  The exact same block of JSON needs to appear in each of the three hooks. Rectifying this issues is on the TODO list.
 
 
+## Developer Notes
+
+When using the local test environment provided by UF CTS-IT's [redcap_deployment](https://github.com/ctsit/redcap_deployment) tools ([https://github.com/ctsit/redcap_deployment](https://github.com/ctsit/redcap_deployment)), you can use the deployment tools to configure these hooks for testing in the local VM.  If clone this repo as a child of the redcap_deployment repo, you can configure from the root of the redcap_deployment repo like this:
+
+    fab instance:vagrant test_hook:redcap_every_page_top,form_render_skip_logic/frsl_dashboard.php
+    fab instance:vagrant test_hook:redcap_every_page_top,form_render_skip_logic/frsl_record_home_page.php
+    fab instance:vagrant test_hook:redcap_every_page_top,form_render_skip_logic/frsl_data_collection_instruments.php
+
+
 ## TODO
 
-* Change global javascript variable names to reduce the risk of name collisions.
+* Change scope of javascript variables and function names to prevent name collisions.
 * Refactor components common to all three hooks into a library.
 * Refactor all three hooks to read configuration data from a common, external, project-centered data source.
 * Add an Apache LICENSE file
