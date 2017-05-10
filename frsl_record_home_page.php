@@ -37,7 +37,10 @@ return function($project_id) {
                                 "sah_details",
                                 "radiology_sah",
                                 "delayed_neurologic_deterioration",
-                                "ventriculostomysurgical_data"
+                                "ventriculostomysurgical_data",
+                                "moca",
+                                "gose",
+                                "telephone_interview_of_cognitive_status"
                              ]
                               },
                               {
