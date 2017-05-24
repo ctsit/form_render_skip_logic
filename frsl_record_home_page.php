@@ -11,7 +11,7 @@ return function($project_id) {
 	$URL = $_SERVER['REQUEST_URI'];
 
 	//check if we are on the right page
-	if(preg_match('/record_home\.php\?.*&id=\d+/', $URL) == 1) {
+	if(preg_match('/record_home\.php\?.*&id=\w+/', $URL) == 1) {
 		//get necesary information
 		$patient_id = $_GET["id"];
         $project_json = json_decode('{
