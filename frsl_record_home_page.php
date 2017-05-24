@@ -60,7 +60,6 @@ return function($project_id) {
 		$instrument_names = json_encode(REDCap::getInstrumentNames());
 	}else {
 		//abort the hook
-		echo "<script> console.log('aborting frsl record home page') </script>";
 		return;
 	}
 ?>

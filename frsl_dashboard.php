@@ -74,12 +74,11 @@ return function($project_id) {
 
 	// Check if project is longitdudinal
 	if (!REDCap::isLongitudinal()) {
-		print('<script> console.log("frsl_dashboard could not run because the project is not longitudinal") </script>');
 		return;
 	}
 
     }else {
-        echo "<script> console.log('aborting frsl dashboard home page') </script>";
+        //abort hook
         return;
     }
 ?>
