@@ -148,17 +148,13 @@ return function($project_id) {
 	}
 
         function disableForm(cell) {
-            cell.firstElementChild.style.pointerEvents = 'none';
-            if (cell.firstElementChild.firstElementChild) {
-                cell.firstElementChild.firstElementChild.style.opacity = '.1';
-            }
+            cell.style.pointerEvents = 'none';
+            cell.style.opacity = '.1';
         }
 
         function enableForm(cell) {
-            cell.firstElementChild.style.pointerEvents = 'auto';
-            if (cell.firstElementChild.firstElementChild) {
-                cell.firstElementChild.firstElementChild.style.opacity = '1';
-            }
+            cell.style.pointerEvents = 'auto';
+            cell.style.opacity = '1';
         }
 
 	function disableFormForEveryPatient(form) {
