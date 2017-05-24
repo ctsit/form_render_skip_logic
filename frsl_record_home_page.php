@@ -76,7 +76,7 @@ return function($project_id) {
 
 		//checks to see if a patient type has been selected for the current patient
 		frsl_record_home_page.ControlFieldValueIsSet = function(data) {
-			if (data.length == 1 && data[0].hasOwnProperty(frsl_record_home_page.control_field_name)) {
+			if (data.length == 1 && data[0].hasOwnProperty(this.control_field_name)) {
 				return true;
 			}
 			return false;
@@ -105,7 +105,7 @@ return function($project_id) {
 		    for (var i = 0; i < rows.length; i++) {
 					var rowText = $(rows[i].cells[0]).text();
 					if (targets.indexOf(rowText) !== -1) {
-						frsl_record_home_page.hideRow(rows[i]);
+						this.hideRow(rows[i]);
 					}
 		    }
 		}
@@ -116,7 +116,7 @@ return function($project_id) {
 					var rowText = $(rows[i].cells[0]).text();
 
 					if (targets.indexOf(rowText) !== -1) {
-					    frsl_record_home_page.showRow(rows[i]);
+					    this.showRow(rows[i]);
 					}
 		    }
 		}
@@ -150,17 +150,17 @@ return function($project_id) {
 			//disable the table layered on top table we want to modify
 			$("table.dataTable.no-footer.DTFC_Cloned").hide();
 
-			var instruments_to_show = frsl_record_home_page.json["instruments_to_show"];
+			var instruments_to_show = this.json["instruments_to_show"];
 
 			//disable union of all instruments in instruments to show
 			for(var i = 0; i < instruments_to_show.length; i++) {
 				var instrumentNames = instruments_to_show[i]["instrument_names"];
-				var instrumentLabels = frsl_record_home_page.convertNamesToLabels(instrumentNames);
-				frsl_record_home_page.disableRows(rows, instrumentLabels);
+				var instrumentLabels = this.convertNamesToLabels(instrumentNames);
+				this.disableRows(rows, instrumentLabels);
 			}
 
 			if(control_field_value === false) {
-				frsl_record_home_page.recolorRows(rows);
+				this.recolorRows(rows);
 				return;
 			}
 
@@ -168,14 +168,14 @@ return function($project_id) {
 			for(var i = 0; i < instruments_to_show.length; i++) {
 				var value = instruments_to_show[i]["control_field_value"];
 				var instrumentNames = instruments_to_show[i]["instrument_names"];
-				var instrumentLabels = frsl_record_home_page.convertNamesToLabels(instrumentNames);
+				var instrumentLabels = this.convertNamesToLabels(instrumentNames);
 
 				if(value == control_field_value) {
-					frsl_record_home_page.enableRows(rows, instrumentLabels);
+					this.enableRows(rows, instrumentLabels);
 				}
 			}
 
-			frsl_record_home_page.recolorRows(rows);
+			this.recolorRows(rows);
 		}
 
 		$(document).ready(function(){
