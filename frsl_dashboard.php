@@ -112,9 +112,9 @@ return function($project_id) {
 
 	//disables every form in the union of every instruments_name array in json
 	frsl_dashboard.disableUnionOfForms = function(json) {
-		var union = frsl_dashboard.unionOfForms(json);
+		var union = this.unionOfForms(json);
 		for (var form in union) {
-			frsl_dashboard.disableFormForEveryPatient(union[form]);
+			this.disableFormForEveryPatient(union[form]);
 		}
 	}
 
@@ -127,7 +127,7 @@ return function($project_id) {
 			var patients = patient_data_structure[control_value];
 			for(var j = 0; j < patients.length; j++) {
 				for(var k = 0; k < instruments_to_enable.length; k++) {
-					frsl_dashboard.enableFormForPatient(patients[j], instruments_to_enable[k]);
+					this.enableFormForPatient(patients[j], instruments_to_enable[k]);
 				}
 			}
 		}
@@ -140,15 +140,15 @@ return function($project_id) {
 		for (var i = 0; i < rows.length; i++) {
 			for (var j = 0; j < rows[i].cells.length; j++) {
 				if (reg.test(rows[i].cells[j].firstElementChild.href)) {
-					frsl_dashboard.enableForm(rows[i].cells[j]);
+					this.enableForm(rows[i].cells[j]);
 				}
 			}
 		}
 	}
 
 	frsl_dashboard.form_render_skip_logic = function(json, patient_data_structure) {
-		frsl_dashboard.disableUnionOfForms(json);
-		frsl_dashboard.enableDesiredForms(json, patient_data_structure);
+		this.disableUnionOfForms(json);
+		this.enableDesiredForms(json, patient_data_structure);
 	}
 
 	frsl_dashboard.disableForm = function(cell) {
@@ -170,7 +170,7 @@ return function($project_id) {
 				var link = rows[i].cells[j].firstElementChild.href;
 
 				if (reg.test(link)) {
-					frsl_dashboard.disableForm(rows[i].cells[j]);
+					this.disableForm(rows[i].cells[j]);
 				}
 			}
 		}
