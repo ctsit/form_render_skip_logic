@@ -3,6 +3,18 @@ All notable changes to the REDCap Deployment project will be documented in this 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.2.0] - 2017-05-25
+### Changed
+- Wrap all javascript variables and functions in a javascript object to avoid namespace collisions (Dileep)
+- Modify frsl_record_home_page.php to activate on non-numeric record_id's (Dileep)
+- Provide a more complex test project that uses repeating instruments in hidden forms and non-numeric record_ids (Philip Chase)
+
+### Added
+- Add support for repeating instruments (Dileep)
+- Add 'Developer Notes' section to README (Philip Chase)
+- Activate more instruments for control_field_value of 2 in example configuration (Philip Chase)
+- Add Apache 2.0 license file
+
 ## [0.1.0] - 2017-04-27
 ### Added
 - initial release for Form Render Skip Logic hooks
