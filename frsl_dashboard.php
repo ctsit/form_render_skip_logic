@@ -6,51 +6,54 @@
  */
 return function($project_id) {
 
-    $URL = $_SERVER['REQUEST_URI'];
+	$URL = $_SERVER['REQUEST_URI'];
 
-    //check if we are on the right page
-    if(preg_match('/DataEntry\/record_status_dashboard/', $URL) == 1) {
-        //get necesary information
-        $patient_id = $_GET["id"];
-        $project_json = json_decode('{
-                           "control_field":{
-                              "arm_name":"baseline_arm_1",
-                              "field_name":"patient_type"
-                           },
-                           "instruments_to_show":[
-                              {
-                             "control_field_value":"1",
-                             "instrument_names":[
-                                "sdh_details",
-                                "radiology_sdh",
-                                "surgical_data",
-                                "moca",
-                                "gose",
-                                "telephone_interview_of_cognitive_status"
-                             ]
-                              },
-                              {
-                             "control_field_value":"2",
-                             "instrument_names":[
-                                "sah_details",
-                                "radiology_sah",
-                                "delayed_neurologic_deterioration",
-                                "ventriculostomysurgical_data"
-                             ]
-                              },
-                              {
-                             "control_field_value":"3",
-                             "instrument_names":[
-                                "sdh_details",
-                                "sah_details"
-                             ]
-                              }
-                           ]
-                        }'
-                        , true);
+	//check if we are on the right page
+	if(preg_match('/DataEntry\/record_status_dashboard/', $URL) == 1) {
+		//get necesary information
+		$patient_id = $_GET["id"];
+		$project_json = json_decode('{
+																		"control_field":{
+																		"arm_name":"baseline_arm_1",
+																			"field_name":"patient_type"
+																	},
+																		"instruments_to_show":[
+																		{
+																			"control_field_value":"1",
+																				"instrument_names":[
+																					"sdh_details",
+																					"radiology_sdh",
+																					"surgical_data",
+																					"moca",
+																					"gose",
+																					"telephone_interview_of_cognitive_status"
+																				]
+																	},
+																		{
+																			"control_field_value":"2",
+																				"instrument_names":[
+																					"sah_details",
+																					"radiology_sah",
+																					"delayed_neurologic_deterioration",
+																					"ventriculostomysurgical_data",
+																					"moca",
+																					"gose",
+																					"telephone_interview_of_cognitive_status"
+																				]
+																	},
+																		{
+																			"control_field_value":"3",
+																				"instrument_names":[
+																					"sdh_details",
+																					"sah_details"
+																				]
+																	}
+																]
+																	}'
+			, true);
 
-        $arm_name = $project_json['control_field']['arm_name'];
-        $field_name = $project_json['control_field']['field_name'];
+	$arm_name = $project_json['control_field']['arm_name'];
+	$field_name = $project_json['control_field']['field_name'];
 
 	$patient_data_structure = '{ ';
 
@@ -71,24 +74,28 @@ return function($project_id) {
 
 	// Check if project is longitdudinal
 	if (!REDCap::isLongitudinal()) {
-		print('<script> console.log("frsl_dashboard could not run because the project is not longitudinal") </script>');
 		return;
 	}
 
-    }else {
-        echo "<script> console.log('aborting frsl dashboard home page') </script>";
-        return;
+    } else {
+			//abort hook
+			return;
     }
 ?>
 
-    <script>
-        var json = <?php echo json_encode($project_json) ?>;
-	var patient_data_structure = <?php echo $patient_data_structure ?>;
-        var control_field_name = "<?php echo $field_name ?>";
-        var control_field_value;
-	var arm_name = "<?php echo $arm_name ?>";
+  <script>
 
-	function unionOfForms(json) {
+	//create frsl_dashboard object to avoid namespace collisions
+	var frsl_dashboard = {};
+
+	frsl_dashboard.json = <?php echo json_encode($project_json) ?>;
+	frsl_dashboard.patient_data_structure = <?php echo $patient_data_structure ?>;
+	frsl_dashboard.control_field_name = "<?php echo $field_name ?>";
+	frsl_dashboard.control_field_value;
+	frsl_dashboard.arm_name = "<?php echo $arm_name ?>";
+
+	//given a json, return an array of the union of forms inside it
+	frsl_dashboard.unionOfForms = function(json) {
 		var instruments = json.instruments_to_show;
 		var union = [];
 		for (var names in instruments) {
@@ -103,16 +110,16 @@ return function($project_id) {
 		return union;
 	}
 
-
-
-	function disableUnionOfForms(json) {
-		var union = unionOfForms(json);
+	//disables every form in the union of every instruments_name array in json
+	frsl_dashboard.disableUnionOfForms = function(json) {
+		var union = this.unionOfForms(json);
 		for (var form in union) {
-			disableFormForEveryPatient(union[form]);
+			this.disableFormForEveryPatient(union[form]);
 		}
 	}
 
-        function enableDesiredForms(json, patient_data_structure) {
+	//enables the appropriate forms for each patient
+	frsl_dashboard.enableDesiredForms = function(json, patient_data_structure) {
 		var instruments_to_show = json.instruments_to_show;
 		for(var i = 0; i < instruments_to_show.length; i++) {
 			var control_value = instruments_to_show[i]['control_field_value'];
@@ -120,45 +127,41 @@ return function($project_id) {
 			var patients = patient_data_structure[control_value];
 			for(var j = 0; j < patients.length; j++) {
 				for(var k = 0; k < instruments_to_enable.length; k++) {
-					enableFormForPatient(patients[j], instruments_to_enable[k]);
+					this.enableFormForPatient(patients[j], instruments_to_enable[k]);
 				}
 			}
 		}
 	}
 
-        function enableFormForPatient(patient, form) {
+	frsl_dashboard.enableFormForPatient = function(patient, form) {
 		var rows = document.querySelectorAll('#record_status_table tbody tr');
 		var reg = new RegExp('id=' + patient['unique_id'] + '&page=' + form);
 
 		for (var i = 0; i < rows.length; i++) {
 			for (var j = 0; j < rows[i].cells.length; j++) {
 				if (reg.test(rows[i].cells[j].firstElementChild.href)) {
-					enableForm(rows[i].cells[j]);
+					this.enableForm(rows[i].cells[j]);
 				}
 			}
 		}
 	}
 
-        function form_render_skip_logic(json, patient_data_structure) {
-		disableUnionOfForms(json);
-		enableDesiredForms(json, patient_data_structure);
+	frsl_dashboard.form_render_skip_logic = function(json, patient_data_structure) {
+		this.disableUnionOfForms(json);
+		this.enableDesiredForms(json, patient_data_structure);
 	}
 
-        function disableForm(cell) {
-            cell.firstElementChild.style.pointerEvents = 'none';
-            if (cell.firstElementChild.firstElementChild) {
-                cell.firstElementChild.firstElementChild.style.opacity = '.1';
-            }
-        }
+	frsl_dashboard.disableForm = function(cell) {
+	    cell.style.pointerEvents = 'none';
+	    cell.style.opacity = '.1';
+	}
 
-        function enableForm(cell) {
-            cell.firstElementChild.style.pointerEvents = 'auto';
-            if (cell.firstElementChild.firstElementChild) {
-                cell.firstElementChild.firstElementChild.style.opacity = '1';
-            }
-        }
+	frsl_dashboard.enableForm = function(cell) {
+	    cell.style.pointerEvents = 'auto';
+	    cell.style.opacity = '1';
+	}
 
-	function disableFormForEveryPatient(form) {
+	frsl_dashboard.disableFormForEveryPatient = function(form) {
 		var rows = document.querySelectorAll('#record_status_table tbody tr');
 		var reg = new RegExp('&page=' + form);
 
@@ -167,16 +170,16 @@ return function($project_id) {
 				var link = rows[i].cells[j].firstElementChild.href;
 
 				if (reg.test(link)) {
-					disableForm(rows[i].cells[j]);
+					this.disableForm(rows[i].cells[j]);
 				}
 			}
 		}
 	}
 
-        $('document').ready(function() {
-                form_render_skip_logic(json, patient_data_structure);
-        });
-    </script>
-    <?php
+	$('document').ready(function() {
+		frsl_dashboard.form_render_skip_logic(frsl_dashboard.json, frsl_dashboard.patient_data_structure);
+	});
+  </script>
+<?php
 }
 ?>

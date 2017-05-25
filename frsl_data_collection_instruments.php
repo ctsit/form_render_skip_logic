@@ -35,7 +35,10 @@ return function($project_id) {
                                 "sah_details",
                                 "radiology_sah",
                                 "delayed_neurologic_deterioration",
-                                "ventriculostomysurgical_data"
+                                "ventriculostomysurgical_data",
+                                "moca",
+                                "gose",
+                                "telephone_interview_of_cognitive_status"
                              ]
                               },
                               {
@@ -59,21 +62,17 @@ return function($project_id) {
     }
 ?>
     <script>
-    // frsl_data_collection_instruments hook
-    var json = <?php echo json_encode($project_json) ?>;
-    var control_field_value = <?php echo $control_field_value ?>;
-    var control_field_name = "<?php echo $field_name ?>";
-    var control_value;
 
-    //set control value if it exists
-    if(controlValueFound(control_field_value)){
-        control_value = control_field_value[0][control_field_name];
-    } else {
-        control_value = false;
-    }
+    //create frsl_data_collection_instruments object to avoid namespace collisions
+		var frsl_data_collection_instruments = {};
 
-    function unionOfForms(json) {
-        var instruments = json.instruments_to_show;
+    frsl_data_collection_instruments.json = <?php echo json_encode($project_json) ?>;
+    frsl_data_collection_instruments.control_field_value = <?php echo $control_field_value ?>;
+    frsl_data_collection_instruments.control_field_name = "<?php echo $field_name ?>";
+    frsl_data_collection_instruments.control_value;
+
+    frsl_data_collection_instruments.unionOfForms = function(json) {
+        var instruments = this.json.instruments_to_show;
         var union = [];
         for (var names in instruments) {
             var forms = instruments[names].instrument_names;
@@ -89,35 +88,35 @@ return function($project_id) {
 
 
     //checks to see if a control value has been set for the subject record
-    function controlValueFound(data) {
-        if (data.length == 1 && data[0].hasOwnProperty(control_field_name)) {
+    frsl_data_collection_instruments.controlValueFound = function(data) {
+        if (data.length == 1 && data[0].hasOwnProperty(this.control_field_name)) {
             return true;
         }
         return false;
     }
 
-    function get_instrument_names_object(control_value, json) {
-        for(var i = 0; i < json.instruments_to_show.length; i++)
+    frsl_data_collection_instruments.get_instrument_names_object = function(control_value, json) {
+        for(var i = 0; i < this.json.instruments_to_show.length; i++)
         {
-          if(json.instruments_to_show[i].control_field_value == control_value)
+          if(this.json.instruments_to_show[i].control_field_value == control_value)
           {
-            return json.instruments_to_show[i].instrument_names;
+            return this.json.instruments_to_show[i].instrument_names;
           }
         }
     }
 
-    function enable_desired_forms() {
-        var instruments = get_instrument_names_object(control_value, json)
+    frsl_data_collection_instruments.enable_desired_forms = function() {
+        var instruments = this.get_instrument_names_object(this.control_value, this.json)
 
         // json.instruments_to_show[index].instrument_names
         for (var instrument in instruments) {
-            enable_required_forms(instruments[instrument]);
+            this.enable_required_forms(instruments[instrument]);
         }
     }
 
-    function disable_all_forms(){
+    frsl_data_collection_instruments.disable_all_forms = function() {
       var arr = document.getElementsByClassName('formMenuList');
-      var formsToDisable = unionOfForms(json);
+      var formsToDisable = this.unionOfForms(this.json);
       for(var i=0;i<arr.length;i++){
         var str = arr[i].getElementsByTagName('a')[1].getAttribute('id').match(/\[(.*?)\]/)[1];
         if(formsToDisable.indexOf(str) !== -1) {
@@ -126,8 +125,7 @@ return function($project_id) {
       }
     }
 
-    function enable_required_forms(form){
-
+    frsl_data_collection_instruments.enable_required_forms = function(form){
     	var arr = document.getElementsByClassName('formMenuList')
     	for(var i=0; i<arr.length;i++){
     		var str = arr[i].getElementsByTagName('a')[1].getAttribute('id').match(/\[(.*?)\]/)[1];
@@ -137,8 +135,15 @@ return function($project_id) {
     }
 
     $('document').ready(function() {
-        disable_all_forms();
-        enable_desired_forms();
+        //set control value if it exists
+        if(frsl_data_collection_instruments.controlValueFound(frsl_data_collection_instruments.control_field_value)){
+            frsl_data_collection_instruments.control_value = frsl_data_collection_instruments.control_field_value[0][frsl_data_collection_instruments.control_field_name];
+        } else {
+            frsl_data_collection_instruments.control_value = false;
+        }
+
+        frsl_data_collection_instruments.disable_all_forms();
+        frsl_data_collection_instruments.enable_desired_forms();
 
         });
 

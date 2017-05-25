@@ -11,45 +11,48 @@ return function($project_id) {
 	$URL = $_SERVER['REQUEST_URI'];
 
 	//check if we are on the right page
-	if(preg_match('/record_home\.php\?.*&id=\d+/', $URL) == 1) {
+	if(preg_match('/record_home\.php\?.*&id=\w+/', $URL) == 1) {
 		//get necesary information
 		$patient_id = $_GET["id"];
-        $project_json = json_decode('{
-                           "control_field":{
-                              "arm_name":"baseline_arm_1",
-                              "field_name":"patient_type"
-                           },
-                           "instruments_to_show":[
-                              {
-                             "control_field_value":"1",
-                             "instrument_names":[
-                                "sdh_details",
-                                "radiology_sdh",
-                                "surgical_data",
-                                "moca",
-                                "gose",
-                                "telephone_interview_of_cognitive_status"
-                             ]
-                              },
-                              {
-                             "control_field_value":"2",
-                             "instrument_names":[
-                                "sah_details",
-                                "radiology_sah",
-                                "delayed_neurologic_deterioration",
-                                "ventriculostomysurgical_data"
-                             ]
-                              },
-                              {
-                             "control_field_value":"3",
-                             "instrument_names":[
-                                "sdh_details",
-                                "sah_details"
-                             ]
-                              }
-                           ]
-                        }'
-                        , true);
+		$project_json = json_decode('{
+																		"control_field":{
+																		"arm_name":"baseline_arm_1",
+																			"field_name":"patient_type"
+																	},
+																		"instruments_to_show":[
+																		{
+																			"control_field_value":"1",
+																				"instrument_names":[
+																					"sdh_details",
+																					"radiology_sdh",
+																					"surgical_data",
+																					"moca",
+																					"gose",
+																					"telephone_interview_of_cognitive_status"
+																				]
+																	},
+																		{
+																			"control_field_value":"2",
+																				"instrument_names":[
+																					"sah_details",
+																					"radiology_sah",
+																					"delayed_neurologic_deterioration",
+																					"ventriculostomysurgical_data",
+																					"moca",
+																					"gose",
+																					"telephone_interview_of_cognitive_status"
+																				]
+																	},
+																		{
+																			"control_field_value":"3",
+																				"instrument_names":[
+																					"sdh_details",
+																					"sah_details"
+																				]
+																	}
+																]
+																	}'
+			, true);
 
 		$arm_name = $project_json['control_field']['arm_name'];
 		$field_name = $project_json['control_field']['field_name'];
@@ -57,37 +60,30 @@ return function($project_id) {
 		$instrument_names = json_encode(REDCap::getInstrumentNames());
 	}else {
 		//abort the hook
-		echo "<script> console.log('aborting frsl record home page') </script>";
 		return;
 	}
 ?>
 
 	<script>
-		// frsl_record_home_page hook
+		//create frsl_record_home_page object to avoid namespace collisions
+		var frsl_record_home_page = {};
 
-		var json = <?php echo json_encode($project_json) ?>;
-		var instrumentNames = <?php echo $instrument_names ?>;
-		var patient_data = <?php echo $patient_data ?>;
-		var control_field_name = "<?php echo $field_name ?>";
-		var control_field_value;
-
-		//set patient type if it exists
-		if(ControlFieldValueIsSet(patient_data)){
-			control_field_value = patient_data[0][control_field_name];
-		} else {
-			control_field_value = false;
-		}
+		frsl_record_home_page.json = <?php echo json_encode($project_json) ?>;
+		frsl_record_home_page.instrumentNames = <?php echo $instrument_names ?>;
+		frsl_record_home_page.patient_data = <?php echo $patient_data ?>;
+		frsl_record_home_page.control_field_name = "<?php echo $field_name ?>";
+		frsl_record_home_page.control_field_value;
 
 		//checks to see if a patient type has been selected for the current patient
-		function ControlFieldValueIsSet(data) {
-			if (data.length == 1 && data[0].hasOwnProperty(control_field_name)) {
+		frsl_record_home_page.ControlFieldValueIsSet = function(data) {
+			if (data.length == 1 && data[0].hasOwnProperty(this.control_field_name)) {
 				return true;
 			}
 			return false;
 		}
 
 		//resets the color of the rows after elements have been hidden
-		function recolorRows() {
+		frsl_record_home_page.recolorRows = function() {
 			var rows = $('.labelform').parent();
 			var even = false;
 			for(i = 0; i < rows.length; i++) {
@@ -104,39 +100,39 @@ return function($project_id) {
 		}
 
 		//disables all rows in rows that have row headers that are a member of targets
-		function disableRows(rows, targets) {
+		frsl_record_home_page.disableRows = function(rows, targets) {
 
 		    for (var i = 0; i < rows.length; i++) {
-			 var rowText = $(rows[i].cells[0]).text();
-			 if (targets.indexOf(rowText) !== -1) {
-				   hideRow(rows[i]);
-			 }
+					var rowText = $(rows[i].cells[0]).text();
+					if (targets.indexOf(rowText) !== -1) {
+						this.hideRow(rows[i]);
+					}
 		    }
 		}
 
 		//enables all rows in rows that have row headers that are a member of targets
-		function enableRows(rows, targets) {
+		frsl_record_home_page.enableRows = function(rows, targets) {
 		    for (var i = 0; i < rows.length; i++) {
-			var rowText = $(rows[i].cells[0]).text();
+					var rowText = $(rows[i].cells[0]).text();
 
-			if (targets.indexOf(rowText) !== -1) {
-			    showRow(rows[i]);
-			}
+					if (targets.indexOf(rowText) !== -1) {
+					    this.showRow(rows[i]);
+					}
 		    }
 		}
 
 		//given a row, it displayes the row on the page
-		function showRow(row) {
+		frsl_record_home_page.showRow = function(row) {
 		    $(row).show();
 		}
 
 		//given a row, it displayes the row on the page
-		function hideRow(row) {
+		frsl_record_home_page.hideRow = function(row) {
 		    $(row).hide();
 		}
 
 		//given an array of instrument names, return an array of their corresponding labels in the same order
-		function convertNamesToLabels(instrumentNames) {
+		frsl_record_home_page.convertNamesToLabels = function(instrumentNames) {
 			var conversionTable = <?php echo $instrument_names ?>;
 			var output = [];
 
@@ -148,23 +144,23 @@ return function($project_id) {
 		}
 
 
-		function frsl_record_home_page(json, control_field_value) {
+		frsl_record_home_page.frsl_record_home_page = function(json, control_field_value) {
 			var rows = $('.labelform').parent();
 
 			//disable the table layered on top table we want to modify
 			$("table.dataTable.no-footer.DTFC_Cloned").hide();
 
-			var instruments_to_show = json["instruments_to_show"];
+			var instruments_to_show = this.json["instruments_to_show"];
 
 			//disable union of all instruments in instruments to show
 			for(var i = 0; i < instruments_to_show.length; i++) {
 				var instrumentNames = instruments_to_show[i]["instrument_names"];
-				var instrumentLabels = convertNamesToLabels(instrumentNames);
-				disableRows(rows, instrumentLabels);
+				var instrumentLabels = this.convertNamesToLabels(instrumentNames);
+				this.disableRows(rows, instrumentLabels);
 			}
 
 			if(control_field_value === false) {
-				recolorRows(rows);
+				this.recolorRows(rows);
 				return;
 			}
 
@@ -172,21 +168,29 @@ return function($project_id) {
 			for(var i = 0; i < instruments_to_show.length; i++) {
 				var value = instruments_to_show[i]["control_field_value"];
 				var instrumentNames = instruments_to_show[i]["instrument_names"];
-				var instrumentLabels = convertNamesToLabels(instrumentNames);
+				var instrumentLabels = this.convertNamesToLabels(instrumentNames);
 
 				if(value == control_field_value) {
-					enableRows(rows, instrumentLabels);
+					this.enableRows(rows, instrumentLabels);
 				}
 			}
 
-			recolorRows(rows);
-			//need to disable everything first and then begin enabling because some instrument_names have the same field
+			this.recolorRows(rows);
 		}
 
 		$(document).ready(function(){
-			frsl_record_home_page(json, control_field_value);
+
+			//set patient type if it exists
+			if(frsl_record_home_page.ControlFieldValueIsSet(frsl_record_home_page.patient_data)){
+				frsl_record_home_page.control_field_value = frsl_record_home_page.patient_data[0][frsl_record_home_page.control_field_name];
+			} else {
+				frsl_record_home_page.control_field_value = false;
+			}
+
+			frsl_record_home_page.frsl_record_home_page(frsl_record_home_page.json, frsl_record_home_page.control_field_value);
 		});
 
+		//disable collapse table button since it undoes any changes this hook makes
 		$(window).load(function(){
 			$('button[title="Collapse/uncollapse table"]').hide();
 		});
