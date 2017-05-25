@@ -13,7 +13,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Add support for repeating instruments (Dileep)
 - Add 'Developer Notes' section to README (Philip Chase)
 - Activate more instruments for control_field_value of 2 in example configuration (Philip Chase)
-
+- Add Apache 2.0 license file
 
 ## [0.1.0] - 2017-04-27
 ### Added
