@@ -44,7 +44,6 @@ When using the local test environment provided by UF CTS-IT's [redcap_deployment
 
 ## TODO
 
-* Change scope of javascript variables and function names to prevent name collisions.
 * Refactor components common to all three hooks into a library.
 * Refactor all three hooks to read configuration data from a common, external, project-centered data source.
 * Add an Apache LICENSE file
