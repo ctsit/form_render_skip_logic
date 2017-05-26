@@ -10,9 +10,6 @@ See the functional specification at [https://docs.google.com/document/d/1Ej7vCNp
 
 As shipped, the hooks include form and field names that reference the test project in the file [test_project.xml](test_project.xml). You can view the normal operation of the hooks by building a test project from this file and using the unmodified hooks.  The project includes 4 subject records. Two records have a diagnosis of SAH while the other two have a diagnosis of _SDH_. When all three hooks are installed and activated on this project, the 4 subjects will show two different sets of accessible forms based on the diagnosis.
 
-Note: We do not recommend activating this hook globally. The references to common form and field names in the configuration data could result in unexpected behavior in projects not designed to use these hooks. Similarly the global Javascript variable names are common words like `json` and `instrumentNames`.  These will not be robust in a complex environment.
-
-
 ## Activating FRSL Hooks
 
 If you are deploying these hooks using UF CTS-IT's [redcap_deployment](https://github.com/ctsit/redcap_deployment) tools ([https://github.com/ctsit/redcap_deployment](https://github.com/ctsit/redcap_deployment)), you can activate these hooks with those tools as well.  If you had an environment named `vagrant` the activation would look like this:
@@ -30,7 +27,7 @@ These hooks are designed to be activated as redcap_every_page_top hook functions
 
 ## Customizing the FRSL hooks in other projects
 
-Each hook has its configuration data embedded in `$project_json` variable near the top of the file.  This field needs to be edited with data appropriate to the project.  The exact same block of JSON needs to appear in each of the three hooks. Rectifying this issues is on the TODO list.
+Each hook has its configuration data embedded in `$project_json` variable near the top of the file.  This field needs to be edited with data appropriate to the project.  The exact same block of JSON needs to appear in each of the three hooks. Rectifying this issue is on the TODO list.
 
 
 ## Developer Notes
