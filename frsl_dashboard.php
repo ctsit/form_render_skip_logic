@@ -12,45 +12,15 @@ return function($project_id) {
 	if(preg_match('/DataEntry\/record_status_dashboard/', $URL) == 1) {
 		//get necesary information
 		$patient_id = $_GET["id"];
-		$project_json = json_decode('{
-																		"control_field":{
-																		"arm_name":"baseline_arm_1",
-																			"field_name":"patient_type"
-																	},
-																		"instruments_to_show":[
-																		{
-																			"control_field_value":"1",
-																				"instrument_names":[
-																					"sdh_details",
-																					"radiology_sdh",
-																					"surgical_data",
-																					"moca",
-																					"gose",
-																					"telephone_interview_of_cognitive_status"
-																				]
-																	},
-																		{
-																			"control_field_value":"2",
-																				"instrument_names":[
-																					"sah_details",
-																					"radiology_sah",
-																					"delayed_neurologic_deterioration",
-																					"ventriculostomysurgical_data",
-																					"moca",
-																					"gose",
-																					"telephone_interview_of_cognitive_status"
-																				]
-																	},
-																		{
-																			"control_field_value":"3",
-																				"instrument_names":[
-																					"sdh_details",
-																					"sah_details"
-																				]
-																	}
-																]
-																	}'
-			, true);
+
+		// Read configuration data from redcap_custom_project_settings data store
+		$my_extension_name = 'form_render_skip_logic';
+		require_once "../../plugins/redcap_custom_project_settings/cps_lib.php";
+		global $conn;
+		$cps = new cps_lib($conn);
+		$my_settings = $cps->getAttributeData($project_id, $my_extension_name);
+
+		$project_json = json_decode($my_settings, true);
 
 	$arm_name = $project_json['control_field']['arm_name'];
 	$field_name = $project_json['control_field']['field_name'];
