@@ -15,7 +15,7 @@ return function($project_id) {
 
 		// Read configuration data from redcap_custom_project_settings data store
 		$my_extension_name = 'form_render_skip_logic';
-		require_once "../../plugins/redcap_custom_project_settings/cps_lib.php";
+		require_once "../../plugins/custom_project_settings/cps_lib.php";
 		$cps = new cps_lib();
 		$my_settings = $cps->getAttributeData($project_id, $my_extension_name);
 
