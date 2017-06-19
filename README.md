@@ -27,7 +27,7 @@ These hooks are designed to be activated as redcap_every_page_top hook functions
 
 ## Customizing the FRSL hooks <a name="customizing"></a>
 
-The FRSL hooks read configuration data via the UF CTS-IT's [Custom Project Settings](https://github.com/ctsit/custom_project_settings) ([https://github.com/ctsit/custom_project_settings](https://github.com/ctsit/custom_project_settings)) This extension adds a new project configuration section to REDCap Project Setup tab. The new section allows configuration data for REDCap extensions such as FRSL to be saved to a REDCap project's configuration.
+The FRSL hooks read configuration data via the UF CTS-IT's [Custom Project Settings](https://github.com/ctsit/redcap_custom_project_settings) ([https://github.com/ctsit/redcap_custom_project_settings](https://github.com/ctsit/redcap_custom_project_settings)) This extension adds a new project configuration section to REDCap Project Setup tab. The new section allows configuration data for REDCap extensions such as FRSL to be saved to a REDCap project's configuration.
 
 For FRSL you will need to use the CPS extension to add an entry named 'form_render_skip_logic' to your project. This new entry should have JSON data that looks something like this:
 
