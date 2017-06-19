@@ -1,4 +1,4 @@
-# Form Render Skip Logic Hooks (FRSL)
+# REDCap Form Render Skip Logic Hooks (FRSL)
 
 This is a set of REDCap hooks designed to hide and show instruments based on the value of a single field on a single form.  The original use case of these tools was to facilitate a data entry workflow specific to acute brain injury diagnoses, but the tools is generalized to support the hiding (and showing) of any number of forms based on a field value on one form.
 
@@ -8,10 +8,7 @@ See the functional specification at [https://docs.google.com/document/d/1Ej7vCNp
 
 ## Testing
 
-As shipped, the hooks include form and field names that reference the test project in the file [test_project.xml](test_project.xml). You can view the normal operation of the hooks by building a test project from this file and using the unmodified hooks.  The project includes 4 subject records. Two records have a diagnosis of SAH while the other two have a diagnosis of _SDH_. When all three hooks are installed and activated on this project, the 4 subjects will show two different sets of accessible forms based on the diagnosis.
-
-Note: We do not recommend activating this hook globally. The references to common form and field names in the configuration data could result in unexpected behavior in projects not designed to use these hooks. Similarly the global Javascript variable names are common words like `json` and `instrumentNames`.  These will not be robust in a complex environment.
-
+As shipped, the hooks are unconfigured.  You will need to set configuration data as described in the section [Customizing the FRSL hooks](#customizing).  That section provides configuration data that works with the [test_project.xml](test_project.xml). You can view the normal operation of the hooks by building a test project from this file and using the unmodified hooks.  The project includes 4 subject records. Two records have a diagnosis of SAH while the other two have a diagnosis of _SDH_. When all three hooks are installed and activated on this project, the 4 subjects will show two different sets of accessible forms based on the diagnosis.
 
 ## Activating FRSL Hooks
 
@@ -25,12 +22,57 @@ If you are deploying these hooks using UF CTS-IT's [redcap_deployment](https://g
 
 ## Deploying the FRSL hooks in other environments
 
-These hooks are designed to be activated as redcap_every_page_top hook functions. They are dependent on a hook framework that calls _anonymous_ PHP functions such as UF CTS-IT's [Extensible REDCap Hooks](https://github.com/ctsit/extensible-redcap-hooks) ([https://github.com/ctsit/extensible-redcap-hooks](https://github.com/ctsit/extensible-redcap-hooks)).  If you are not use suc a framework, each hook will need to be edited by changing `return function($project_id)` to `function redcap_every_page_top($project_id)`.
+These hooks are designed to be activated as redcap_every_page_top hook functions. They are dependent on a hook framework that calls _anonymous_ PHP functions such as UF CTS-IT's [Extensible REDCap Hooks](https://github.com/ctsit/extensible-redcap-hooks) ([https://github.com/ctsit/extensible-redcap-hooks](https://github.com/ctsit/extensible-redcap-hooks)).  If you are not use such a framework, each hook will need to be edited by changing `return function($project_id)` to `function redcap_every_page_top($project_id)`.
 
 
-## Customizing the FRSL hooks in other projects
+## Customizing the FRSL hooks <a name="customizing"></a>
 
-Each hook has its configuration data embedded in `$project_json` variable near the top of the file.  This field needs to be edited with data appropriate to the project.  The exact same block of JSON needs to appear in each of the three hooks. Rectifying this issues is on the TODO list.
+The FRSL hooks read configuration data via the UF CTS-IT's [Custom Project Settings](https://github.com/ctsit/redcap_custom_project_settings) ([https://github.com/ctsit/redcap_custom_project_settings](https://github.com/ctsit/redcap_custom_project_settings)) This extension adds a new project configuration section to REDCap Project Setup tab. The new section allows configuration data for REDCap extensions such as FRSL to be saved to a REDCap project's configuration.
+
+For FRSL you will need to use the CPS extension to add an entry named 'form_render_skip_logic' to your project. This new entry should have JSON data that looks something like this:
+
+    {
+       "control_field":{
+          "arm_name":"baseline_arm_1",
+          "field_name":"patient_type"
+       },
+       "instruments_to_show":[
+          {
+             "control_field_value":"1",
+             "instrument_names":[
+                "sdh_details",
+                "radiology_sdh",
+                "surgical_data",
+                "moca",
+                "gose",
+                "telephone_interview_of_cognitive_status"
+             ]
+          },
+          {
+             "control_field_value":"2",
+             "instrument_names":[
+                "sah_details",
+                "radiology_sah",
+                "delayed_neurologic_deterioration",
+                "ventriculostomysurgical_data",
+                "moca",
+                "gose",
+                "telephone_interview_of_cognitive_status"
+             ]
+          },
+          {
+             "control_field_value":"3",
+             "instrument_names":[
+                "sdh_details",
+                "sah_details"
+             ]
+          }
+       ]
+    }
+
+Customize the values for arm_name and field_name to decribe your project's control field.  Generally this is field on a form and event very early in your project's data colleciton workflow.
+
+In the instruments_to_show section, add as many entries as your project needs. In each instruments_to_show entry, set the value for the control field and the instrument_names that should be shown when the control field has that value. Note that instruments not named within an instruments_to_show entry will _always_ be shown.
 
 
 ## Developer Notes
@@ -45,5 +87,4 @@ When using the local test environment provided by UF CTS-IT's [redcap_deployment
 ## TODO
 
 * Refactor components common to all three hooks into a library.
-* Refactor all three hooks to read configuration data from a common, external, project-centered data source.
 * Add a Contributors file
