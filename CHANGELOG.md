@@ -2,6 +2,10 @@
 All notable changes to the REDCap Deployment project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.0.0] - 2017-06-19
+### Changed
+- Use redcap_custom_project_settings extension to fetch the settings (suryayalla, Philip Chase)
+- Remove warnings about global hook activation from README as we fixed that issue (Philip Chase)
 
 ## [0.2.0] - 2017-05-25
 ### Changed
