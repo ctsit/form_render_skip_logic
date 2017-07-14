@@ -2,6 +2,15 @@
 All notable changes to the REDCap Deployment project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.1.0] - 2017-07-14
+### Changed
+- Replace the test project with a simple, non-longitudinal project (Philip Chase, Taryn Stoffs)
+
+### Added
+- Add support for record_id_field variable in config data read from custom project settings (Philip Chase, Dileep Rajput)
+- Enable frsl_dashboard on non-longitudinal projects (Philip Chase, Dileep Rajput)
+
+
 ## [1.0.0] - 2017-06-19
 ### Changed
 - Use redcap_custom_project_settings extension to fetch the settings (suryayalla, Philip Chase)
