@@ -27,50 +27,64 @@ These hooks are designed to be activated as redcap_every_page_top hook functions
 
 ## Customizing the FRSL hooks <a name="customizing"></a>
 
-The FRSL hooks read configuration data via the UF CTS-IT's [Custom Project Settings](https://github.com/ctsit/redcap_custom_project_settings) ([https://github.com/ctsit/redcap_custom_project_settings](https://github.com/ctsit/redcap_custom_project_settings)) This extension adds a new project configuration section to REDCap Project Setup tab. The new section allows configuration data for REDCap extensions such as FRSL to be saved to a REDCap project's configuration.
+The FRSL hooks read configuration data via the UF CTS-IT's [Custom Project Settings](https://github.com/ctsit/custom_project_settings) ([https://github.com/ctsit/custom_project_settings](https://github.com/ctsit/custom_project_settings)) This extension adds a new project configuration section to REDCap Project Setup tab. The new section allows configuration data for REDCap extensions such as FRSL to be saved to a REDCap project's configuration.
 
 For FRSL you will need to use the CPS extension to add an entry named 'form_render_skip_logic' to your project. This new entry should have JSON data that looks something like this:
 
     {
+       "record_id_field" : "record_id",
        "control_field":{
-          "arm_name":"baseline_arm_1",
-          "field_name":"patient_type"
+          "arm_name":"",
+          "field_name":"species"
        },
        "instruments_to_show":[
           {
              "control_field_value":"1",
              "instrument_names":[
-                "sdh_details",
-                "radiology_sdh",
-                "surgical_data",
-                "moca",
-                "gose",
-                "telephone_interview_of_cognitive_status"
+                "cat_data"
              ]
           },
           {
              "control_field_value":"2",
              "instrument_names":[
-                "sah_details",
-                "radiology_sah",
-                "delayed_neurologic_deterioration",
-                "ventriculostomysurgical_data",
-                "moca",
-                "gose",
-                "telephone_interview_of_cognitive_status"
+                "jellyfish_data"
              ]
           },
           {
              "control_field_value":"3",
              "instrument_names":[
-                "sdh_details",
-                "sah_details"
+                "frog_data"
+             ]
+          },
+          {
+             "control_field_value":"4",
+             "instrument_names":[
+                "marlin_data"
+             ]
+          },
+          {
+             "control_field_value":"5",
+             "instrument_names":[
+                "snake_data"
+             ]
+          },
+          {
+             "control_field_value":"6",
+             "instrument_names":[
+                "butterfly_data"
+             ]
+          },
+          {
+             "control_field_value":"7",
+             "instrument_names":[
+                "parrot_data"
              ]
           }
        ]
     }
 
-Customize the values for arm_name and field_name to decribe your project's control field.  Generally this is field on a form and event very early in your project's data colleciton workflow.
+
+Customize the value of record_id_field to match your project's unique record identifier. Customize the values for arm_name and field_name to decribe your project's control field.  Generally this is field on a form and event very early in your project's data collection workflow.
 
 In the instruments_to_show section, add as many entries as your project needs. In each instruments_to_show entry, set the value for the control field and the instrument_names that should be shown when the control field has that value. Note that instruments not named within an instruments_to_show entry will _always_ be shown.
 
