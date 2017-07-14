@@ -41,11 +41,6 @@ return function($project_id) {
 
 	$patient_data_structure .= '}';
 
-	// Check if project is longitdudinal
-	if (!REDCap::isLongitudinal()) {
-		return;
-	}
-
     } else {
 			//abort hook
 			return;
