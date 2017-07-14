@@ -23,6 +23,7 @@ return function($project_id) {
 
 	$arm_name = $project_json['control_field']['arm_name'];
 	$field_name = $project_json['control_field']['field_name'];
+	$record_id_field = $project_json['record_id_field'];
 
 	$patient_data_structure = '{ ';
 
@@ -57,6 +58,7 @@ return function($project_id) {
 	frsl_dashboard.control_field_name = "<?php echo $field_name ?>";
 	frsl_dashboard.control_field_value;
 	frsl_dashboard.arm_name = "<?php echo $arm_name ?>";
+	frsl_dashboard.record_id_field = "<?php echo $record_id_field ?>";
 
 	//given a json, return an array of the union of forms inside it
 	frsl_dashboard.unionOfForms = function(json) {
@@ -99,7 +101,7 @@ return function($project_id) {
 
 	frsl_dashboard.enableFormForPatient = function(patient, form) {
 		var rows = document.querySelectorAll('#record_status_table tbody tr');
-		var reg = new RegExp('id=' + patient['unique_id'] + '&page=' + form);
+		var reg = new RegExp('id=' + patient[this.record_id_field] + '&page=' + form);
 
 		for (var i = 0; i < rows.length; i++) {
 			for (var j = 0; j < rows[i].cells.length; j++) {
