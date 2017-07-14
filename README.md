@@ -8,7 +8,8 @@ See the functional specification at [https://docs.google.com/document/d/1Ej7vCNp
 
 ## Testing
 
-As shipped, the hooks are unconfigured.  You will need to set configuration data as described in the section [Customizing the FRSL hooks](#customizing).  That section provides configuration data that works with the [test_project.xml](test_project.xml). You can view the normal operation of the hooks by building a test project from this file and using the unmodified hooks.  The project includes 4 subject records. Two records have a diagnosis of SAH while the other two have a diagnosis of _SDH_. When all three hooks are installed and activated on this project, the 4 subjects will show two different sets of accessible forms based on the diagnosis.
+As shipped, the hooks are unconfigured.  You will need to set configuration data as described in the section [Customizing the FRSL hooks](#customizing).  That section provides configuration data that works with the [test_project.xml](test_project.xml). You can view the normal operation of the hooks by building a test project from this file and using the unmodified hooks.  The project includes 3 subject records describing animals of different species. When all 3 hooks are installed and activated on this project, the 3 subjects will show 3 different sets of accessible forms based on their species.
+
 
 ## Activating FRSL Hooks
 
@@ -96,9 +97,3 @@ When using the local test environment provided by UF CTS-IT's [redcap_deployment
     fab instance:vagrant test_hook:redcap_every_page_top,form_render_skip_logic/frsl_dashboard.php
     fab instance:vagrant test_hook:redcap_every_page_top,form_render_skip_logic/frsl_record_home_page.php
     fab instance:vagrant test_hook:redcap_every_page_top,form_render_skip_logic/frsl_data_collection_instruments.php
-
-
-## TODO
-
-* Refactor components common to all three hooks into a library.
-* Add a Contributors file
