@@ -116,10 +116,9 @@ return function($project_id) {
 
         });
 
-    // Remap SaveNextForm to SaveContinue
+    // Hide "Save and Continue to Next Form" button
     $(window).load(function()  {
-      $('a[onclick="dataEntrySubmit(\'submit-btn-savenextform\');return false;"]').text('Save & Stay');
-      $('a[onclick="dataEntrySubmit(\'submit-btn-savenextform\');return false;"]').attr('onClick','dataEntrySubmit(\'submit-btn-savecontinue\');return false;');
+      $('a[onclick="dataEntrySubmit(\'submit-btn-savenextform\');return false;"]').hide();
     });
 
 
