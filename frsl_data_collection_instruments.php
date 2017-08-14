@@ -116,10 +116,32 @@ return function($project_id) {
 
         });
 
-    // Hide "Save and Continue to Next Form" button
-    $(window).load(function()  {
-      $('a[onclick="dataEntrySubmit(\'submit-btn-savenextform\');return false;"]').hide();
-    });
+        // Hide "Save and Continue to Next Form" buttons
+        $(window).load(function()  {
+          var $buttons = $('button[name="submit-btn-savenextform"]');
+
+          //check if buttons are outside the dropdown menu
+          if ($buttons.length !== 0) {
+            $.each($buttons, function(index, button) {
+              //get first button in dropdown-menu
+              var replacement = $(button).siblings('.dropdown-menu').find('a')[0];
+
+              //modify button to behave like $replacement
+              button.id = replacement.id;
+              button.name = replacement.name;
+              button.onclick = replacement.onclick;
+              button.innerHTML = replacement.innerHTML;
+
+              //get rid of replacement
+              $(replacement).remove();
+
+            });
+          } else {
+            //disable button inside the dropdown menu
+            $('a[onclick="dataEntrySubmit(\'submit-btn-savenextform\');return false;"]').hide();
+          }
+        });
+
 
 
     </script>
