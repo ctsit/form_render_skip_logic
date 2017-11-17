@@ -120,7 +120,7 @@ class ExternalModule extends AbstractExternalModule {
      * Loads main feature functionality.
      *
      * @param string $location
-     *   The location to apply RFIO. Can be:
+     *   The location to apply FRSL. Can be:
      *   - data_entry_form
      *   - record_home
      *   - record_status_dashboard
@@ -147,11 +147,13 @@ class ExternalModule extends AbstractExternalModule {
 
             $instruments = array_keys($forms_access[$record][$event_id]);
             $curr_forms_access = $forms_access[$record][$event_id];
+
             $i = array_search($instrument, $instruments) + 1;
             $len = count($instruments);
 
             while ($i < $len) {
                 if ($curr_forms_access[$instruments[$i]]) {
+                    // Path to the next available form in the current event.
                     $next_step_path = APP_PATH_WEBROOT . 'DataEntry/index.php?pid=' . $Proj->project_id . '&id=' . $record . '&event_id=' . $event_id . '&page=' . $instruments[$i];
                     break;
                 }
