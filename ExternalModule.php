@@ -79,8 +79,19 @@ class ExternalModule extends AbstractExternalModule {
         $field_name = $settings['control_field']['field_name'];
         $event_name = $settings['control_field']['event_name'];
 
+        $always = array();
         $bl_tree = array();
-        foreach ($settings['instruments_to_show'] as $row) {
+        foreach ($settings['target_instruments'] as $row) {
+            if (empty($row['instrument_name'])) {
+                continue;
+            }
+
+            if ($row['always']) {
+                // Always hide or show this instrument.
+                $always[] = $row['instrument_name'];
+                continue;
+            }
+
             $value = $row['control_field_value'];
             if (!isset($bl_tree[$value])) {
                 $bl_tree[$value] = array();
@@ -90,22 +101,29 @@ class ExternalModule extends AbstractExternalModule {
         }
 
         $control_data = REDCap::getData($Proj->project_id, 'array', $record, $field_name);
+        if ($record && !isset($control_data[$record])) {
+            // Handling new record case.
+            $control_data = array($record => array());
+        }
+
+        // Getting events of the current arm.
+        $events = array_keys($Proj->events[$arm]['events']);
 
         // Building forms access matrix.
         $forms_access = array();
         foreach ($control_data as $id => $data) {
-            $control_value = $data[$event_name][$field_name];
+            $control_value = isset($data[$event_name][$field_name]) ? $data[$event_name][$field_name] : '';
             $forms_access[$id] = array();
 
-            foreach (array_keys($Proj->events[$arm]['events']) as $event) {
+            foreach ($events as $event) {
                 $forms_access[$id][$event] = array();
 
                 foreach ($Proj->eventsForms[$event] as $form) {
-                    if ($settings['control_mode'] == 'hide') {
-                        $access = !isset($bl_tree[$control_value]) || !in_array($form, $bl_tree[$control_value]);
+                    if ($settings['control_mode'] == 'show') {
+                        $access = in_array($form, $always) || (isset($bl_tree[$control_value]) && in_array($form, $bl_tree[$control_value]));
                     }
                     else {
-                        $access = isset($bl_tree[$control_value]) && in_array($form, $bl_tree[$control_value]);
+                        $access = !in_array($form, $always) && (!isset($bl_tree[$control_value]) || !in_array($form, $bl_tree[$control_value]));
                     }
 
                     $forms_access[$id][$event][$form] = $access;

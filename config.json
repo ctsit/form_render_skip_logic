@@ -67,14 +67,15 @@
             "name": "Control mode",
             "required": true,
             "type": "radio",
+            "default": "hide",
             "choices": [
-                {"value": "show", "name": "Show"},
-                {"value": "hide", "name": "Hide"}
+                {"value": "hide", "name": "Hide the selected forms"},
+                {"value": "show", "name": "Show the selected forms"}
             ]
         },
         {
-            "key": "instruments_to_show",
-            "name": "Instruments to show",
+            "key": "target_instruments",
+            "name": "Instruments/forms",
             "repeatable": "true",
             "type": "sub_settings",
             "sub_settings": [
@@ -82,6 +83,11 @@
                     "key": "instrument_name",
                     "name": "Instrument name",
                     "type": "form-list"
+                },
+                {
+                    "key": "always",
+                    "name": "Always",
+                    "type": "checkbox"
                 },
                 {
                     "key": "control_field_value",
