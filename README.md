@@ -15,7 +15,7 @@ See the functional specification at [https://docs.google.com/document/d/1Ej7vCNp
 ## Installation
 - Clone this repo into to `<redcap-root>/modules/form_render_skip_logic_v2.0`.
 - Go to **Control Center > Manage External Modules** and enable Form Render Skip Logic.
-- For each project you want to use this module, go to the project home page, click on **Manage External Modules** link, and then enable Linear Data Entry Workflow for that project.
+- For each project you want to use this module, go to the project home page, click on **Manage External Modules** link, and then enable Form Render Skip Logic for that project.
 
 ## Configuration
-Access **Manage External Modules** section of your project, click on Form Render Skip Logic's configure button, and fill **Forms Exceptions** in order to show or hide forms according to your needs.
+Access **Manage External Modules** section of your project, click on Form Render Skip Logic's configure button, and save settings in order to show or hide instruments according to your needs. This process is very similar to REDCap branching logic.

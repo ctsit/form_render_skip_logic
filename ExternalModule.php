@@ -79,25 +79,18 @@ class ExternalModule extends AbstractExternalModule {
         $field_name = $settings['control_field']['field_name'];
         $event_name = $settings['control_field']['event_name'];
 
-        $always = array();
         $bl_tree = array();
         foreach ($settings['target_instruments'] as $row) {
-            if (empty($row['instrument_name'])) {
+            $form = $row['instrument_name'];
+            if (empty($form)) {
                 continue;
             }
 
-            if ($row['always']) {
-                // Always hide or show this instrument.
-                $always[] = $row['instrument_name'];
-                continue;
+            if (!isset($bl_tree[$form])) {
+                $bl_tree[$form] = array();
             }
 
-            $value = $row['control_field_value'];
-            if (!isset($bl_tree[$value])) {
-                $bl_tree[$value] = array();
-            }
-
-            $bl_tree[$value][] = $row['instrument_name'];
+            $bl_tree[$form][] = $row['control_field_value'];
         }
 
         $control_data = REDCap::getData($Proj->project_id, 'array', $record, $field_name);
@@ -119,14 +112,7 @@ class ExternalModule extends AbstractExternalModule {
                 $forms_access[$id][$event] = array();
 
                 foreach ($Proj->eventsForms[$event] as $form) {
-                    if ($settings['control_mode'] == 'show') {
-                        $access = in_array($form, $always) || (isset($bl_tree[$control_value]) && in_array($form, $bl_tree[$control_value]));
-                    }
-                    else {
-                        $access = !in_array($form, $always) && (!isset($bl_tree[$control_value]) || !in_array($form, $bl_tree[$control_value]));
-                    }
-
-                    $forms_access[$id][$event][$form] = $access;
+                    $forms_access[$id][$event][$form] = !isset($bl_tree[$form]) || in_array($control_value, $bl_tree[$form]);
                 }
             }
         }

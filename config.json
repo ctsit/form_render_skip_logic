@@ -63,19 +63,8 @@
             ]
         },
         {
-            "key": "control_mode",
-            "name": "Control mode",
-            "required": true,
-            "type": "radio",
-            "default": "hide",
-            "choices": [
-                {"value": "hide", "name": "Hide the selected forms"},
-                {"value": "show", "name": "Show the selected forms"}
-            ]
-        },
-        {
             "key": "target_instruments",
-            "name": "Instruments/forms",
+            "name": "Instruments to apply branching logic",
             "repeatable": "true",
             "type": "sub_settings",
             "sub_settings": [
@@ -83,11 +72,6 @@
                     "key": "instrument_name",
                     "name": "Instrument name",
                     "type": "form-list"
-                },
-                {
-                    "key": "always",
-                    "name": "Always",
-                    "type": "checkbox"
                 },
                 {
                     "key": "control_field_value",
