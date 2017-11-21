@@ -52,11 +52,12 @@
                 {
                     "key": "event_name",
                     "name": "Event name",
+                    "required": true,
                     "type": "event-list"
                 },
                 {
                     "key": "field_name",
-                    "name": "Field name",
+                    "name": "Control field name",
                     "required": true,
                     "type": "field-list"
                 }
