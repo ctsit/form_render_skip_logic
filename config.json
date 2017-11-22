@@ -1,0 +1,85 @@
+{
+    "name": "Form Render Skip Logic",
+    "namespace": "FormRenderSkipLogic\\ExternalModule",
+    "description": "Hide and show instruments based on the value of a single field on a single form.",
+    "permissions": [
+        "hook_every_page_top",
+        "hook_data_entry_form_top"
+    ],
+    "authors": [
+        {
+            "name": "Philip Chase",
+            "email": "pbc@ufl.edu",
+            "institution": "CTS-IT - University of Florida"
+        },
+        {
+            "name": "Taryn Stoffs",
+            "email": "tls@ufl.edu",
+            "institution": "CTS-IT - University of Florida"
+        },
+        {
+            "name": "Prasad Lanka",
+            "email": "planka@ufl.edu",
+            "institution": "CTS-IT - University of Florida"
+        },
+        {
+            "name": "Surya Prasanna",
+            "email": "suryayalla@ufl.edu",
+            "institution": "CTS-IT - University of Florida"
+        },
+        {
+            "name": "Dileep Rajput",
+            "email": "rajputd@ufl.edu",
+            "institution": "CTS-IT - University of Florida"
+        },
+        {
+            "name": "Stewart Wehmeyer",
+            "email": "swehmeyer@ufl.edu",
+            "institution": "CTS-IT - University of Florida"
+        },
+        {
+            "name": "Tiago Bember",
+            "email": "tbembersimeao@ufl.edu",
+            "institution": "CTS-IT - University of Florida"
+        }
+    ],
+    "project-settings": [
+        {
+            "key": "control_field",
+            "name": "Control field",
+            "type": "sub_settings",
+            "sub_settings": [
+                {
+                    "key": "event_name",
+                    "name": "Event name",
+                    "required": true,
+                    "type": "event-list"
+                },
+                {
+                    "key": "field_name",
+                    "name": "Control field name",
+                    "required": true,
+                    "type": "field-list"
+                }
+            ]
+        },
+        {
+            "key": "target_instruments",
+            "name": "Instruments to apply branching logic",
+            "repeatable": "true",
+            "type": "sub_settings",
+            "sub_settings": [
+                {
+                    "key": "instrument_name",
+                    "name": "Instrument name",
+                    "type": "form-list"
+                },
+                {
+                    "key": "control_field_value",
+                    "name": "Control field value",
+                    "type": "text"
+                }
+            ]
+        }
+    ]
+}
