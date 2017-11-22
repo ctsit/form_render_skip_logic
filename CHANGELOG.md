@@ -2,6 +2,11 @@
 All notable changes to the REDCap Deployment project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0] - 2017-11-22
+### Changed
+- Turn FRSL into a external module. (Tiago Bember Simeao)
+
+
 ## [1.1.0] - 2017-07-14
 ### Changed
 - Replace the test project with a simple, non-longitudinal project (Philip Chase, Taryn Stoffs)
