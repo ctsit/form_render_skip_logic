@@ -1,6 +1,6 @@
 # REDCap Form Render Skip Logic (FRSL)
 
-This is a REDCap external module designed to hide and show instruments based on the value of a single field on a single form - i.e. a branching logic for instruments.
+This REDCap module hides and shows instruments based on the value of a single field on a single form - i.e. a branching logic for instruments.
 
 ## Motivation
 The original use case of this tool was to facilitate a data entry workflow specific to acute brain injury diagnoses, but the tools is generalized to support the hiding (and showing) of any number of forms based on a field value on one form.

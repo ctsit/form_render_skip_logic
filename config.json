@@ -1,7 +1,7 @@
 {
     "name": "Form Render Skip Logic",
     "namespace": "FormRenderSkipLogic\\ExternalModule",
-    "description": "Hide and show instruments based on the value of a single field on a single form.",
+    "description": "This module hides and shows instruments based on the value of a single field on a single form - i.e. a branching logic for instruments.",
     "permissions": [
         "hook_every_page_top",
         "hook_data_entry_form_top"
