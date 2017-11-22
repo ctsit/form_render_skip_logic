@@ -23,3 +23,7 @@ Access **Manage External Modules** section of your project, click on Form Render
 The first entries in the form configuration set the Control Field.  The control field is described by an event name and a field name.  Together these two values define the precise which variable controls which set of forms will be displayed.
 
 The subsequent configuration fields name forms that should be displayed for particular values of the control field. Add an entry nameing a form and the control field value for each form that needs to be limited to certain control field values.  You can add as many pairs for form name and file value as you need.  All forms _not_ named will be displayed at all times.
+
+The image below shows a sample configuration where the control field is named `rand_group` and appears on the `Baseline` event of the `Patient Data` arm.  The first two forms will be displayed only when `rand_group = 1`. The last form will be displayed only when `rand_group = 2`.
+
+![module configuration screen](img/configuration_form.png)
