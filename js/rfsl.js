@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     switch (formRenderSkipLogic.location) {
         case 'data_entry_form':
-            overrideNextFormButtonRedirect();
+            overrideNextFormButtonsRedirect();
             $links = $('.formMenuList a');
             break;
         case 'record_home':
@@ -30,16 +30,48 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     /**
-     * Overrides next form button to redirect to the next available step.
+     * Overrides next form buttons to redirect to the next available step.
      */
-    function overrideNextFormButtonRedirect() {
-        if (!formRenderSkipLogic.nextStepPath) {
+    function overrideNextFormButtonsRedirect() {
+        // Handling "Save & Go to Next Form" button.
+        if (formRenderSkipLogic.nextStepPath) {
+            formRenderSkipLogic.saveNextForm = function() {
+                appendHiddenInputToForm('save-and-redirect', formRenderSkipLogic.nextStepPath);
+                dataEntrySubmit('submit-btn-savecontinue');
+                return false;
+            }
+
+            // Overriding submit callback.
+            $('[id="submit-btn-savenextform"]').attr('onclick', 'formRenderSkipLogic.saveNextForm()');
+        }
+        else {
             removeButtons('savecontinue');
-            return;
         }
 
-        var newSubmit = 'appendHiddenInputToForm(\'save-and-redirect\', formRenderSkipLogic.nextStepPath); dataEntrySubmit(\'submit-btn-savecontinue\'); return false;';
-        $('a[onclick="dataEntrySubmit(\'submit-btn-savenextform\');return false;"]').attr('onclick', newSubmit);
+        // Handling "Ignore and go to next form" button on required fields
+        // dialog.
+        $('#reqPopup').on('dialogopen', function(event, ui) {
+            var buttons = $(this).dialog('option', 'buttons');
+
+            $.each(buttons, function(i, button) {
+                if (button.name !== 'Ignore and go to next form') {
+                    return;
+                }
+
+                if (formRenderSkipLogic.nextStepPath) {
+                    buttons[i] = function() {
+                        window.location.href = formRenderSkipLogic.nextStepPath;
+                    };
+                }
+                else {
+                    delete buttons[i];
+                }
+
+                return false;
+            });
+
+            $(this).dialog('option', 'buttons', buttons);
+        });
     }
 
     /**
