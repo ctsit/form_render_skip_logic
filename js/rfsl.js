@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
             $('[id="submit-btn-savenextform"]').attr('onclick', 'formRenderSkipLogic.saveNextForm()');
         }
         else {
-            removeButtons('savecontinue');
+            removeButtons('savenextform');
         }
 
         // Handling "Ignore and go to next form" button on required fields
