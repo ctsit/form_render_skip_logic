@@ -144,11 +144,6 @@ class ExternalModule extends AbstractExternalModule {
         $forms_access = $this->getFormsAccessMatrix($arm, $record, $settings['config']);
 
         if ($record && $event_id && $instrument) {
-            if (!$forms_access[$record][$event_id][$instrument]) {
-                // Access denied to the current page.
-                redirect(APP_PATH_WEBROOT . 'DataEntry/record_home.php?pid=' . $Proj->project_id . '&id=' . $record . '&arm=' . $arm);
-            }
-
             $instruments = array_keys($forms_access[$record][$event_id]);
             $curr_forms_access = $forms_access[$record][$event_id];
 
@@ -163,6 +158,17 @@ class ExternalModule extends AbstractExternalModule {
                 }
 
                 $i++;
+            }
+
+            // Access denied to the current page.
+            if (!$forms_access[$record][$event_id][$instrument]) {
+                // Redirecting to the next step.
+                if (!$redirect_path = $next_step_path) {
+                    // If there is no next step available, go to record home page.
+                    $redirect_path = APP_PATH_WEBROOT . 'DataEntry/record_home.php?pid=' . $Proj->project_id . '&id=' . $record . '&arm=' . $arm;
+                }
+
+                redirect($redirect_path);
             }
         }
 
