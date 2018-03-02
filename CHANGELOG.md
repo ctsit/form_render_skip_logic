@@ -1,6 +1,12 @@
 # Change Log
-All notable changes to the REDCap Deployment project will be documented in this file.
+All notable changes to the Form Render Skip Logic module will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
+
+
+## [2.0.1] - 2018-03-02
+### Changed
+- Fixed #10: `Save and go to the next form` redirects to the dashboard instead of the next available instrument (Tiago Bember Simeao)
+
 
 ## [2.0] - 2017-11-22
 ### Changed
