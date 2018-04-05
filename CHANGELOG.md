@@ -3,6 +3,11 @@ All notable changes to the Form Render Skip Logic module will be documented in t
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [2.0.2] - 2018-04-05
+### Changed
+- Fixed #12: Currently FRSL does not support "Auto-continue to next survey". (Tiago Bember Simeao)
+
+
 ## [2.0.1] - 2018-03-02
 ### Changed
 - Fixed #10: `Save and go to the next form` redirects to the dashboard instead of the next available instrument (Tiago Bember Simeao)
