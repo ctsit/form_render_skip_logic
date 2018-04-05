@@ -64,6 +64,11 @@
             ]
         },
         {
+            "key": "enabled_before_ctrl_field_is_set",
+            "name": "Enable branching logic even before control field is set (control field value will be taken from <em>@DEFAULT</em> action tag if available)",
+            "type": "checkbox"
+        },
+        {
             "key": "target_instruments",
             "name": "Instruments to apply branching logic",
             "repeatable": "true",
