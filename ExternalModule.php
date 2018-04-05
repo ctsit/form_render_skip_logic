@@ -12,6 +12,7 @@ use Form;
 use Piping;
 use Project;
 use Records;
+use Survey;
 use REDCap;
 
 /**
@@ -21,40 +22,57 @@ class ExternalModule extends AbstractExternalModule {
     /**
      * @inheritdoc
      */
-    function hook_every_page_top($project_id) {
-        if (!$project_id) {
+    function redcap_every_page_top($project_id) {
+        if (!$project_id || !in_array(PAGE, array('DataEntry/record_status_dashboard.php', 'DataEntry/record_home.php'))) {
             return;
         }
 
-        $record = null;
-
-        switch (PAGE) {
-            case 'DataEntry/record_home.php':
-                if (empty($_GET['id'])) {
-                    break;
-                }
-
-                $record = $_GET['id'];
-
-            case 'DataEntry/record_status_dashboard.php':
-                $location = substr(PAGE, 10, strlen(PAGE) - 14);
-                $arm = empty($_GET['arm']) ? 1 : $_GET['arm'];
-
-                $this->loadRFSL($location, $arm, $record);
-                break;
-        }
+        $location = substr(PAGE, 10, strlen(PAGE) - 14);
+        $this->loadFRSL($location, $this->getNumericQueryParam('id'));
     }
 
     /**
      * @inheritdoc
      */
-    function hook_data_entry_form_top($project_id, $record = null, $instrument, $event_id, $group_id = null) {
+    function redcap_data_entry_form_top($project_id, $record = null, $instrument, $event_id, $group_id = null) {
         if (empty($record)) {
             $record = $this->getNumericQueryParam('id');
         }
 
+        $this->loadFRSL('data_entry_form', $record, $event_id, $instrument);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    function redcap_survey_page_top($project_id, $record = null, $instrument, $event_id, $group_id = null, $survey_hash, $response_id = null, $repeat_instance = 1) {
+        if (empty($record)) {
+            $record = $this->getNumericQueryParam('id');
+        }
+
+        $this->overrideSurveysStatuses($record, $event_id);
+
         global $Proj;
-        $this->loadRFSL('data_entry_form', $Proj->eventInfo[$event_id]['arm_num'], $record, $event_id, $instrument);
+        $survey_id = $Proj->forms[$instrument]['survey_id'];
+        if ($Proj->surveys[$survey_id]['survey_enabled']) {
+            return;
+        }
+
+        // Access denied for this survey.
+        if (!$redirect_url = Survey::getAutoContinueSurveyUrl($record, $form_name, $event_id, $repeat_instance)) {
+            $redirect_url = APP_PATH_WEBROOT;
+        }
+
+        redirect($redirect_url);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    function redcap_save_record($project_id, $record = null, $instrument, $event_id, $group_id = null, $survey_hash = null, $response_id = null, $repeat_instance = 1) {
+        if ($survey_hash) {
+            $this->overrideSurveysStatuses($record, $event_id);
+        }
     }
 
     /**
@@ -64,7 +82,6 @@ class ExternalModule extends AbstractExternalModule {
      *   The arm name.
      * @param int $record
      *   The data entry record ID.
-     * @param array $settings
      *
      * @return array
      *   The forms access matrix. The array is keyed as follows:
@@ -72,13 +89,10 @@ class ExternalModule extends AbstractExternalModule {
      *   -- event ID
      *   --- instrument name: TRUE/FALSE
      */
-    function getFormsAccessMatrix($arm, $record = null, $settings = null) {
+    protected function getFormsAccessMatrix($arm, $record = null) {
         global $Proj;
 
-        if (!$settings) {
-            $settings = $this->getFormattedSettings($Proj->project_id);
-        }
-
+        $settings = $this->getFormattedSettings($Proj->project_id);
         $ctrl_field_name = $settings['control_field']['field_name'];
         $ctrl_event_id = $settings['control_field']['event_name'];
 
@@ -147,8 +161,7 @@ class ExternalModule extends AbstractExternalModule {
      *   - data_entry_form
      *   - record_home
      *   - record_status_dashboard
-     * @param string $arm
-     *   The arm name.
+     *   - survey
      * @param int $record
      *   The data entry record ID.
      * @param int $event_id
@@ -156,14 +169,15 @@ class ExternalModule extends AbstractExternalModule {
      * @param string $instrument
      *   The form/instrument name.
      */
-    protected function loadRFSL($location, $arm, $record = null, $event_id = null, $instrument = null) {
+    protected function loadFRSL($location, $record = null, $event_id = null, $instrument = null) {
         global $Proj;
 
+        $arm = $event_id ? $Proj->eventInfo[$event_id]['arm_num'] : $this->getNumericQueryParam('arm', 1);
         $next_step_path = '';
-        $forms_access = $this->getFormsAccessMatrix($arm, $record, $settings['config']);
+        $forms_access = $this->getFormsAccessMatrix($arm, $record);
 
         if ($record && $event_id && $instrument) {
-            $instruments = array_keys($forms_access[$record][$event_id]);
+            $instruments = $Proj->eventsForms[$event_id];
             $curr_forms_access = $forms_access[$record][$event_id];
 
             $i = array_search($instrument, $instruments) + 1;
@@ -171,23 +185,25 @@ class ExternalModule extends AbstractExternalModule {
 
             while ($i < $len) {
                 if ($curr_forms_access[$instruments[$i]]) {
-                    // Path to the next available form in the current event.
-                    $next_step_path = APP_PATH_WEBROOT . 'DataEntry/index.php?pid=' . $Proj->project_id . '&id=' . $record . '&event_id=' . $event_id . '&page=' . $instruments[$i];
+                    $next_instrument = $instruments[$i];
                     break;
                 }
 
                 $i++;
             }
 
+            if (isset($next_instrument)) {
+                // Path to the next available form in the current event.
+                $next_step_path = APP_PATH_WEBROOT . 'DataEntry/index.php?pid=' . $Proj->project_id . '&id=' . $record . '&event_id=' . $event_id . '&page=' . $next_instrument;
+            }
+
             // Access denied to the current page.
             if (!$forms_access[$record][$event_id][$instrument]) {
-                // Redirecting to the next step.
-                if (!$redirect_path = $next_step_path) {
-                    // If there is no next step available, go to record home page.
-                    $redirect_path = APP_PATH_WEBROOT . 'DataEntry/record_home.php?pid=' . $Proj->project_id . '&id=' . $record . '&arm=' . $arm;
+                if (!$next_step_path) {
+                    $next_step_path = APP_PATH_WEBROOT . 'DataEntry/record_home.php?pid=' . $Proj->project_id . '&id=' . $record . '&arm=' . $arm;
                 }
 
-                redirect($redirect_path);
+                redirect($next_step_path);
             }
         }
 
@@ -199,7 +215,33 @@ class ExternalModule extends AbstractExternalModule {
         );
 
         $this->setJsSettings($settings);
-        $this->includeJs('js/rfsl.js');
+        $this->includeJs('js/frsl.js');
+    }
+
+    /**
+     * Checks for non authorized surveys and disables them for the current
+     * request.
+     *
+     * @param int $record
+     *   The data entry record ID.
+     * @param int $event_id
+     *   The event ID.
+     */
+    protected function overrideSurveysStatuses($record, $event_id) {
+        global $Proj;
+
+        $arm = $Proj->eventInfo[$event_id]['arm_num'];
+        $forms_access = $this->getFormsAccessMatrix($arm, $record);
+
+        foreach ($forms_access[$record][$event_id] as $form => $value) {
+            if ($value || empty($Proj->forms[$form]['survey_id'])) {
+                continue;
+            }
+
+            // Disabling surveys that are not allowed.
+            $survey_id = $Proj->forms[$form]['survey_id'];
+            $Proj->surveys[$survey_id]['survey_enabled'] = 0;
+        }
     }
 
     /**

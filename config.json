@@ -3,8 +3,10 @@
     "namespace": "FormRenderSkipLogic\\ExternalModule",
     "description": "This module hides and shows instruments based on the value of a single field on a single form - i.e. a branching logic for instruments.",
     "permissions": [
-        "hook_every_page_top",
-        "hook_data_entry_form_top"
+        "redcap_every_page_top",
+        "redcap_data_entry_form_top",
+        "redcap_survey_page_top",
+        "redcap_save_record"
     ],
     "authors": [
         {
