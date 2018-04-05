@@ -86,7 +86,7 @@ class ExternalModule extends AbstractExternalModule {
      *   -- event ID
      *   --- instrument name: TRUE/FALSE
      */
-    protected function getFormsAccessMatrix($arm, $record = null) {
+    function getFormsAccessMatrix($arm, $record = null) {
         global $Proj;
 
         $settings = $this->getFormattedSettings($Proj->project_id);
