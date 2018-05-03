@@ -60,7 +60,7 @@ class ExternalModule extends AbstractExternalModule {
             $redirect_url = APP_PATH_WEBROOT;
         }
 
-        redirect($redirect_url);
+        $this->redirect($redirect_url);
     }
 
     /**
@@ -184,7 +184,8 @@ class ExternalModule extends AbstractExternalModule {
                     $next_step_path = APP_PATH_WEBROOT . 'DataEntry/record_home.php?pid=' . $Proj->project_id . '&id=' . $record . '&arm=' . $arm;
                 }
 
-                redirect($next_step_path);
+                $this->redirect($next_step_path);
+                return;
             }
         }
 
@@ -293,6 +294,26 @@ class ExternalModule extends AbstractExternalModule {
      */
     function getNumericQueryParam($param, $default = null) {
         return empty($_GET[$param]) || !is_numeric($_GET[$param]) ? $default : $_GET[$param];
+    }
+
+    /**
+     * Redirects user to the given URL.
+     *
+     * This function basically replicates redirect() function, but since EM
+     * throws an error when an exit() is called, we need to adapt it to the
+     * EM way of exiting.
+     */
+    protected function redirect($url) {
+        if (headers_sent()) {
+            // If contents already output, use javascript to redirect instead.
+            echo '<script>window.location.href="' . $url . '";</script>';
+        }
+        else {
+            // Redirect using PHP.
+            header('Location: ' . $url);
+        }
+
+        $this->exitAfterHook();
     }
 
     /**
