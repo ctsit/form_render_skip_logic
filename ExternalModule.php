@@ -8,7 +8,10 @@ namespace FormRenderSkipLogic\ExternalModule;
 
 use ExternalModules\AbstractExternalModule;
 use ExternalModules\ExternalModules;
+use Form;
+use Piping;
 use Project;
+use Records;
 use Survey;
 use REDCap;
 
@@ -33,7 +36,7 @@ class ExternalModule extends AbstractExternalModule {
      */
     function redcap_data_entry_form_top($project_id, $record = null, $instrument, $event_id, $group_id = null) {
         if (empty($record)) {
-            return;
+            $record = $this->getNumericQueryParam('id');
         }
 
         $this->loadFRSL('data_entry_form', $record, $event_id, $instrument);
@@ -44,7 +47,7 @@ class ExternalModule extends AbstractExternalModule {
      */
     function redcap_survey_page_top($project_id, $record = null, $instrument, $event_id, $group_id = null, $survey_hash, $response_id = null, $repeat_instance = 1) {
         if (empty($record)) {
-            return;
+            $record = $this->getNumericQueryParam('id');
         }
 
         $this->overrideSurveysStatuses($record, $event_id);
@@ -90,8 +93,8 @@ class ExternalModule extends AbstractExternalModule {
         global $Proj;
 
         $settings = $this->getFormattedSettings($Proj->project_id);
-        $field_name = $settings['control_field']['field_name'];
-        $event_name = $settings['control_field']['event_name'];
+        $ctrl_field_name = $settings['control_field']['field_name'];
+        $ctrl_event_id = $settings['control_field']['event_name'];
 
         $bl_tree = array();
         foreach ($settings['target_instruments'] as $row) {
@@ -107,7 +110,7 @@ class ExternalModule extends AbstractExternalModule {
             $bl_tree[$form][] = $row['control_field_value'];
         }
 
-        $control_data = REDCap::getData($Proj->project_id, 'array', $record, $field_name);
+        $control_data = REDCap::getData($Proj->project_id, 'array', $record, $ctrl_field_name);
         if ($record && !isset($control_data[$record])) {
             // Handling new record case.
             $control_data = array($record => array());
@@ -118,15 +121,31 @@ class ExternalModule extends AbstractExternalModule {
 
         // Building forms access matrix.
         $forms_access = array();
+        $enabled_for_non_set_ctrl = $this->getProjectSetting('enabled_before_ctrl_field_is_set', $project_id);
+
         foreach ($control_data as $id => $data) {
-            $control_value = isset($data[$event_name][$field_name]) ? $data[$event_name][$field_name] : '';
+            $bypass = false;
+
+            if (isset($data[$ctrl_event_id][$ctrl_field_name]) && Records::formHasData($id, $Proj->metadata[$ctrl_field_name]['form_name'], $ctrl_event_id)) {
+                $ctrl_value = $data[$ctrl_event_id][$ctrl_field_name];
+            }
+            elseif ($enabled_for_non_set_ctrl) {
+                $misc = $Proj->metadata[$ctrl_field_name]['misc'];
+                if ($ctrl_value = empty($misc) ? '' : Form::getValueInQuotesActionTag($misc, '@DEFAULT')) {
+                    $ctrl_value = Piping::replaceVariablesInLabel($ctrl_value, $id, $ctrl_event_id, 1, array(), false, null, false);
+                }
+            }
+            else {
+                $bypass = true;
+            }
+
             $forms_access[$id] = array();
 
-            foreach ($events as $event) {
+            foreach ($events as $event_id) {
                 $forms_access[$id][$event] = array();
 
-                foreach ($Proj->eventsForms[$event] as $form) {
-                    $forms_access[$id][$event][$form] = !isset($bl_tree[$form]) || in_array($control_value, $bl_tree[$form]);
+                foreach ($Proj->eventsForms[$event_id] as $form) {
+                    $forms_access[$id][$event_id][$form] = $bypass || (!isset($bl_tree[$form]) || in_array($ctrl_value, $bl_tree[$form]));
                 }
             }
         }
