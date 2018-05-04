@@ -3,6 +3,15 @@ All notable changes to the Form Render Skip Logic module will be documented in t
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [2.1.0] - 2018-05-04
+### Added
+- Adding config checkbox to determine whether to enable FRSL when control field value is not saved yet. (Tiago Bember Simeao)
+
+### Changed
+- Preventing false alarms/errors on redirect. (Tiago Bember Simeao)
+- Fixing potential conflict with LDEW. (Tiago Bember Simeao)
+
+
 ## [2.0.2] - 2018-04-05
 ### Changed
 - Fixed #12: Currently FRSL does not support "Auto-continue to next survey". (Tiago Bember Simeao)
