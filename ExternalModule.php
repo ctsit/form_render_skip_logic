@@ -23,6 +23,13 @@ class ExternalModule extends AbstractExternalModule {
      * @inheritdoc
      */
     function redcap_every_page_top($project_id) {
+        if (strpos(PAGE, 'ExternalModules/manager/project.php') !== false) {
+            $this->setJsSettings(array('modulePrefix' => $this->PREFIX));
+            $this->includeJs('js/config.js');
+
+            return;
+        }
+
         if (!$project_id || !in_array(PAGE, array('DataEntry/record_status_dashboard.php', 'DataEntry/record_home.php'))) {
             return;
         }
@@ -91,26 +98,24 @@ class ExternalModule extends AbstractExternalModule {
      */
     function getFormsAccessMatrix($arm, $record = null) {
         global $Proj;
-
         $settings = $this->getFormattedSettings($Proj->project_id);
-        $ctrl_field_name = $settings['control_field']['field_name'];
-        $ctrl_event_id = $settings['control_field']['event_name'];
 
-        $bl_tree = array();
-        foreach ($settings['target_instruments'] as $row) {
-            $form = $row['instrument_name'];
-            if (empty($form)) {
-                continue;
+        $target_forms = array();
+        foreach ($settings['target_forms'] as $ti) {
+            $form = $ti['target_form'];
+            if (!isset($target_forms[$form])) {
+                $target_forms[$form] = array();
             }
 
-            if (!isset($bl_tree[$form])) {
-                $bl_tree[$form] = array();
-            }
-
-            $bl_tree[$form][] = $row['control_field_value'];
+            $target_forms[$form][] = $ti;
         }
 
-        $control_data = REDCap::getData($Proj->project_id, 'array', $record, $ctrl_field_name);
+        $control_fields = array();
+        foreach ($settings['control_fields'] as $cf) {
+            $control_fields[$cf['control_field_key']] = $cf['control_field_key'];
+        }
+
+        $control_data = REDCap::getData($Proj->project_id, 'array', $record, $control_fields);
         if ($record && !isset($control_data[$record])) {
             // Handling new record case.
             $control_data = array($record => array());
@@ -121,22 +126,19 @@ class ExternalModule extends AbstractExternalModule {
 
         // Building forms access matrix.
         $forms_access = array();
-        $enabled_for_non_set_ctrl = $this->getProjectSetting('enabled_before_ctrl_field_is_set', $project_id);
 
         foreach ($control_data as $id => $data) {
-            $bypass = false;
+            $control_values = array();
+            foreach ($settings['control_fields'] as $i => $cf) {
+                $ev = $cf['control_event_id'];
+                $fd = $cf['control_field_key'];
+                $value = $cf['control_default_value'];
 
-            if (isset($data[$ctrl_event_id][$ctrl_field_name]) && Records::formHasData($id, $Proj->metadata[$ctrl_field_name]['form_name'], $ctrl_event_id)) {
-                $ctrl_value = $data[$ctrl_event_id][$ctrl_field_name];
-            }
-            elseif ($enabled_for_non_set_ctrl) {
-                $misc = $Proj->metadata[$ctrl_field_name]['misc'];
-                if ($ctrl_value = empty($misc) ? '' : Form::getValueInQuotesActionTag($misc, '@DEFAULT')) {
-                    $ctrl_value = Piping::replaceVariablesInLabel($ctrl_value, $id, $ctrl_event_id, 1, array(), false, null, false);
+                if (isset($data[$ev][$fd]) && Records::formHasData($id, $Proj->metadata[$fd]['form_name'], $ev)) {
+                    $value = $data[$ev][$fd];
                 }
-            }
-            else {
-                $bypass = true;
+
+                $control_values[$i] = $value;
             }
 
             $forms_access[$id] = array();
@@ -145,7 +147,64 @@ class ExternalModule extends AbstractExternalModule {
                 $forms_access[$id][$event] = array();
 
                 foreach ($Proj->eventsForms[$event_id] as $form) {
-                    $forms_access[$id][$event_id][$form] = $bypass || (!isset($bl_tree[$form]) || in_array($ctrl_value, $bl_tree[$form]));
+                    $access = true;
+
+                    if (isset($target_forms[$form])) {
+                        foreach ($target_forms[$form] as $tf) {
+                            if ($tf['target_event_select'] && !in_array($event_id, $tf['target_event_ids'])) {
+                                // This rule does not apply for this event,
+                                // skipping.
+                                continue;
+                            }
+
+                            $access = true;
+                            foreach ($tf['conditions'] as $cond) {
+                                $a = $control_values[$cond['condition_key']];
+                                $b = $cond['condition_value'];
+
+                                if (($a === '' || $b  === '') && $a !== $b) {
+                                    // Avoiding misleading comparisons
+                                    // involving empty strings.
+                                    $access = $cond['condition_operator'] == '<>';
+                                }
+                                else {
+                                    switch ($cond['condition_operator']) {
+                                        case '>':
+                                            $matches = $a > $b;
+                                            break;
+                                        case '>=':
+                                            $matches = $a >= $b;
+                                            break;
+                                        case '<':
+                                            $matches = $a < $b;
+                                            break;
+                                        case '<=':
+                                            $matches = $a <= $b;
+                                            break;
+                                        case '<>':
+                                            $matches = $a != $b;
+                                            break;
+                                        default:
+                                            $matches = $a == $b;
+                                    }
+                                }
+
+                                if (!$matches) {
+                                    // This set of conditions is not satisfied.
+                                    $access = false;
+                                    break;
+                                }
+                            }
+
+                            if ($access) {
+                                // At least one set of conditions is fully
+                                // satisfied, so the form should be displayed.
+                                break;
+                            }
+                        }
+                    }
+
+                    $forms_access[$id][$event_id][$form] = $access;
                 }
             }
         }
@@ -209,7 +268,6 @@ class ExternalModule extends AbstractExternalModule {
         }
 
         $settings = array(
-            'config' => $this->getFormattedSettings($Proj->project_id),
             'location' => $location,
             'formsAccess' => $forms_access,
             'nextStepPath' => $next_step_path,
@@ -252,51 +310,22 @@ class ExternalModule extends AbstractExternalModule {
      *   Enter a project ID to get project settings.
      *   Leave blank to get system settings.
      *
-     * @return array $formmated
+     * @return array
      *   The formatted settings.
      */
     function getFormattedSettings($project_id = null) {
-        $config = $this->getConfig();
+        $settings = $this->getConfig();
 
         if ($project_id) {
-            $type = 'project';
-            $settings = ExternalModules::getProjectSettingsAsArray($this->PREFIX, $project_id);
+            $settings = $settings['project-settings'];
+            $values = ExternalModules::getProjectSettingsAsArray($this->PREFIX, $project_id);
         }
         else {
-            $type = 'system';
-            $settings = ExternalModules::getSystemSettingsAsArray($this->PREFIX);
+            $settings = $settings['system-settings'];
+            $values = ExternalModules::getSystemSettingsAsArray($this->PREFIX);
         }
 
-        $formatted = array();
-        foreach ($config[$type . '-settings'] as $field) {
-            $key = $field['key'];
-
-            if ($field['type'] == 'sub_settings') {
-                // Handling sub settings.
-                $formatted[$key] = array();
-
-                if ($field['repeatable']) {
-                    // Handling repeating sub settings.
-                    foreach (array_keys($settings[$key]['value']) as $delta) {
-                        foreach ($field['sub_settings'] as $sub_setting) {
-                            $sub_key = $sub_setting['key'];
-                            $formatted[$key][$delta][$sub_key] = $settings[$sub_key]['value'][$delta];
-                        }
-                    }
-                }
-                else {
-                    foreach ($field['sub_settings'] as $sub_setting) {
-                        $sub_key = $sub_setting['key'];
-                        $formatted[$key][$sub_key] = reset($settings[$sub_key]['value']);
-                    }
-                }
-            }
-            else {
-                $formatted[$key] = $settings[$key]['value'];
-            }
-        }
-
-        return $formatted;
+        return $this->_getFormattedSettings($settings, $values);
     }
 
     /**
@@ -353,5 +382,39 @@ class ExternalModule extends AbstractExternalModule {
      */
     protected function setJsSettings($settings) {
         echo '<script>formRenderSkipLogic = ' . json_encode($settings) . ';</script>';
+    }
+
+    /**
+     * Auxiliary function for getFormattedSettings().
+     */
+    protected function _getFormattedSettings($settings, $values, $inherited_deltas = array()) {
+        $formatted = array();
+
+        foreach ($settings as $setting) {
+            $key = $setting['key'];
+            $value = $values[$key]['value'];
+
+            foreach ($inherited_deltas as $delta) {
+                $value = $value[$delta];
+            }
+
+            if ($setting['type'] == 'sub_settings') {
+                $deltas = array_keys($value);
+                $value = array();
+
+                foreach ($deltas as $delta) {
+                    $sub_deltas = array_merge($inherited_deltas, array($delta));
+                    $value[$delta] = $this->_getFormattedSettings($setting['sub_settings'], $values, $sub_deltas);
+                }
+
+                if (empty($setting['repeatable'])) {
+                    $value = $value[0];
+                }
+            }
+
+            $formatted[$key] = $value;
+        }
+
+        return $formatted;
     }
 }

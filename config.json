@@ -47,49 +47,113 @@
     ],
     "project-settings": [
         {
-            "key": "control_field",
-            "name": "Control field",
+            "key": "control_fields",
+            "name": "Control fields",
             "type": "sub_settings",
+            "repeatable": true,
             "sub_settings": [
                 {
-                    "key": "event_name",
-                    "name": "Event name",
-                    "required": true,
+                    "key": "control_event_id",
+                    "name": "Event",
                     "type": "event-list"
                 },
                 {
-                    "key": "field_name",
-                    "name": "Control field name",
-                    "required": true,
+                    "key": "control_field_key",
+                    "name": "Field",
                     "type": "field-list"
+                },
+                {
+                    "key": "control_default_value",
+                    "name": "Default value when control field is not set yet",
+                    "type": "text"
                 }
             ]
         },
         {
-            "key": "enabled_before_ctrl_field_is_set",
-            "name": "Enable branching logic even before control field is set (control field value will be taken from <em>@DEFAULT</em> action tag if available)",
-            "type": "checkbox"
-        },
-        {
-            "key": "target_instruments",
-            "name": "Instruments to apply branching logic",
-            "repeatable": "true",
+            "key": "target_forms",
+            "name": "Forms to apply branching logic",
             "type": "sub_settings",
+            "repeatable": "true",
             "sub_settings": [
                 {
-                    "key": "instrument_name",
-                    "name": "Instrument name",
+                    "key": "target_form",
+                    "name": "Form",
                     "type": "form-list"
                 },
                 {
-                    "key": "control_field_value",
-                    "name": "Control field value",
-                    "type": "text"
+                    "key": "target_event_select",
+                    "name": "Apply this rule only on specific events",
+                    "type": "checkbox"
+                },
+                {
+                    "key": "target_event_ids",
+                    "name": "Events to apply this rule",
+                    "type": "event-list",
+                    "repeatable": true,
+                    "branchingLogic": {
+                        "field": "target_event_select",
+                        "value": true
+                    }
+                },
+                {
+                    "key": "conditions",
+                    "name": "Conditions",
+                    "type": "sub_settings",
+                    "repeatable": "true",
+                    "sub_settings": [
+                        {
+                            "key": "condition_key",
+                            "name": "Control field",
+                            "type": "dropdown",
+                            "choices": [
+                                {
+                                    "value": "",
+                                    "name": "-- Select --"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "condition_operator",
+                            "name": "Operator",
+                            "type": "dropdown",
+                            "choices": [
+                                {
+                                    "value": "",
+                                    "name": "="
+                                },
+                                {
+                                    "value": ">",
+                                    "name": ">"
+                                },
+                                {
+                                    "value": ">=",
+                                    "name": ">="
+                                },
+                                {
+                                    "value": "<",
+                                    "name": "<"
+                                },
+                                {
+                                    "value": "<=",
+                                    "name": "<="
+                                },
+                                {
+                                    "value": "<>",
+                                    "name": "<>"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "condition_value",
+                            "name": "Control value",
+                            "type": "text"
+                        }
+                    ]
                 }
             ]
         }
     ],
     "compatibility": {
-        "redcap-version-min": "8.0.3"
+        "redcap-version-min": "8.4.3"
     }
 }
