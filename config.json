@@ -54,7 +54,7 @@
             "sub_settings": [
                 {
                     "key": "control_event_id",
-                    "name": "Event",
+                    "name": "Field",
                     "type": "event-list"
                 },
                 {
@@ -64,57 +64,18 @@
                 },
                 {
                     "key": "control_default_value",
-                    "name": "Default value when control field is not set yet",
+                    "name": "Default/fallback value",
                     "type": "text"
-                }
-            ]
-        },
-        {
-            "key": "target_forms",
-            "name": "Forms to apply branching logic",
-            "type": "sub_settings",
-            "repeatable": "true",
-            "sub_settings": [
-                {
-                    "key": "target_form",
-                    "name": "Form",
-                    "type": "form-list"
                 },
                 {
-                    "key": "target_event_select",
-                    "name": "Apply this rule only on specific events",
-                    "type": "checkbox"
-                },
-                {
-                    "key": "target_event_ids",
-                    "name": "Events to apply this rule",
-                    "type": "event-list",
+                    "key": "branching_logic",
+                    "name": "Branching logic",
                     "repeatable": true,
-                    "branchingLogic": {
-                        "field": "target_event_select",
-                        "value": true
-                    }
-                },
-                {
-                    "key": "conditions",
-                    "name": "Conditions",
                     "type": "sub_settings",
-                    "repeatable": "true",
                     "sub_settings": [
                         {
-                            "key": "condition_key",
-                            "name": "Control field",
-                            "type": "dropdown",
-                            "choices": [
-                                {
-                                    "value": "",
-                                    "name": "-- Select --"
-                                }
-                            ]
-                        },
-                        {
                             "key": "condition_operator",
-                            "name": "Operator",
+                            "name": "Condition",
                             "type": "dropdown",
                             "choices": [
                                 {
@@ -145,8 +106,25 @@
                         },
                         {
                             "key": "condition_value",
-                            "name": "Control value",
+                            "name": "Value",
                             "type": "text"
+                        },
+                        {
+                            "key": "target_forms",
+                            "name": "Target forms",
+                            "repeatable": "true",
+                            "type": "form-list"
+                        },
+                        {
+                            "key": "target_events_select",
+                            "name": "Restrict this rule to specific events",
+                            "type": "checkbox"
+                        },
+                        {
+                            "key": "target_events",
+                            "name": "Events",
+                            "repeatable": "true",
+                            "type": "event-list"
                         }
                     ]
                 }
