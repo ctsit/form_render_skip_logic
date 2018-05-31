@@ -1,7 +1,7 @@
 {
     "name": "Form Render Skip Logic",
     "namespace": "FormRenderSkipLogic\\ExternalModule",
-    "description": "This module hides and shows instruments based on the value of a single field on a single form - i.e. a branching logic for instruments.",
+    "description": "This module hides and shows instruments based on the values of REDCap form fields. Multiple control fields can be defined to control the display of non-overlapping sets of forms.",
     "permissions": [
         "redcap_every_page_top",
         "redcap_data_entry_form_top",
