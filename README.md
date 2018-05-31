@@ -1,6 +1,6 @@
 # REDCap Form Render Skip Logic (FRSL)
 
-This REDCap module hides and shows instruments based on the values of REDCap form fields  i.e. a branching logic for instruments. 
+This REDCap module hides and shows instruments based on the values of REDCap form fields  i.e. a branching logic for instruments.
 
 ## Motivation
 
@@ -26,11 +26,11 @@ Access **Manage External Modules** section of your project, click on Form Render
 
 The top level entry in the configuration is a Control Field.  A control field is described by an event name and a field name.  Each control field can govern the display of a set of forms. You can define multiple control fields as long as each controls a separate set of forms.
 
-Each control field can have multiple conditions. Each condition compares the control field to a numeric value. Becareful that the conditions are mutually exclusive or the results could be unexpected.
+Each control field can have multiple conditions. Each condition compares the control field to a string or number.  If the condition evaluates as true, the forms listed under the condition will be displayed.  If the condition is false and no other true condition displays them, the forms will be hidden. Be careful that the values in the conditions of a control field are mutually exclusive or the results could be unexpected.
 
-Each condition can have forms that are displayed when the condition is met.  All forms _not_ named will be displayed at all times. Optionally, each condition can specify a list of events that restrict the behavior of this rule.
+All forms _not_ named under a condition will be displayed at all times. Optionally, each condition can specify a list of events that restrict the behavior of this rule.
 
-Each control field can optionally specify a fallback value to be passed to the conditions when the control field is empty. This allows for a "default display" of the forms controlled by that control field.
+Each control field can optionally specify a fallback value to be passed to the conditions when the control field is empty. This allows for a "default display" of the forms controlled by that control field before it is set.
 
 The image below shows a sample configuration where the control field is named `rand_group` and appears on the `Baseline` event of the `Patient Data` arm.  The first three forms will be displayed only when `rand_group = 1`. The last form will be displayed only when `rand_group = 2`.
 
