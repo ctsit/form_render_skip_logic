@@ -1,0 +1,19 @@
+#external-modules-configure-modal.frsl tr[field="control_field_key"],
+#external-modules-configure-modal.frsl tr[field="condition_value"] {
+    position: absolute;
+    right: 10000px;
+}
+
+#external-modules-configure-modal.frsl tr[field="control_event_id"] .external-modules-input-element,
+#external-modules-configure-modal.frsl tr[field="control_field_key"] .external-modules-input-element,
+#external-modules-configure-modal.frsl tr[field="condition_value"] .external-modules-input-element {
+    width: 230px;
+}
+
+#external-modules-configure-modal.frsl tr[field="condition_operator"] select.external-modules-input-element {
+    -moz-appearance: menulist-textfield;
+}
+
+#external-modules-configure-modal.frsl tr > td:first-child {
+    width: 40%;
+}

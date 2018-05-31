@@ -1,7 +1,7 @@
 {
     "name": "Form Render Skip Logic",
     "namespace": "FormRenderSkipLogic\\ExternalModule",
-    "description": "This module hides and shows instruments based on the value of a single field on a single form - i.e. a branching logic for instruments.",
+    "description": "This module hides and shows instruments based on the values of REDCap form fields. Multiple control fields can be defined to control the display of non-overlapping sets of forms.",
     "permissions": [
         "redcap_every_page_top",
         "redcap_data_entry_form_top",
@@ -47,49 +47,91 @@
     ],
     "project-settings": [
         {
-            "key": "control_field",
-            "name": "Control field",
+            "key": "control_fields",
+            "name": "Control fields",
             "type": "sub_settings",
+            "repeatable": true,
             "sub_settings": [
                 {
-                    "key": "event_name",
-                    "name": "Event name",
-                    "required": true,
+                    "key": "control_event_id",
+                    "name": "Field",
                     "type": "event-list"
                 },
                 {
-                    "key": "field_name",
-                    "name": "Control field name",
-                    "required": true,
+                    "key": "control_field_key",
+                    "name": "Field",
                     "type": "field-list"
-                }
-            ]
-        },
-        {
-            "key": "enabled_before_ctrl_field_is_set",
-            "name": "Enable branching logic even before control field is set (control field value will be taken from <em>@DEFAULT</em> action tag if available)",
-            "type": "checkbox"
-        },
-        {
-            "key": "target_instruments",
-            "name": "Instruments to apply branching logic",
-            "repeatable": "true",
-            "type": "sub_settings",
-            "sub_settings": [
-                {
-                    "key": "instrument_name",
-                    "name": "Instrument name",
-                    "type": "form-list"
                 },
                 {
-                    "key": "control_field_value",
-                    "name": "Control field value",
+                    "key": "control_default_value",
+                    "name": "Default/fallback value",
                     "type": "text"
+                },
+                {
+                    "key": "branching_logic",
+                    "name": "Branching logic",
+                    "repeatable": true,
+                    "type": "sub_settings",
+                    "sub_settings": [
+                        {
+                            "key": "condition_operator",
+                            "name": "Condition",
+                            "type": "dropdown",
+                            "choices": [
+                                {
+                                    "value": "",
+                                    "name": "="
+                                },
+                                {
+                                    "value": ">",
+                                    "name": ">"
+                                },
+                                {
+                                    "value": ">=",
+                                    "name": ">="
+                                },
+                                {
+                                    "value": "<",
+                                    "name": "<"
+                                },
+                                {
+                                    "value": "<=",
+                                    "name": "<="
+                                },
+                                {
+                                    "value": "<>",
+                                    "name": "<>"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "condition_value",
+                            "name": "Value",
+                            "type": "text"
+                        },
+                        {
+                            "key": "target_forms",
+                            "name": "Target forms",
+                            "repeatable": "true",
+                            "type": "form-list"
+                        },
+                        {
+                            "key": "target_events_select",
+                            "name": "Restrict this rule to specific events",
+                            "type": "checkbox"
+                        },
+                        {
+                            "key": "target_events",
+                            "name": "Events",
+                            "repeatable": "true",
+                            "type": "event-list"
+                        }
+                    ]
                 }
             ]
         }
     ],
     "compatibility": {
-        "redcap-version-min": "8.0.3"
+        "redcap-version-min": "8.4.3"
     }
 }
