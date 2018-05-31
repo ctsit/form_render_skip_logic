@@ -4,6 +4,7 @@
     right: 10000px;
 }
 
+#external-modules-configure-modal.frsl tr[field="control_event_id"] .external-modules-input-element,
 #external-modules-configure-modal.frsl tr[field="control_field_key"] .external-modules-input-element,
 #external-modules-configure-modal.frsl tr[field="condition_value"] .external-modules-input-element {
     width: 230px;
