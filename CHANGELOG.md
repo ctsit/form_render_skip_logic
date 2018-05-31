@@ -2,6 +2,10 @@
 All notable changes to the Form Render Skip Logic module will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.0] - 2018-05-31
+### Added
+- Add support for multiple control fields. (Tiago Bember Simeao & Philip Chase)
+
 
 ## [2.1.0] - 2018-05-04
 ### Added
