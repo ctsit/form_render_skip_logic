@@ -203,9 +203,13 @@ class ExternalModule extends AbstractExternalModule {
                     $access = true;
 
                     if (isset($target_forms[$event_id][$form])) {
-                        foreach ($target_forms[$event_id][$form] as $cond) {
-                            if (!$control_values[$cond]) {
-                                $access = false;
+                        $access = false;
+
+                        foreach ($target_forms[$event_id][$form] as $i) {
+                            if ($control_values[$i]) {
+                                // If one condition is satisfied, the form
+                                // should be displayed.
+                                $access = true;
                                 break;
                             }
                         }
