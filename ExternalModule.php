@@ -168,7 +168,7 @@ class ExternalModule extends AbstractExternalModule {
                 $b = $cf['condition_value'];
 
                 if (isset($data[$ev][$fd]) && Records::formHasData($id, $Proj->metadata[$fd]['form_name'], $ev)) {
-                    $a = $data[$ev][$fd];
+                    $a = strval($data[$ev][$fd]);
                 }
 
                 switch ($cf['condition_operator']) {
