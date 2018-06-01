@@ -1,0 +1,17 @@
+.frsl-piping-helper button {
+    margin-right: 6px;
+    font-size: 11px;
+    padding: 0px 3px 1px;
+    line-height: 14px;
+}
+
+.frsl-piping-helper .btn-rcgreen i {
+    margin: 0 1px;
+}
+
+.frsl-piping-helper .btn-rcpurple img {
+    width: 12px;
+    position: relative;
+    top: -1px;
+    margin-right: 2px;
+}
