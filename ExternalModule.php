@@ -112,8 +112,13 @@ class ExternalModule extends AbstractExternalModule {
 
         $i = 0;
         foreach ($settings['control_fields'] as $cf) {
-            if (!$cf['control_event_id'] || !$cf['control_field_key']) {
-                // Checking for required fields.
+            if ($cf['control_mode'] == 'default' && (!$cf['control_event_id'] || !$cf['control_field_key'])) {
+                // Checking for required fields in default mode.
+                continue;
+            }
+
+            if ($cf['control_mode'] == 'advanced' && !$cf['control_piping']) {
+                // Checking for required fields in advanced mode.
                 continue;
             }
 
