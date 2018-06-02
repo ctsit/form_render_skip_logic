@@ -19,7 +19,7 @@ $(document).ready(function() {
 
             $modal.addClass('frsl');
 
-            var branchingLogic = function($checkbox) {
+            var branchingLogicCheckboxes = function($checkbox) {
                 var prefix = $checkbox.attr('name').replace('_select', '');
                 $target = $modal.find('select[name^="' + prefix + '"]').parent().parent();
 
@@ -31,20 +31,67 @@ $(document).ready(function() {
                 }
             };
 
+            var branchingLogicRadios = function($radio) {
+                $radio.prop('checked', true);
+
+                var suffix = '____' + $radio.attr('name').slice(-1);
+                var selectorShow = '[name="control_event_id' + suffix + '"], [name="control_field_key' + suffix + '"]';
+                var selectorHide = '[name="control_piping' + suffix + '"]';
+
+                if ($radio.val() === 'advanced') {
+                    var aux = selectorShow;
+                    selectorShow = selectorHide;
+                    selectorHide = aux;
+                }
+
+                $(selectorShow).parent().parent().show();
+                $(selectorHide).parent().parent().hide();
+            };
+
             var $checkboxes = $modal.find('tr[field="target_events_select"] .external-modules-input-element');
             $checkboxes.each(function() {
-                branchingLogic($(this));
+                branchingLogicCheckboxes($(this));
             });
 
             $checkboxes.change(function() {
-                branchingLogic($(this));
+                branchingLogicCheckboxes($(this));
+            });
+
+            $modal.find('tr[field="control_mode"]').each(function() {
+                var defaultValue = 'default';
+                $(this).find('.external-modules-input-element').each(function() {
+                    if (typeof this.attributes.checked !== 'undefined') {
+                        defaultValue = $(this).val();
+                        return false;
+                    }
+                });
+
+                branchingLogicRadios($(this).find('.external-modules-input-element[value="' + defaultValue + '"]'));
+            });
+
+            $modal.find('tr[field="control_mode"] .external-modules-input-element').change(function() {
+                branchingLogicRadios($(this));
+            });
+
+            $modal.find('tr[field="control_piping"] td:first-child').each(function() {
+                if ($(this).find('.frsl-piping-helper').length === 0) {
+                    $(this).append(formRenderSkipLogic.helperButtons);
+                }
             });
 
             $modal.find('tr[field="control_field_key"], tr[field="condition_value"]').each(function() {
-                $(this).find('.external-modules-input-element').position({
+                if (!$(this).is(':visible')) {
+                    return;
+                }
+
+                var $element = $(this).find('.external-modules-input-element');
+                var $target = $(this).prev().find('.external-modules-input-element');
+
+                $element.css('width', ($target.parent().width() - $target.outerWidth(true) - 10) + 'px');
+                $element.position({
                     my: 'left+10 top',
                     at: 'right top',
-                    of: $(this).prev().find('.external-modules-input-element')[0],
+                    of: $target[0],
                     collision: "none"
                 });
             });

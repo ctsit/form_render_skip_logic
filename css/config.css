@@ -17,3 +17,7 @@
 #external-modules-configure-modal.frsl tr > td:first-child {
     width: 40%;
 }
+
+.frsl-piping-helper {
+    margin-left: 10px;
+}
