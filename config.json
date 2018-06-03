@@ -53,6 +53,21 @@
             "repeatable": true,
             "sub_settings": [
                 {
+                    "key": "control_mode",
+                    "name": "Control mode",
+                    "type": "radio",
+                    "choices": [
+                        {
+                            "value": "default",
+                            "name": "Default (Control field)"
+                        },
+                        {
+                            "value": "advanced",
+                            "name": "Advanced (Piping)"
+                        }
+                    ]
+                },
+                {
                     "key": "control_event_id",
                     "name": "Field",
                     "type": "event-list"
@@ -61,6 +76,11 @@
                     "key": "control_field_key",
                     "name": "Field",
                     "type": "field-list"
+                },
+                {
+                    "key": "control_piping",
+                    "name": "Piping",
+                    "type": "text"
                 },
                 {
                     "key": "control_default_value",

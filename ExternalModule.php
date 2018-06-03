@@ -13,6 +13,7 @@ use Piping;
 use Project;
 use Records;
 use Survey;
+use RCView;
 use REDCap;
 
 /**
@@ -24,7 +25,7 @@ class ExternalModule extends AbstractExternalModule {
      */
     function redcap_every_page_top($project_id) {
         if (strpos(PAGE, 'ExternalModules/manager/project.php') !== false) {
-            $this->setJsSettings(array('modulePrefix' => $this->PREFIX));
+            $this->setJsSettings(array('modulePrefix' => $this->PREFIX, 'helperButtons' => $this->getPipingHelperButtons()));
             $this->includeJs('js/config.js');
             $this->includeCss('css/config.css');
 
@@ -111,8 +112,13 @@ class ExternalModule extends AbstractExternalModule {
 
         $i = 0;
         foreach ($settings['control_fields'] as $cf) {
-            if (!$cf['control_event_id'] || !$cf['control_field_key']) {
-                // Checking for required fields.
+            if ($cf['control_mode'] == 'default' && (!$cf['control_event_id'] || !$cf['control_field_key'])) {
+                // Checking for required fields in default mode.
+                continue;
+            }
+
+            if ($cf['control_mode'] == 'advanced' && !$cf['control_piping']) {
+                // Checking for required fields in advanced mode.
                 continue;
             }
 
@@ -167,8 +173,16 @@ class ExternalModule extends AbstractExternalModule {
                 $a = $cf['control_default_value'];
                 $b = $cf['condition_value'];
 
-                if (isset($data[$ev][$fd]) && Records::formHasData($id, $Proj->metadata[$fd]['form_name'], $ev)) {
-                    $a = $data[$ev][$fd];
+                if ($cf['control_mode'] == 'advanced') {
+                    $piped = Piping::replaceVariablesInLabel($cf['control_piping'], $id, $event_id, 1, array(), true, null, false);
+                    if ($piped !== '') {
+                        $a = $piped;
+                    }
+                }
+                else {
+                    if (isset($data[$ev][$fd]) && Records::formHasData($id, $Proj->metadata[$fd]['form_name'], $ev)) {
+                        $a = $data[$ev][$fd];
+                    }
                 }
 
                 switch ($cf['condition_operator']) {
@@ -403,6 +417,32 @@ class ExternalModule extends AbstractExternalModule {
      */
     protected function setJsSettings($settings) {
         echo '<script>formRenderSkipLogic = ' . json_encode($settings) . ';</script>';
+    }
+
+    /**
+     * Gets Piping helper buttons.
+     */
+    protected function getPipingHelperButtons() {
+        global $lang;
+
+        $this->includeCss('css/piping-helper.css');
+        $buttons = array(
+            'green' => array(
+                'callback' => 'smartVariableExplainPopup',
+                'contents' => '[<i class="fas fa-bolt fa-xs"></i>] ' . $lang['global_146'],
+            ),
+            'purple' => array(
+                'callback' => 'pipingExplanation',
+                'contents' => RCView::img(array('src' => APP_PATH_IMAGES . 'pipe.png')) . $lang['info_41'],
+            ),
+        );
+
+        $output = '';
+        foreach ($buttons as $color => $btn) {
+            $output .= RCView::button(array('class' => 'btn btn-xs btn-rc' . $color . ' btn-rc' . $color . '-light', 'onclick' => $btn['callback'] . '(); return false;'), $btn['contents']);
+        }
+
+        return RCView::span(array('class' => 'frsl-piping-helper'), $output);
     }
 
     /**

@@ -1,0 +1,1593 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ODM xmlns="http://www.cdisc.org/ns/odm/v1.3" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:redcap="https://projectredcap.org" xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 schema/odm/ODM1-3-1.xsd" ODMVersion="1.3.1" FileOID="000-00-0000" FileType="Snapshot" Description="Animal Identification" AsOfDateTime="2018-06-02T22:57:17" CreationDateTime="2018-06-02T22:57:17" SourceSystem="REDCap" SourceSystemVersion="8.4.4">
+<Study OID="Project.AnimalIdentification">
+<GlobalVariables>
+	<StudyName>Animal Identification</StudyName>
+	<StudyDescription>This file contains the metadata, events, and data for REDCap project "Animal Identification".</StudyDescription>
+	<ProtocolName>Animal Identification</ProtocolName>
+	<redcap:RecordAutonumberingEnabled>1</redcap:RecordAutonumberingEnabled>
+	<redcap:CustomRecordLabel>[event_1_arm_1][sex] - [event_1_arm_1][weight]</redcap:CustomRecordLabel>
+	<redcap:SecondaryUniqueField></redcap:SecondaryUniqueField>
+	<redcap:SchedulingEnabled>0</redcap:SchedulingEnabled>
+	<redcap:Purpose>4</redcap:Purpose>
+	<redcap:PurposeOther></redcap:PurposeOther>
+	<redcap:ProjectNotes></redcap:ProjectNotes>
+</GlobalVariables>
+<MetaDataVersion OID="Metadata.AnimalIdentification_2018-06-02_2257" Name="Animal Identification" redcap:RecordIdField="record_id">
+	<Protocol>
+		<StudyEventRef StudyEventOID="Event.event_1_arm_1" OrderNumber="1" Mandatory="No"/>
+		<StudyEventRef StudyEventOID="Event.event_2_arm_1" OrderNumber="2" Mandatory="No"/>
+		<StudyEventRef StudyEventOID="Event.event_3_arm_1" OrderNumber="3" Mandatory="No"/>
+		<StudyEventRef StudyEventOID="Event.event_4_arm_1" OrderNumber="4" Mandatory="No"/>
+	</Protocol>
+	<StudyEventDef OID="Event.event_1_arm_1" Name="Event 1" Type="Common" Repeating="No" redcap:EventName="Event 1" redcap:CustomEventLabel="" redcap:UniqueEventName="event_1_arm_1" redcap:ArmNum="1" redcap:ArmName="Arm 1" redcap:DayOffset="1" redcap:OffsetMin="0" redcap:OffsetMax="0">
+		<FormRef FormOID="Form.animal_identification" OrderNumber="1" Mandatory="No" redcap:FormName="animal_identification"/>
+		<FormRef FormOID="Form.maleonly_form" OrderNumber="2" Mandatory="No" redcap:FormName="maleonly_form"/>
+		<FormRef FormOID="Form.femaleonly_form" OrderNumber="3" Mandatory="No" redcap:FormName="femaleonly_form"/>
+		<FormRef FormOID="Form.big_critters" OrderNumber="4" Mandatory="No" redcap:FormName="big_critters"/>
+		<FormRef FormOID="Form.small_critters" OrderNumber="5" Mandatory="No" redcap:FormName="small_critters"/>
+	</StudyEventDef>
+	<StudyEventDef OID="Event.event_2_arm_1" Name="Event 2" Type="Common" Repeating="No" redcap:EventName="Event 2" redcap:CustomEventLabel="" redcap:UniqueEventName="event_2_arm_1" redcap:ArmNum="1" redcap:ArmName="Arm 1" redcap:DayOffset="2" redcap:OffsetMin="0" redcap:OffsetMax="0">
+		<FormRef FormOID="Form.maleonly_form" OrderNumber="1" Mandatory="No" redcap:FormName="maleonly_form"/>
+		<FormRef FormOID="Form.femaleonly_form" OrderNumber="2" Mandatory="No" redcap:FormName="femaleonly_form"/>
+		<FormRef FormOID="Form.big_critters" OrderNumber="3" Mandatory="No" redcap:FormName="big_critters"/>
+		<FormRef FormOID="Form.small_critters" OrderNumber="4" Mandatory="No" redcap:FormName="small_critters"/>
+	</StudyEventDef>
+	<StudyEventDef OID="Event.event_3_arm_1" Name="Event 3" Type="Common" Repeating="No" redcap:EventName="Event 3" redcap:CustomEventLabel="" redcap:UniqueEventName="event_3_arm_1" redcap:ArmNum="1" redcap:ArmName="Arm 1" redcap:DayOffset="3" redcap:OffsetMin="0" redcap:OffsetMax="0">
+		<FormRef FormOID="Form.maleonly_form" OrderNumber="1" Mandatory="No" redcap:FormName="maleonly_form"/>
+		<FormRef FormOID="Form.femaleonly_form" OrderNumber="2" Mandatory="No" redcap:FormName="femaleonly_form"/>
+		<FormRef FormOID="Form.big_critters" OrderNumber="3" Mandatory="No" redcap:FormName="big_critters"/>
+		<FormRef FormOID="Form.small_critters" OrderNumber="4" Mandatory="No" redcap:FormName="small_critters"/>
+	</StudyEventDef>
+	<StudyEventDef OID="Event.event_4_arm_1" Name="Event 4" Type="Common" Repeating="No" redcap:EventName="Event 4" redcap:CustomEventLabel="" redcap:UniqueEventName="event_4_arm_1" redcap:ArmNum="1" redcap:ArmName="Arm 1" redcap:DayOffset="4" redcap:OffsetMin="0" redcap:OffsetMax="0">
+	</StudyEventDef>
+	<FormDef OID="Form.animal_identification" Name="Animal Identification" Repeating="No" redcap:FormName="animal_identification">
+		<ItemGroupRef ItemGroupOID="animal_identification.record_id" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="animal_identification.animal_identification_complete" Mandatory="No"/>
+	</FormDef>
+	<FormDef OID="Form.lifestyle_reproductive_data" Name="Lifestyle &amp; Reproductive data" Repeating="No" redcap:FormName="lifestyle_reproductive_data">
+		<ItemGroupRef ItemGroupOID="lifestyle_reproductive_data.life_span" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="lifestyle_reproductive_data.lifestyle_reproductive_data_complete" Mandatory="No"/>
+	</FormDef>
+	<FormDef OID="Form.cat_data" Name="Cat Data" Repeating="No" redcap:FormName="cat_data">
+		<ItemGroupRef ItemGroupOID="cat_data.cat_breed" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="cat_data.cat_data_complete" Mandatory="No"/>
+	</FormDef>
+	<FormDef OID="Form.jellyfish_data" Name="Jellyfish data" Repeating="No" redcap:FormName="jellyfish_data">
+		<ItemGroupRef ItemGroupOID="jellyfish_data.jellyfish_length" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="jellyfish_data.jellyfish_data_complete" Mandatory="No"/>
+	</FormDef>
+	<FormDef OID="Form.frog_data" Name="Frog data" Repeating="No" redcap:FormName="frog_data">
+		<ItemGroupRef ItemGroupOID="frog_data.frog_length" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="frog_data.frog_data_complete" Mandatory="No"/>
+	</FormDef>
+	<FormDef OID="Form.marlin_data" Name="Marlin data" Repeating="No" redcap:FormName="marlin_data">
+		<ItemGroupRef ItemGroupOID="marlin_data.genera" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="marlin_data.marlin_data_complete" Mandatory="No"/>
+	</FormDef>
+	<FormDef OID="Form.snake_data" Name="Snake data" Repeating="No" redcap:FormName="snake_data">
+		<ItemGroupRef ItemGroupOID="snake_data.snake_length" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="snake_data.snake_data_complete" Mandatory="No"/>
+	</FormDef>
+	<FormDef OID="Form.butterfly_data" Name="Butterfly data" Repeating="No" redcap:FormName="butterfly_data">
+		<ItemGroupRef ItemGroupOID="butterfly_data.wing_span" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="butterfly_data.butterfly_data_complete" Mandatory="No"/>
+	</FormDef>
+	<FormDef OID="Form.parrot_data" Name="Parrot data" Repeating="No" redcap:FormName="parrot_data">
+		<ItemGroupRef ItemGroupOID="parrot_data.parrot_height" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="parrot_data.parrot_data_complete" Mandatory="No"/>
+	</FormDef>
+	<FormDef OID="Form.maleonly_form" Name="Male-only Form" Repeating="No" redcap:FormName="maleonly_form">
+		<ItemGroupRef ItemGroupOID="maleonly_form.rut" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="maleonly_form.maleonly_form_complete" Mandatory="No"/>
+	</FormDef>
+	<FormDef OID="Form.femaleonly_form" Name="Female-only Form" Repeating="No" redcap:FormName="femaleonly_form">
+		<ItemGroupRef ItemGroupOID="femaleonly_form.gravid" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="femaleonly_form.femaleonly_form_complete" Mandatory="No"/>
+	</FormDef>
+	<FormDef OID="Form.big_critters" Name="Big Critters" Repeating="No" redcap:FormName="big_critters">
+		<ItemGroupRef ItemGroupOID="big_critters.big" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="big_critters.big_critters_complete" Mandatory="No"/>
+	</FormDef>
+	<FormDef OID="Form.small_critters" Name="Small Critters" Repeating="No" redcap:FormName="small_critters">
+		<ItemGroupRef ItemGroupOID="small_critters.small" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="small_critters.small_critters_complete" Mandatory="No"/>
+	</FormDef>
+	<ItemGroupDef OID="animal_identification.record_id" Name="Animal Identification" Repeating="No">
+		<ItemRef ItemOID="record_id" Mandatory="No" redcap:Variable="record_id"/>
+		<ItemRef ItemOID="collect_date" Mandatory="No" redcap:Variable="collect_date"/>
+		<ItemRef ItemOID="species" Mandatory="No" redcap:Variable="species"/>
+		<ItemRef ItemOID="classification" Mandatory="No" redcap:Variable="classification"/>
+		<ItemRef ItemOID="order" Mandatory="No" redcap:Variable="order"/>
+		<ItemRef ItemOID="weight" Mandatory="No" redcap:Variable="weight"/>
+		<ItemRef ItemOID="sex" Mandatory="No" redcap:Variable="sex"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="animal_identification.animal_identification_complete" Name="Form Status" Repeating="No">
+		<ItemRef ItemOID="animal_identification_complete" Mandatory="No" redcap:Variable="animal_identification_complete"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="lifestyle_reproductive_data.life_span" Name="Lifestyle &amp; Reproductive data" Repeating="No">
+		<ItemRef ItemOID="life_span" Mandatory="No" redcap:Variable="life_span"/>
+		<ItemRef ItemOID="litter_size" Mandatory="No" redcap:Variable="litter_size"/>
+		<ItemRef ItemOID="reproduction_form" Mandatory="No" redcap:Variable="reproduction_form"/>
+		<ItemRef ItemOID="asexual_type" Mandatory="No" redcap:Variable="asexual_type"/>
+		<ItemRef ItemOID="sexual_type" Mandatory="No" redcap:Variable="sexual_type"/>
+		<ItemRef ItemOID="reprod_strategy" Mandatory="No" redcap:Variable="reprod_strategy"/>
+		<ItemRef ItemOID="reprod_mode" Mandatory="No" redcap:Variable="reprod_mode"/>
+		<ItemRef ItemOID="diet" Mandatory="No" redcap:Variable="diet"/>
+		<ItemRef ItemOID="lifestyle" Mandatory="No" redcap:Variable="lifestyle"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="lifestyle_reproductive_data.lifestyle_reproductive_data_complete" Name="Form Status" Repeating="No">
+		<ItemRef ItemOID="lifestyle_reproductive_data_complete" Mandatory="No" redcap:Variable="lifestyle_reproductive_data_complete"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="cat_data.cat_breed" Name="Cat Data" Repeating="No">
+		<ItemRef ItemOID="cat_breed" Mandatory="No" redcap:Variable="cat_breed"/>
+		<ItemRef ItemOID="cat_color" Mandatory="No" redcap:Variable="cat_color"/>
+		<ItemRef ItemOID="cat_length" Mandatory="No" redcap:Variable="cat_length"/>
+		<ItemRef ItemOID="cat_height" Mandatory="No" redcap:Variable="cat_height"/>
+		<ItemRef ItemOID="cat_fur" Mandatory="No" redcap:Variable="cat_fur"/>
+		<ItemRef ItemOID="cat_diet" Mandatory="No" redcap:Variable="cat_diet"/>
+		<ItemRef ItemOID="cat_litter" Mandatory="No" redcap:Variable="cat_litter"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="cat_data.cat_data_complete" Name="Form Status" Repeating="No">
+		<ItemRef ItemOID="cat_data_complete" Mandatory="No" redcap:Variable="cat_data_complete"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="jellyfish_data.jellyfish_length" Name="Jellyfish data" Repeating="No">
+		<ItemRef ItemOID="jellyfish_length" Mandatory="No" redcap:Variable="jellyfish_length"/>
+		<ItemRef ItemOID="jellyfish_taxonomy" Mandatory="No" redcap:Variable="jellyfish_taxonomy"/>
+		<ItemRef ItemOID="jellyfish_class" Mandatory="No" redcap:Variable="jellyfish_class"/>
+		<ItemRef ItemOID="jellyfish_habitat" Mandatory="No" redcap:Variable="jellyfish_habitat"/>
+		<ItemRef ItemOID="jellyfish_tentacles" Mandatory="No" redcap:Variable="jellyfish_tentacles"/>
+		<ItemRef ItemOID="jellyfish_toxicity" Mandatory="No" redcap:Variable="jellyfish_toxicity"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="jellyfish_data.jellyfish_data_complete" Name="Form Status" Repeating="No">
+		<ItemRef ItemOID="jellyfish_data_complete" Mandatory="No" redcap:Variable="jellyfish_data_complete"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="frog_data.frog_length" Name="Frog data" Repeating="No">
+		<ItemRef ItemOID="frog_length" Mandatory="No" redcap:Variable="frog_length"/>
+		<ItemRef ItemOID="frog_type" Mandatory="No" redcap:Variable="frog_type"/>
+		<ItemRef ItemOID="frog_color" Mandatory="No" redcap:Variable="frog_color"/>
+		<ItemRef ItemOID="frog_diet___1" Mandatory="No" redcap:Variable="frog_diet"/>
+		<ItemRef ItemOID="frog_diet___2" Mandatory="No" redcap:Variable="frog_diet"/>
+		<ItemRef ItemOID="frog_diet___3" Mandatory="No" redcap:Variable="frog_diet"/>
+		<ItemRef ItemOID="frog_diet___4" Mandatory="No" redcap:Variable="frog_diet"/>
+		<ItemRef ItemOID="frog_diet___5" Mandatory="No" redcap:Variable="frog_diet"/>
+		<ItemRef ItemOID="frog_repord" Mandatory="No" redcap:Variable="frog_repord"/>
+		<ItemRef ItemOID="frog_locomotion___1" Mandatory="No" redcap:Variable="frog_locomotion"/>
+		<ItemRef ItemOID="frog_locomotion___2" Mandatory="No" redcap:Variable="frog_locomotion"/>
+		<ItemRef ItemOID="frog_locomotion___3" Mandatory="No" redcap:Variable="frog_locomotion"/>
+		<ItemRef ItemOID="frog_locomotion___4" Mandatory="No" redcap:Variable="frog_locomotion"/>
+		<ItemRef ItemOID="frog_locomotion___5" Mandatory="No" redcap:Variable="frog_locomotion"/>
+		<ItemRef ItemOID="frog_locomotion___6" Mandatory="No" redcap:Variable="frog_locomotion"/>
+		<ItemRef ItemOID="frog_locomotion___7" Mandatory="No" redcap:Variable="frog_locomotion"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="frog_data.frog_data_complete" Name="Form Status" Repeating="No">
+		<ItemRef ItemOID="frog_data_complete" Mandatory="No" redcap:Variable="frog_data_complete"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="marlin_data.genera" Name="Marlin data" Repeating="No">
+		<ItemRef ItemOID="genera" Mandatory="No" redcap:Variable="genera"/>
+		<ItemRef ItemOID="sailfish" Mandatory="No" redcap:Variable="sailfish"/>
+		<ItemRef ItemOID="makaira" Mandatory="No" redcap:Variable="makaira"/>
+		<ItemRef ItemOID="tetrapturus" Mandatory="No" redcap:Variable="tetrapturus"/>
+		<ItemRef ItemOID="length" Mandatory="No" redcap:Variable="length"/>
+		<ItemRef ItemOID="swimming_speed" Mandatory="No" redcap:Variable="swimming_speed"/>
+		<ItemRef ItemOID="marlin_diet___1" Mandatory="No" redcap:Variable="marlin_diet"/>
+		<ItemRef ItemOID="marlin_diet___2" Mandatory="No" redcap:Variable="marlin_diet"/>
+		<ItemRef ItemOID="marlin_diet___3" Mandatory="No" redcap:Variable="marlin_diet"/>
+		<ItemRef ItemOID="marlin_diet___4" Mandatory="No" redcap:Variable="marlin_diet"/>
+		<ItemRef ItemOID="marlin_diet___5" Mandatory="No" redcap:Variable="marlin_diet"/>
+		<ItemRef ItemOID="marlin_diet___6" Mandatory="No" redcap:Variable="marlin_diet"/>
+		<ItemRef ItemOID="marlin_diet___7" Mandatory="No" redcap:Variable="marlin_diet"/>
+		<ItemRef ItemOID="marlin_diet___8" Mandatory="No" redcap:Variable="marlin_diet"/>
+		<ItemRef ItemOID="habitat_location___1" Mandatory="No" redcap:Variable="habitat_location"/>
+		<ItemRef ItemOID="habitat_location___2" Mandatory="No" redcap:Variable="habitat_location"/>
+		<ItemRef ItemOID="habitat_location___3" Mandatory="No" redcap:Variable="habitat_location"/>
+		<ItemRef ItemOID="habitat_location___4" Mandatory="No" redcap:Variable="habitat_location"/>
+		<ItemRef ItemOID="habitat_location___5" Mandatory="No" redcap:Variable="habitat_location"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="marlin_data.marlin_data_complete" Name="Form Status" Repeating="No">
+		<ItemRef ItemOID="marlin_data_complete" Mandatory="No" redcap:Variable="marlin_data_complete"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="snake_data.snake_length" Name="Snake data" Repeating="No">
+		<ItemRef ItemOID="snake_length" Mandatory="No" redcap:Variable="snake_length"/>
+		<ItemRef ItemOID="circumference" Mandatory="No" redcap:Variable="circumference"/>
+		<ItemRef ItemOID="poisonous" Mandatory="No" redcap:Variable="poisonous"/>
+		<ItemRef ItemOID="snake_color" Mandatory="No" redcap:Variable="snake_color"/>
+		<ItemRef ItemOID="snake_name" Mandatory="No" redcap:Variable="snake_name"/>
+		<ItemRef ItemOID="snake_diet" Mandatory="No" redcap:Variable="snake_diet"/>
+		<ItemRef ItemOID="snake_habitat" Mandatory="No" redcap:Variable="snake_habitat"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="snake_data.snake_data_complete" Name="Form Status" Repeating="No">
+		<ItemRef ItemOID="snake_data_complete" Mandatory="No" redcap:Variable="snake_data_complete"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="butterfly_data.wing_span" Name="Butterfly data" Repeating="No">
+		<ItemRef ItemOID="wing_span" Mandatory="No" redcap:Variable="wing_span"/>
+		<ItemRef ItemOID="migration" Mandatory="No" redcap:Variable="migration"/>
+		<ItemRef ItemOID="butterfly_family" Mandatory="No" redcap:Variable="butterfly_family"/>
+		<ItemRef ItemOID="butterfly_type" Mandatory="No" redcap:Variable="butterfly_type"/>
+		<ItemRef ItemOID="butterfly_diet" Mandatory="No" redcap:Variable="butterfly_diet"/>
+		<ItemRef ItemOID="butterfly_colors___1" Mandatory="No" redcap:Variable="butterfly_colors"/>
+		<ItemRef ItemOID="butterfly_colors___2" Mandatory="No" redcap:Variable="butterfly_colors"/>
+		<ItemRef ItemOID="butterfly_colors___3" Mandatory="No" redcap:Variable="butterfly_colors"/>
+		<ItemRef ItemOID="butterfly_colors___4" Mandatory="No" redcap:Variable="butterfly_colors"/>
+		<ItemRef ItemOID="butterfly_colors___5" Mandatory="No" redcap:Variable="butterfly_colors"/>
+		<ItemRef ItemOID="butterfly_colors___6" Mandatory="No" redcap:Variable="butterfly_colors"/>
+		<ItemRef ItemOID="butterfly_colors___7" Mandatory="No" redcap:Variable="butterfly_colors"/>
+		<ItemRef ItemOID="butterfly_colors___8" Mandatory="No" redcap:Variable="butterfly_colors"/>
+		<ItemRef ItemOID="butterfly_colors___9" Mandatory="No" redcap:Variable="butterfly_colors"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="butterfly_data.butterfly_data_complete" Name="Form Status" Repeating="No">
+		<ItemRef ItemOID="butterfly_data_complete" Mandatory="No" redcap:Variable="butterfly_data_complete"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="parrot_data.parrot_height" Name="Parrot data" Repeating="No">
+		<ItemRef ItemOID="parrot_height" Mandatory="No" redcap:Variable="parrot_height"/>
+		<ItemRef ItemOID="parrot_wing_span" Mandatory="No" redcap:Variable="parrot_wing_span"/>
+		<ItemRef ItemOID="parrot_type" Mandatory="No" redcap:Variable="parrot_type"/>
+		<ItemRef ItemOID="parrot_colors___1" Mandatory="No" redcap:Variable="parrot_colors"/>
+		<ItemRef ItemOID="parrot_colors___2" Mandatory="No" redcap:Variable="parrot_colors"/>
+		<ItemRef ItemOID="parrot_colors___3" Mandatory="No" redcap:Variable="parrot_colors"/>
+		<ItemRef ItemOID="parrot_colors___4" Mandatory="No" redcap:Variable="parrot_colors"/>
+		<ItemRef ItemOID="parrot_colors___5" Mandatory="No" redcap:Variable="parrot_colors"/>
+		<ItemRef ItemOID="parrot_colors___6" Mandatory="No" redcap:Variable="parrot_colors"/>
+		<ItemRef ItemOID="parrot_colors___7" Mandatory="No" redcap:Variable="parrot_colors"/>
+		<ItemRef ItemOID="parrot_colors___8" Mandatory="No" redcap:Variable="parrot_colors"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="parrot_data.parrot_data_complete" Name="Form Status" Repeating="No">
+		<ItemRef ItemOID="parrot_data_complete" Mandatory="No" redcap:Variable="parrot_data_complete"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="maleonly_form.rut" Name="Male-only Form" Repeating="No">
+		<ItemRef ItemOID="rut" Mandatory="No" redcap:Variable="rut"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="maleonly_form.maleonly_form_complete" Name="Form Status" Repeating="No">
+		<ItemRef ItemOID="maleonly_form_complete" Mandatory="No" redcap:Variable="maleonly_form_complete"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="femaleonly_form.gravid" Name="Female-only Form" Repeating="No">
+		<ItemRef ItemOID="gravid" Mandatory="No" redcap:Variable="gravid"/>
+		<ItemRef ItemOID="estrus" Mandatory="No" redcap:Variable="estrus"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="femaleonly_form.femaleonly_form_complete" Name="Form Status" Repeating="No">
+		<ItemRef ItemOID="femaleonly_form_complete" Mandatory="No" redcap:Variable="femaleonly_form_complete"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="big_critters.big" Name="Big Critters" Repeating="No">
+		<ItemRef ItemOID="big" Mandatory="No" redcap:Variable="big"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="big_critters.big_critters_complete" Name="Form Status" Repeating="No">
+		<ItemRef ItemOID="big_critters_complete" Mandatory="No" redcap:Variable="big_critters_complete"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="small_critters.small" Name="Small Critters" Repeating="No">
+		<ItemRef ItemOID="small" Mandatory="No" redcap:Variable="small"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="small_critters.small_critters_complete" Name="Form Status" Repeating="No">
+		<ItemRef ItemOID="small_critters_complete" Mandatory="No" redcap:Variable="small_critters_complete"/>
+	</ItemGroupDef>
+	<ItemDef OID="record_id" Name="record_id" DataType="text" Length="999" redcap:Variable="record_id" redcap:FieldType="text">
+		<Question><TranslatedText>Record ID</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="collect_date" Name="collect_date" DataType="date" Length="999" redcap:Variable="collect_date" redcap:FieldType="text" redcap:TextValidationType="date_mdy">
+		<Question><TranslatedText>Date of collection</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="species" Name="species" DataType="text" Length="1" redcap:Variable="species" redcap:FieldType="radio">
+		<Question><TranslatedText>Animal species</TranslatedText></Question>
+		<CodeListRef CodeListOID="species.choices"/>
+	</ItemDef>
+	<ItemDef OID="classification" Name="classification" DataType="text" Length="1" redcap:Variable="classification" redcap:FieldType="radio">
+		<Question><TranslatedText>Animal classification</TranslatedText></Question>
+		<CodeListRef CodeListOID="classification.choices"/>
+	</ItemDef>
+	<ItemDef OID="order" Name="order" DataType="text" Length="1" redcap:Variable="order" redcap:FieldType="radio">
+		<Question><TranslatedText>Animal order</TranslatedText></Question>
+		<CodeListRef CodeListOID="order.choices"/>
+	</ItemDef>
+	<ItemDef OID="weight" Name="weight" DataType="float" Length="999" SignificantDigits="1" redcap:Variable="weight" redcap:FieldType="text" redcap:TextValidationType="float" redcap:FieldNote="in grams">
+		<Question><TranslatedText>Animal weight</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="sex" Name="sex" DataType="text" Length="1" redcap:Variable="sex" redcap:FieldType="radio">
+		<Question><TranslatedText>Animal&#039;s sex</TranslatedText></Question>
+		<CodeListRef CodeListOID="sex.choices"/>
+	</ItemDef>
+	<ItemDef OID="animal_identification_complete" Name="animal_identification_complete" DataType="text" Length="1" redcap:Variable="animal_identification_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
+		<Question><TranslatedText>Complete?</TranslatedText></Question>
+		<CodeListRef CodeListOID="animal_identification_complete.choices"/>
+	</ItemDef>
+	<ItemDef OID="life_span" Name="life_span" DataType="integer" Length="999" redcap:Variable="life_span" redcap:FieldType="text" redcap:TextValidationType="int">
+		<Question><TranslatedText>Average life span (in years)</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="litter_size" Name="litter_size" DataType="integer" Length="999" redcap:Variable="litter_size" redcap:FieldType="text" redcap:TextValidationType="int" redcap:FieldNote="# of live births or eggs laid">
+		<Question><TranslatedText>Average litter size</TranslatedText></Question>
+		<RangeCheck Comparator="GE" SoftHard="Soft">
+			<CheckValue>1</CheckValue>
+			<ErrorMessage><TranslatedText>The value you provided is outside the suggested range. (1 - no limit). This value is admissible, but you may wish to verify.</TranslatedText></ErrorMessage>
+		</RangeCheck>
+	</ItemDef>
+	<ItemDef OID="reproduction_form" Name="reproduction_form" DataType="text" Length="1" redcap:Variable="reproduction_form" redcap:FieldType="radio">
+		<Question><TranslatedText>Form of reproduction</TranslatedText></Question>
+		<CodeListRef CodeListOID="reproduction_form.choices"/>
+	</ItemDef>
+	<ItemDef OID="asexual_type" Name="asexual_type" DataType="text" Length="1" redcap:Variable="asexual_type" redcap:FieldType="radio" redcap:BranchingLogic="[reproduction_form] = &#039;2&#039;">
+		<Question><TranslatedText>Type of asexual reproduction</TranslatedText></Question>
+		<CodeListRef CodeListOID="asexual_type.choices"/>
+	</ItemDef>
+	<ItemDef OID="sexual_type" Name="sexual_type" DataType="text" Length="1" redcap:Variable="sexual_type" redcap:FieldType="radio" redcap:BranchingLogic="[reproduction_form] = &#039;1&#039;">
+		<Question><TranslatedText>Type of sexual reproduction</TranslatedText></Question>
+		<CodeListRef CodeListOID="sexual_type.choices"/>
+	</ItemDef>
+	<ItemDef OID="reprod_strategy" Name="reprod_strategy" DataType="text" Length="1" redcap:Variable="reprod_strategy" redcap:FieldType="radio">
+		<Question><TranslatedText>Reproductive strategy</TranslatedText></Question>
+		<CodeListRef CodeListOID="reprod_strategy.choices"/>
+	</ItemDef>
+	<ItemDef OID="reprod_mode" Name="reprod_mode" DataType="text" Length="1" redcap:Variable="reprod_mode" redcap:FieldType="radio">
+		<Question><TranslatedText>Mode of reproduction</TranslatedText></Question>
+		<CodeListRef CodeListOID="reprod_mode.choices"/>
+	</ItemDef>
+	<ItemDef OID="diet" Name="diet" DataType="text" Length="1" redcap:Variable="diet" redcap:FieldType="radio">
+		<Question><TranslatedText>Main diet type</TranslatedText></Question>
+		<CodeListRef CodeListOID="diet.choices"/>
+	</ItemDef>
+	<ItemDef OID="lifestyle" Name="lifestyle" DataType="text" Length="1" redcap:Variable="lifestyle" redcap:FieldType="radio">
+		<Question><TranslatedText>Lifestyle</TranslatedText></Question>
+		<CodeListRef CodeListOID="lifestyle.choices"/>
+	</ItemDef>
+	<ItemDef OID="lifestyle_reproductive_data_complete" Name="lifestyle_reproductive_data_complete" DataType="text" Length="1" redcap:Variable="lifestyle_reproductive_data_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
+		<Question><TranslatedText>Complete?</TranslatedText></Question>
+		<CodeListRef CodeListOID="lifestyle_reproductive_data_complete.choices"/>
+	</ItemDef>
+	<ItemDef OID="cat_breed" Name="cat_breed" DataType="text" Length="2" redcap:Variable="cat_breed" redcap:FieldType="select">
+		<Question><TranslatedText>Cat breed</TranslatedText></Question>
+		<CodeListRef CodeListOID="cat_breed.choices"/>
+	</ItemDef>
+	<ItemDef OID="cat_color" Name="cat_color" DataType="text" Length="2" redcap:Variable="cat_color" redcap:FieldType="select">
+		<Question><TranslatedText>Cat color</TranslatedText></Question>
+		<CodeListRef CodeListOID="cat_color.choices"/>
+	</ItemDef>
+	<ItemDef OID="cat_length" Name="cat_length" DataType="float" Length="999" SignificantDigits="1" redcap:Variable="cat_length" redcap:FieldType="text" redcap:TextValidationType="float" redcap:FieldNote="in inches">
+		<Question><TranslatedText>Cat length</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="cat_height" Name="cat_height" DataType="float" Length="999" SignificantDigits="1" redcap:Variable="cat_height" redcap:FieldType="text" redcap:TextValidationType="float" redcap:FieldNote="in inches">
+		<Question><TranslatedText>Cat height</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="cat_fur" Name="cat_fur" DataType="text" Length="1" redcap:Variable="cat_fur" redcap:FieldType="select">
+		<Question><TranslatedText>Fur length</TranslatedText></Question>
+		<CodeListRef CodeListOID="cat_fur.choices"/>
+	</ItemDef>
+	<ItemDef OID="cat_diet" Name="cat_diet" DataType="text" Length="1" redcap:Variable="cat_diet" redcap:FieldType="select">
+		<Question><TranslatedText>Main diet</TranslatedText></Question>
+		<CodeListRef CodeListOID="cat_diet.choices"/>
+	</ItemDef>
+	<ItemDef OID="cat_litter" Name="cat_litter" DataType="text" Length="1" redcap:Variable="cat_litter" redcap:FieldType="select">
+		<Question><TranslatedText>Average litter size</TranslatedText></Question>
+		<CodeListRef CodeListOID="cat_litter.choices"/>
+	</ItemDef>
+	<ItemDef OID="cat_data_complete" Name="cat_data_complete" DataType="text" Length="1" redcap:Variable="cat_data_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
+		<Question><TranslatedText>Complete?</TranslatedText></Question>
+		<CodeListRef CodeListOID="cat_data_complete.choices"/>
+	</ItemDef>
+	<ItemDef OID="jellyfish_length" Name="jellyfish_length" DataType="float" Length="999" SignificantDigits="1" redcap:Variable="jellyfish_length" redcap:FieldType="text" redcap:TextValidationType="float">
+		<Question><TranslatedText>Length (inches)</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="jellyfish_taxonomy" Name="jellyfish_taxonomy" DataType="text" Length="2" redcap:Variable="jellyfish_taxonomy" redcap:FieldType="select">
+		<Question><TranslatedText>Jellyfish taxonomy</TranslatedText></Question>
+		<CodeListRef CodeListOID="jellyfish_taxonomy.choices"/>
+	</ItemDef>
+	<ItemDef OID="jellyfish_class" Name="jellyfish_class" DataType="text" Length="1" redcap:Variable="jellyfish_class" redcap:FieldType="select">
+		<Question><TranslatedText>Jellyfish class</TranslatedText></Question>
+		<CodeListRef CodeListOID="jellyfish_class.choices"/>
+	</ItemDef>
+	<ItemDef OID="jellyfish_habitat" Name="jellyfish_habitat" DataType="text" Length="1" redcap:Variable="jellyfish_habitat" redcap:FieldType="select">
+		<Question><TranslatedText>Habitat</TranslatedText></Question>
+		<CodeListRef CodeListOID="jellyfish_habitat.choices"/>
+	</ItemDef>
+	<ItemDef OID="jellyfish_tentacles" Name="jellyfish_tentacles" DataType="integer" Length="999" redcap:Variable="jellyfish_tentacles" redcap:FieldType="text" redcap:TextValidationType="int">
+		<Question><TranslatedText>Number of tentacles</TranslatedText></Question>
+		<RangeCheck Comparator="GE" SoftHard="Soft">
+			<CheckValue>1</CheckValue>
+			<ErrorMessage><TranslatedText>The value you provided is outside the suggested range. (1 - no limit). This value is admissible, but you may wish to verify.</TranslatedText></ErrorMessage>
+		</RangeCheck>
+	</ItemDef>
+	<ItemDef OID="jellyfish_toxicity" Name="jellyfish_toxicity" DataType="text" Length="1" redcap:Variable="jellyfish_toxicity" redcap:FieldType="radio">
+		<Question><TranslatedText>Toxicity</TranslatedText></Question>
+		<CodeListRef CodeListOID="jellyfish_toxicity.choices"/>
+	</ItemDef>
+	<ItemDef OID="jellyfish_data_complete" Name="jellyfish_data_complete" DataType="text" Length="1" redcap:Variable="jellyfish_data_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
+		<Question><TranslatedText>Complete?</TranslatedText></Question>
+		<CodeListRef CodeListOID="jellyfish_data_complete.choices"/>
+	</ItemDef>
+	<ItemDef OID="frog_length" Name="frog_length" DataType="float" Length="999" SignificantDigits="1" redcap:Variable="frog_length" redcap:FieldType="text" redcap:TextValidationType="float">
+		<Question><TranslatedText>Frog length (inches)</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="frog_type" Name="frog_type" DataType="text" Length="2" redcap:Variable="frog_type" redcap:FieldType="select">
+		<Question><TranslatedText>Frog type</TranslatedText></Question>
+		<CodeListRef CodeListOID="frog_type.choices"/>
+	</ItemDef>
+	<ItemDef OID="frog_color" Name="frog_color" DataType="text" Length="2" redcap:Variable="frog_color" redcap:FieldType="select">
+		<Question><TranslatedText>Frog color</TranslatedText></Question>
+		<CodeListRef CodeListOID="frog_color.choices"/>
+	</ItemDef>
+	<ItemDef OID="frog_diet___1" Name="frog_diet___1" DataType="boolean" Length="1" redcap:Variable="frog_diet" redcap:FieldType="checkbox" redcap:FieldNote="Check all that apply">
+		<Question><TranslatedText>Main diet</TranslatedText></Question>
+		<CodeListRef CodeListOID="frog_diet___1.choices"/>
+	</ItemDef>
+	<ItemDef OID="frog_diet___2" Name="frog_diet___2" DataType="boolean" Length="1" redcap:Variable="frog_diet" redcap:FieldType="checkbox" redcap:FieldNote="Check all that apply">
+		<Question><TranslatedText>Main diet</TranslatedText></Question>
+		<CodeListRef CodeListOID="frog_diet___2.choices"/>
+	</ItemDef>
+	<ItemDef OID="frog_diet___3" Name="frog_diet___3" DataType="boolean" Length="1" redcap:Variable="frog_diet" redcap:FieldType="checkbox" redcap:FieldNote="Check all that apply">
+		<Question><TranslatedText>Main diet</TranslatedText></Question>
+		<CodeListRef CodeListOID="frog_diet___3.choices"/>
+	</ItemDef>
+	<ItemDef OID="frog_diet___4" Name="frog_diet___4" DataType="boolean" Length="1" redcap:Variable="frog_diet" redcap:FieldType="checkbox" redcap:FieldNote="Check all that apply">
+		<Question><TranslatedText>Main diet</TranslatedText></Question>
+		<CodeListRef CodeListOID="frog_diet___4.choices"/>
+	</ItemDef>
+	<ItemDef OID="frog_diet___5" Name="frog_diet___5" DataType="boolean" Length="1" redcap:Variable="frog_diet" redcap:FieldType="checkbox" redcap:FieldNote="Check all that apply">
+		<Question><TranslatedText>Main diet</TranslatedText></Question>
+		<CodeListRef CodeListOID="frog_diet___5.choices"/>
+	</ItemDef>
+	<ItemDef OID="frog_repord" Name="frog_repord" DataType="text" Length="1" redcap:Variable="frog_repord" redcap:FieldType="radio">
+		<Question><TranslatedText>Type of reproduction</TranslatedText></Question>
+		<CodeListRef CodeListOID="frog_repord.choices"/>
+	</ItemDef>
+	<ItemDef OID="frog_locomotion___1" Name="frog_locomotion___1" DataType="boolean" Length="1" redcap:Variable="frog_locomotion" redcap:FieldType="checkbox" redcap:FieldNote="Check all that apply">
+		<Question><TranslatedText>Locomotion type(s)</TranslatedText></Question>
+		<CodeListRef CodeListOID="frog_locomotion___1.choices"/>
+	</ItemDef>
+	<ItemDef OID="frog_locomotion___2" Name="frog_locomotion___2" DataType="boolean" Length="1" redcap:Variable="frog_locomotion" redcap:FieldType="checkbox" redcap:FieldNote="Check all that apply">
+		<Question><TranslatedText>Locomotion type(s)</TranslatedText></Question>
+		<CodeListRef CodeListOID="frog_locomotion___2.choices"/>
+	</ItemDef>
+	<ItemDef OID="frog_locomotion___3" Name="frog_locomotion___3" DataType="boolean" Length="1" redcap:Variable="frog_locomotion" redcap:FieldType="checkbox" redcap:FieldNote="Check all that apply">
+		<Question><TranslatedText>Locomotion type(s)</TranslatedText></Question>
+		<CodeListRef CodeListOID="frog_locomotion___3.choices"/>
+	</ItemDef>
+	<ItemDef OID="frog_locomotion___4" Name="frog_locomotion___4" DataType="boolean" Length="1" redcap:Variable="frog_locomotion" redcap:FieldType="checkbox" redcap:FieldNote="Check all that apply">
+		<Question><TranslatedText>Locomotion type(s)</TranslatedText></Question>
+		<CodeListRef CodeListOID="frog_locomotion___4.choices"/>
+	</ItemDef>
+	<ItemDef OID="frog_locomotion___5" Name="frog_locomotion___5" DataType="boolean" Length="1" redcap:Variable="frog_locomotion" redcap:FieldType="checkbox" redcap:FieldNote="Check all that apply">
+		<Question><TranslatedText>Locomotion type(s)</TranslatedText></Question>
+		<CodeListRef CodeListOID="frog_locomotion___5.choices"/>
+	</ItemDef>
+	<ItemDef OID="frog_locomotion___6" Name="frog_locomotion___6" DataType="boolean" Length="1" redcap:Variable="frog_locomotion" redcap:FieldType="checkbox" redcap:FieldNote="Check all that apply">
+		<Question><TranslatedText>Locomotion type(s)</TranslatedText></Question>
+		<CodeListRef CodeListOID="frog_locomotion___6.choices"/>
+	</ItemDef>
+	<ItemDef OID="frog_locomotion___7" Name="frog_locomotion___7" DataType="boolean" Length="1" redcap:Variable="frog_locomotion" redcap:FieldType="checkbox" redcap:FieldNote="Check all that apply">
+		<Question><TranslatedText>Locomotion type(s)</TranslatedText></Question>
+		<CodeListRef CodeListOID="frog_locomotion___7.choices"/>
+	</ItemDef>
+	<ItemDef OID="frog_data_complete" Name="frog_data_complete" DataType="text" Length="1" redcap:Variable="frog_data_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
+		<Question><TranslatedText>Complete?</TranslatedText></Question>
+		<CodeListRef CodeListOID="frog_data_complete.choices"/>
+	</ItemDef>
+	<ItemDef OID="genera" Name="genera" DataType="text" Length="1" redcap:Variable="genera" redcap:FieldType="radio">
+		<Question><TranslatedText>Genera</TranslatedText></Question>
+		<CodeListRef CodeListOID="genera.choices"/>
+	</ItemDef>
+	<ItemDef OID="sailfish" Name="sailfish" DataType="text" Length="1" redcap:Variable="sailfish" redcap:FieldType="radio" redcap:BranchingLogic="[genera] = &#039;2&#039;">
+		<Question><TranslatedText>Sailfish species</TranslatedText></Question>
+		<CodeListRef CodeListOID="sailfish.choices"/>
+	</ItemDef>
+	<ItemDef OID="makaira" Name="makaira" DataType="text" Length="1" redcap:Variable="makaira" redcap:FieldType="radio" redcap:BranchingLogic="[genera] = &#039;4&#039;">
+		<Question><TranslatedText>Makaira species</TranslatedText></Question>
+		<CodeListRef CodeListOID="makaira.choices"/>
+	</ItemDef>
+	<ItemDef OID="tetrapturus" Name="tetrapturus" DataType="text" Length="1" redcap:Variable="tetrapturus" redcap:FieldType="radio" redcap:BranchingLogic="[genera] = &#039;5&#039;">
+		<Question><TranslatedText>Tetrapturus species</TranslatedText></Question>
+		<CodeListRef CodeListOID="tetrapturus.choices"/>
+	</ItemDef>
+	<ItemDef OID="length" Name="length" DataType="float" Length="999" SignificantDigits="1" redcap:Variable="length" redcap:FieldType="text" redcap:TextValidationType="float">
+		<Question><TranslatedText>Length (feet)</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="swimming_speed" Name="swimming_speed" DataType="float" Length="999" SignificantDigits="1" redcap:Variable="swimming_speed" redcap:FieldType="text" redcap:TextValidationType="float">
+		<Question><TranslatedText>Average swimming speed (mph)</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="marlin_diet___1" Name="marlin_diet___1" DataType="boolean" Length="1" redcap:Variable="marlin_diet" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main diet</TranslatedText></Question>
+		<CodeListRef CodeListOID="marlin_diet___1.choices"/>
+	</ItemDef>
+	<ItemDef OID="marlin_diet___2" Name="marlin_diet___2" DataType="boolean" Length="1" redcap:Variable="marlin_diet" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main diet</TranslatedText></Question>
+		<CodeListRef CodeListOID="marlin_diet___2.choices"/>
+	</ItemDef>
+	<ItemDef OID="marlin_diet___3" Name="marlin_diet___3" DataType="boolean" Length="1" redcap:Variable="marlin_diet" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main diet</TranslatedText></Question>
+		<CodeListRef CodeListOID="marlin_diet___3.choices"/>
+	</ItemDef>
+	<ItemDef OID="marlin_diet___4" Name="marlin_diet___4" DataType="boolean" Length="1" redcap:Variable="marlin_diet" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main diet</TranslatedText></Question>
+		<CodeListRef CodeListOID="marlin_diet___4.choices"/>
+	</ItemDef>
+	<ItemDef OID="marlin_diet___5" Name="marlin_diet___5" DataType="boolean" Length="1" redcap:Variable="marlin_diet" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main diet</TranslatedText></Question>
+		<CodeListRef CodeListOID="marlin_diet___5.choices"/>
+	</ItemDef>
+	<ItemDef OID="marlin_diet___6" Name="marlin_diet___6" DataType="boolean" Length="1" redcap:Variable="marlin_diet" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main diet</TranslatedText></Question>
+		<CodeListRef CodeListOID="marlin_diet___6.choices"/>
+	</ItemDef>
+	<ItemDef OID="marlin_diet___7" Name="marlin_diet___7" DataType="boolean" Length="1" redcap:Variable="marlin_diet" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main diet</TranslatedText></Question>
+		<CodeListRef CodeListOID="marlin_diet___7.choices"/>
+	</ItemDef>
+	<ItemDef OID="marlin_diet___8" Name="marlin_diet___8" DataType="boolean" Length="1" redcap:Variable="marlin_diet" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main diet</TranslatedText></Question>
+		<CodeListRef CodeListOID="marlin_diet___8.choices"/>
+	</ItemDef>
+	<ItemDef OID="habitat_location___1" Name="habitat_location___1" DataType="boolean" Length="1" redcap:Variable="habitat_location" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main habitat location</TranslatedText></Question>
+		<CodeListRef CodeListOID="habitat_location___1.choices"/>
+	</ItemDef>
+	<ItemDef OID="habitat_location___2" Name="habitat_location___2" DataType="boolean" Length="1" redcap:Variable="habitat_location" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main habitat location</TranslatedText></Question>
+		<CodeListRef CodeListOID="habitat_location___2.choices"/>
+	</ItemDef>
+	<ItemDef OID="habitat_location___3" Name="habitat_location___3" DataType="boolean" Length="1" redcap:Variable="habitat_location" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main habitat location</TranslatedText></Question>
+		<CodeListRef CodeListOID="habitat_location___3.choices"/>
+	</ItemDef>
+	<ItemDef OID="habitat_location___4" Name="habitat_location___4" DataType="boolean" Length="1" redcap:Variable="habitat_location" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main habitat location</TranslatedText></Question>
+		<CodeListRef CodeListOID="habitat_location___4.choices"/>
+	</ItemDef>
+	<ItemDef OID="habitat_location___5" Name="habitat_location___5" DataType="boolean" Length="1" redcap:Variable="habitat_location" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main habitat location</TranslatedText></Question>
+		<CodeListRef CodeListOID="habitat_location___5.choices"/>
+	</ItemDef>
+	<ItemDef OID="marlin_data_complete" Name="marlin_data_complete" DataType="text" Length="1" redcap:Variable="marlin_data_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
+		<Question><TranslatedText>Complete?</TranslatedText></Question>
+		<CodeListRef CodeListOID="marlin_data_complete.choices"/>
+	</ItemDef>
+	<ItemDef OID="snake_length" Name="snake_length" DataType="float" Length="999" SignificantDigits="1" redcap:Variable="snake_length" redcap:FieldType="text" redcap:TextValidationType="float">
+		<Question><TranslatedText>Length (cm)</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="circumference" Name="circumference" DataType="float" Length="999" SignificantDigits="1" redcap:Variable="circumference" redcap:FieldType="text" redcap:TextValidationType="float">
+		<Question><TranslatedText>Circumference</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="poisonous" Name="poisonous" DataType="text" Length="1" redcap:Variable="poisonous" redcap:FieldType="radio">
+		<Question><TranslatedText>Snake is:</TranslatedText></Question>
+		<CodeListRef CodeListOID="poisonous.choices"/>
+	</ItemDef>
+	<ItemDef OID="snake_color" Name="snake_color" DataType="text" Length="1" redcap:Variable="snake_color" redcap:FieldType="select">
+		<Question><TranslatedText>Main color</TranslatedText></Question>
+		<CodeListRef CodeListOID="snake_color.choices"/>
+	</ItemDef>
+	<ItemDef OID="snake_name" Name="snake_name" DataType="text" Length="3" redcap:Variable="snake_name" redcap:FieldType="select">
+		<Question><TranslatedText>Common name</TranslatedText></Question>
+		<CodeListRef CodeListOID="snake_name.choices"/>
+	</ItemDef>
+	<ItemDef OID="snake_diet" Name="snake_diet" DataType="text" Length="1" redcap:Variable="snake_diet" redcap:FieldType="radio">
+		<Question><TranslatedText>Main diet</TranslatedText></Question>
+		<CodeListRef CodeListOID="snake_diet.choices"/>
+	</ItemDef>
+	<ItemDef OID="snake_habitat" Name="snake_habitat" DataType="text" Length="1" redcap:Variable="snake_habitat" redcap:FieldType="radio">
+		<Question><TranslatedText>Main habitat</TranslatedText></Question>
+		<CodeListRef CodeListOID="snake_habitat.choices"/>
+	</ItemDef>
+	<ItemDef OID="snake_data_complete" Name="snake_data_complete" DataType="text" Length="1" redcap:Variable="snake_data_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
+		<Question><TranslatedText>Complete?</TranslatedText></Question>
+		<CodeListRef CodeListOID="snake_data_complete.choices"/>
+	</ItemDef>
+	<ItemDef OID="wing_span" Name="wing_span" DataType="float" Length="999" SignificantDigits="1" redcap:Variable="wing_span" redcap:FieldType="text" redcap:TextValidationType="float">
+		<Question><TranslatedText>Wing span (cm)</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="migration" Name="migration" DataType="float" Length="999" SignificantDigits="1" redcap:Variable="migration" redcap:FieldType="text" redcap:TextValidationType="float">
+		<Question><TranslatedText>Migration range (miles)</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="butterfly_family" Name="butterfly_family" DataType="text" Length="1" redcap:Variable="butterfly_family" redcap:FieldType="radio">
+		<Question><TranslatedText>Family</TranslatedText></Question>
+		<CodeListRef CodeListOID="butterfly_family.choices"/>
+	</ItemDef>
+	<ItemDef OID="butterfly_type" Name="butterfly_type" DataType="text" Length="2" redcap:Variable="butterfly_type" redcap:FieldType="radio">
+		<Question><TranslatedText>Type of butterfly</TranslatedText></Question>
+		<CodeListRef CodeListOID="butterfly_type.choices"/>
+	</ItemDef>
+	<ItemDef OID="butterfly_diet" Name="butterfly_diet" DataType="text" Length="1" redcap:Variable="butterfly_diet" redcap:FieldType="radio">
+		<Question><TranslatedText>Main diet</TranslatedText></Question>
+		<CodeListRef CodeListOID="butterfly_diet.choices"/>
+	</ItemDef>
+	<ItemDef OID="butterfly_colors___1" Name="butterfly_colors___1" DataType="boolean" Length="1" redcap:Variable="butterfly_colors" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main colors</TranslatedText></Question>
+		<CodeListRef CodeListOID="butterfly_colors___1.choices"/>
+	</ItemDef>
+	<ItemDef OID="butterfly_colors___2" Name="butterfly_colors___2" DataType="boolean" Length="1" redcap:Variable="butterfly_colors" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main colors</TranslatedText></Question>
+		<CodeListRef CodeListOID="butterfly_colors___2.choices"/>
+	</ItemDef>
+	<ItemDef OID="butterfly_colors___3" Name="butterfly_colors___3" DataType="boolean" Length="1" redcap:Variable="butterfly_colors" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main colors</TranslatedText></Question>
+		<CodeListRef CodeListOID="butterfly_colors___3.choices"/>
+	</ItemDef>
+	<ItemDef OID="butterfly_colors___4" Name="butterfly_colors___4" DataType="boolean" Length="1" redcap:Variable="butterfly_colors" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main colors</TranslatedText></Question>
+		<CodeListRef CodeListOID="butterfly_colors___4.choices"/>
+	</ItemDef>
+	<ItemDef OID="butterfly_colors___5" Name="butterfly_colors___5" DataType="boolean" Length="1" redcap:Variable="butterfly_colors" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main colors</TranslatedText></Question>
+		<CodeListRef CodeListOID="butterfly_colors___5.choices"/>
+	</ItemDef>
+	<ItemDef OID="butterfly_colors___6" Name="butterfly_colors___6" DataType="boolean" Length="1" redcap:Variable="butterfly_colors" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main colors</TranslatedText></Question>
+		<CodeListRef CodeListOID="butterfly_colors___6.choices"/>
+	</ItemDef>
+	<ItemDef OID="butterfly_colors___7" Name="butterfly_colors___7" DataType="boolean" Length="1" redcap:Variable="butterfly_colors" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main colors</TranslatedText></Question>
+		<CodeListRef CodeListOID="butterfly_colors___7.choices"/>
+	</ItemDef>
+	<ItemDef OID="butterfly_colors___8" Name="butterfly_colors___8" DataType="boolean" Length="1" redcap:Variable="butterfly_colors" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main colors</TranslatedText></Question>
+		<CodeListRef CodeListOID="butterfly_colors___8.choices"/>
+	</ItemDef>
+	<ItemDef OID="butterfly_colors___9" Name="butterfly_colors___9" DataType="boolean" Length="1" redcap:Variable="butterfly_colors" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main colors</TranslatedText></Question>
+		<CodeListRef CodeListOID="butterfly_colors___9.choices"/>
+	</ItemDef>
+	<ItemDef OID="butterfly_data_complete" Name="butterfly_data_complete" DataType="text" Length="1" redcap:Variable="butterfly_data_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
+		<Question><TranslatedText>Complete?</TranslatedText></Question>
+		<CodeListRef CodeListOID="butterfly_data_complete.choices"/>
+	</ItemDef>
+	<ItemDef OID="parrot_height" Name="parrot_height" DataType="float" Length="999" SignificantDigits="1" redcap:Variable="parrot_height" redcap:FieldType="text" redcap:TextValidationType="float">
+		<Question><TranslatedText>Height (cm)</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="parrot_wing_span" Name="parrot_wing_span" DataType="float" Length="999" SignificantDigits="1" redcap:Variable="parrot_wing_span" redcap:FieldType="text" redcap:TextValidationType="float">
+		<Question><TranslatedText>Wing span (cm)</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="parrot_type" Name="parrot_type" DataType="text" Length="2" redcap:Variable="parrot_type" redcap:FieldType="radio">
+		<Question><TranslatedText>Type of parrot</TranslatedText></Question>
+		<CodeListRef CodeListOID="parrot_type.choices"/>
+	</ItemDef>
+	<ItemDef OID="parrot_colors___1" Name="parrot_colors___1" DataType="boolean" Length="1" redcap:Variable="parrot_colors" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main color(s)</TranslatedText></Question>
+		<CodeListRef CodeListOID="parrot_colors___1.choices"/>
+	</ItemDef>
+	<ItemDef OID="parrot_colors___2" Name="parrot_colors___2" DataType="boolean" Length="1" redcap:Variable="parrot_colors" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main color(s)</TranslatedText></Question>
+		<CodeListRef CodeListOID="parrot_colors___2.choices"/>
+	</ItemDef>
+	<ItemDef OID="parrot_colors___3" Name="parrot_colors___3" DataType="boolean" Length="1" redcap:Variable="parrot_colors" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main color(s)</TranslatedText></Question>
+		<CodeListRef CodeListOID="parrot_colors___3.choices"/>
+	</ItemDef>
+	<ItemDef OID="parrot_colors___4" Name="parrot_colors___4" DataType="boolean" Length="1" redcap:Variable="parrot_colors" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main color(s)</TranslatedText></Question>
+		<CodeListRef CodeListOID="parrot_colors___4.choices"/>
+	</ItemDef>
+	<ItemDef OID="parrot_colors___5" Name="parrot_colors___5" DataType="boolean" Length="1" redcap:Variable="parrot_colors" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main color(s)</TranslatedText></Question>
+		<CodeListRef CodeListOID="parrot_colors___5.choices"/>
+	</ItemDef>
+	<ItemDef OID="parrot_colors___6" Name="parrot_colors___6" DataType="boolean" Length="1" redcap:Variable="parrot_colors" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main color(s)</TranslatedText></Question>
+		<CodeListRef CodeListOID="parrot_colors___6.choices"/>
+	</ItemDef>
+	<ItemDef OID="parrot_colors___7" Name="parrot_colors___7" DataType="boolean" Length="1" redcap:Variable="parrot_colors" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main color(s)</TranslatedText></Question>
+		<CodeListRef CodeListOID="parrot_colors___7.choices"/>
+	</ItemDef>
+	<ItemDef OID="parrot_colors___8" Name="parrot_colors___8" DataType="boolean" Length="1" redcap:Variable="parrot_colors" redcap:FieldType="checkbox">
+		<Question><TranslatedText>Main color(s)</TranslatedText></Question>
+		<CodeListRef CodeListOID="parrot_colors___8.choices"/>
+	</ItemDef>
+	<ItemDef OID="parrot_data_complete" Name="parrot_data_complete" DataType="text" Length="1" redcap:Variable="parrot_data_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
+		<Question><TranslatedText>Complete?</TranslatedText></Question>
+		<CodeListRef CodeListOID="parrot_data_complete.choices"/>
+	</ItemDef>
+	<ItemDef OID="rut" Name="rut" DataType="boolean" Length="1" redcap:Variable="rut" redcap:FieldType="yesno">
+		<Question><TranslatedText>In rut?</TranslatedText></Question>
+		<CodeListRef CodeListOID="rut.choices"/>
+	</ItemDef>
+	<ItemDef OID="maleonly_form_complete" Name="maleonly_form_complete" DataType="text" Length="1" redcap:Variable="maleonly_form_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
+		<Question><TranslatedText>Complete?</TranslatedText></Question>
+		<CodeListRef CodeListOID="maleonly_form_complete.choices"/>
+	</ItemDef>
+	<ItemDef OID="gravid" Name="gravid" DataType="boolean" Length="1" redcap:Variable="gravid" redcap:FieldType="yesno">
+		<Question><TranslatedText>Pregnant or Gravid</TranslatedText></Question>
+		<CodeListRef CodeListOID="gravid.choices"/>
+	</ItemDef>
+	<ItemDef OID="estrus" Name="estrus" DataType="boolean" Length="1" redcap:Variable="estrus" redcap:FieldType="yesno">
+		<Question><TranslatedText>In Estrus?</TranslatedText></Question>
+		<CodeListRef CodeListOID="estrus.choices"/>
+	</ItemDef>
+	<ItemDef OID="femaleonly_form_complete" Name="femaleonly_form_complete" DataType="text" Length="1" redcap:Variable="femaleonly_form_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
+		<Question><TranslatedText>Complete?</TranslatedText></Question>
+		<CodeListRef CodeListOID="femaleonly_form_complete.choices"/>
+	</ItemDef>
+	<ItemDef OID="big" Name="big" DataType="text" Length="999" redcap:Variable="big" redcap:FieldType="descriptive">
+		<Question><TranslatedText>A form for big critters</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="big_critters_complete" Name="big_critters_complete" DataType="text" Length="1" redcap:Variable="big_critters_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
+		<Question><TranslatedText>Complete?</TranslatedText></Question>
+		<CodeListRef CodeListOID="big_critters_complete.choices"/>
+	</ItemDef>
+	<ItemDef OID="small" Name="small" DataType="text" Length="999" redcap:Variable="small" redcap:FieldType="descriptive">
+		<Question><TranslatedText>A form for small critters</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="small_critters_complete" Name="small_critters_complete" DataType="text" Length="1" redcap:Variable="small_critters_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
+		<Question><TranslatedText>Complete?</TranslatedText></Question>
+		<CodeListRef CodeListOID="small_critters_complete.choices"/>
+	</ItemDef>
+	<CodeList OID="species.choices" Name="species" DataType="text" redcap:Variable="species">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Cat</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Jellyfish</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Marlin</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="5"><Decode><TranslatedText>Snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="6"><Decode><TranslatedText>Butterfly</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="7"><Decode><TranslatedText>Parrot</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="classification.choices" Name="classification" DataType="text" redcap:Variable="classification">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Vertebrate</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Invertibrate</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="order.choices" Name="order" DataType="text" redcap:Variable="order">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Reptile</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Fish</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Amphibian</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Bird</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="5"><Decode><TranslatedText>Mammal</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="6"><Decode><TranslatedText>Insect</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="7"><Decode><TranslatedText>Coelenterate</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="sex.choices" Name="sex" DataType="text" redcap:Variable="sex">
+		<CodeListItem CodedValue="M"><Decode><TranslatedText>Male</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="F"><Decode><TranslatedText>Female</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="O"><Decode><TranslatedText>N/A</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="animal_identification_complete.choices" Name="animal_identification_complete" DataType="text" redcap:Variable="animal_identification_complete">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="reproduction_form.choices" Name="reproduction_form" DataType="text" redcap:Variable="reproduction_form">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Sexual</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Asexual</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Both</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="asexual_type.choices" Name="asexual_type" DataType="text" redcap:Variable="asexual_type">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Cloning</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Binary fission</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Budding</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Vegetative reproduction</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="5"><Decode><TranslatedText>Conjugation</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="sexual_type.choices" Name="sexual_type" DataType="text" redcap:Variable="sexual_type">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Allogamy</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Autogamy</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Mitosis</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Meiosis</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="reprod_strategy.choices" Name="reprod_strategy" DataType="text" redcap:Variable="reprod_strategy">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>K-selection (few offspring)</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>R-selection (many offspring)</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="reprod_mode.choices" Name="reprod_mode" DataType="text" redcap:Variable="reprod_mode">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Polycyclic  - reproduce intermittently throughout their lives.</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Semelparous  - reproduce only once in their lifetime.</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Iteroparous - produce offspring in successive (e.g. annual or seasonal) cycles.</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="diet.choices" Name="diet" DataType="text" redcap:Variable="diet">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Carnivore</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Omnivore</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Herbivore</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="lifestyle.choices" Name="lifestyle" DataType="text" redcap:Variable="lifestyle">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Solitary</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Social</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="lifestyle_reproductive_data_complete.choices" Name="lifestyle_reproductive_data_complete" DataType="text" redcap:Variable="lifestyle_reproductive_data_complete">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="cat_breed.choices" Name="cat_breed" DataType="text" redcap:Variable="cat_breed">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Abyssinian</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>American Bobtail</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>American Curl</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>American Shorthair</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>American Wirehair</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="5"><Decode><TranslatedText>Balinese</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="6"><Decode><TranslatedText>Bengal</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="7"><Decode><TranslatedText>Birman</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="8"><Decode><TranslatedText>Bombay</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="9"><Decode><TranslatedText>British Shorthair</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="10"><Decode><TranslatedText>Burmese</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="11"><Decode><TranslatedText>California Spangled Cat</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="12"><Decode><TranslatedText>Chartreux</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="13"><Decode><TranslatedText>Colorpoint Shorthair</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="14"><Decode><TranslatedText>Cornish Rex</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="15"><Decode><TranslatedText>Cymric</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="16"><Decode><TranslatedText>Devon Rex</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="17"><Decode><TranslatedText>Egyptian Mau</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="18"><Decode><TranslatedText>European Burmese</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="19"><Decode><TranslatedText>Exotic Shorthair</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="20"><Decode><TranslatedText>Havana Brown</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="21"><Decode><TranslatedText>Himalayan</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="22"><Decode><TranslatedText>Japanese Bobtail</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="23"><Decode><TranslatedText>Javanese</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="24"><Decode><TranslatedText>Korat</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="25"><Decode><TranslatedText>Maine Coon</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="26"><Decode><TranslatedText>Manx</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="27"><Decode><TranslatedText>Munchkin</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="28"><Decode><TranslatedText>Nebelung</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="29"><Decode><TranslatedText>Norwegian Forest Cat</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="30"><Decode><TranslatedText>Ocicat</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="31"><Decode><TranslatedText>Oriental</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="32"><Decode><TranslatedText>Persian</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="33"><Decode><TranslatedText>Ragdoll</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="34"><Decode><TranslatedText>Randombred Cat</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="35"><Decode><TranslatedText>Russian Blue</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="36"><Decode><TranslatedText>Scottish Fold</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="37"><Decode><TranslatedText>Selkirk Rex</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="38"><Decode><TranslatedText>Siamese</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="39"><Decode><TranslatedText>Siberian</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="40"><Decode><TranslatedText>Singapura</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="41"><Decode><TranslatedText>Snowshoe</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="42"><Decode><TranslatedText>Somali</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="43"><Decode><TranslatedText>Sphynx</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="44"><Decode><TranslatedText>Tiffany/Chantilly</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="45"><Decode><TranslatedText>Tonkinese</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="46"><Decode><TranslatedText>Turkish Angora</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="47"><Decode><TranslatedText>Turkish Van</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="48"><Decode><TranslatedText>York Chocolate</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="cat_color.choices" Name="cat_color" DataType="text" redcap:Variable="cat_color">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>White</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Black</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Gray</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Orange</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="5"><Decode><TranslatedText>Tabby</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="6"><Decode><TranslatedText>Tuxedo</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="7"><Decode><TranslatedText>Multi</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="88"><Decode><TranslatedText>Other</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="cat_fur.choices" Name="cat_fur" DataType="text" redcap:Variable="cat_fur">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Short</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Medium</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Long</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="cat_diet.choices" Name="cat_diet" DataType="text" redcap:Variable="cat_diet">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Wet food</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Dry food</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Combination</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="cat_litter.choices" Name="cat_litter" DataType="text" redcap:Variable="cat_litter">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>1</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>2</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>3</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>4</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="5"><Decode><TranslatedText>5</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="6"><Decode><TranslatedText>6</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="7"><Decode><TranslatedText>More than 6</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="cat_data_complete.choices" Name="cat_data_complete" DataType="text" redcap:Variable="cat_data_complete">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="jellyfish_taxonomy.choices" Name="jellyfish_taxonomy" DataType="text" redcap:Variable="jellyfish_taxonomy">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Cotylorhiza tuberculata</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Marivagia stellata</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Aequorea forskalea</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Aurelia aurita</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="5"><Decode><TranslatedText>Carybdea marsupialis</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="6"><Decode><TranslatedText>Cassiopea andromeda</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="7"><Decode><TranslatedText>Catostylus tagi</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="8"><Decode><TranslatedText>Chrysaora hysoscella</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="9"><Decode><TranslatedText>Drymonema dalmatinum</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="10"><Decode><TranslatedText>Mnemiopsis leidyi</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="11"><Decode><TranslatedText>Olindias phosphorica</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="12"><Decode><TranslatedText>Pelagia noctiluca</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="13"><Decode><TranslatedText>Phyllorhiza punctata</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="14"><Decode><TranslatedText>Physalia physalis</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="15"><Decode><TranslatedText>Porpita porpita</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="16"><Decode><TranslatedText>Rhizostoma pulmo</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="17"><Decode><TranslatedText>Rhopilema nomadica</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="18"><Decode><TranslatedText>Thalia democratica</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="19"><Decode><TranslatedText>Velella velella</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="jellyfish_class.choices" Name="jellyfish_class" DataType="text" redcap:Variable="jellyfish_class">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Scyphozoa</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Cubozoa</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Hydrozoa</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Staurozoa</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="jellyfish_habitat.choices" Name="jellyfish_habitat" DataType="text" redcap:Variable="jellyfish_habitat">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Freshwater</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Saltwater</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Both</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="jellyfish_toxicity.choices" Name="jellyfish_toxicity" DataType="text" redcap:Variable="jellyfish_toxicity">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Poisonous</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Non poisonous</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="jellyfish_data_complete.choices" Name="jellyfish_data_complete" DataType="text" redcap:Variable="jellyfish_data_complete">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="frog_type.choices" Name="frog_type" DataType="text" redcap:Variable="frog_type">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Centralian Burrowing-Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Boreal Chorus Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Bridled Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Broad-palmed Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Broad-palmed Rocket Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="5"><Decode><TranslatedText>Bumpy Rocket Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="6"><Decode><TranslatedText>Cascade Tree Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="7"><Decode><TranslatedText>Centralian Tree Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="8"><Decode><TranslatedText>Common Mist Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="9"><Decode><TranslatedText>Cope&#039;s Gray Treefrog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="10"><Decode><TranslatedText>Creek Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="11"><Decode><TranslatedText>Dahl&#039;s Aquatic Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="12"><Decode><TranslatedText>Dainty Tree Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="13"><Decode><TranslatedText>Desert Tree Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="14"><Decode><TranslatedText>Eastern Cricket Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="15"><Decode><TranslatedText>Eastern Dwarf Tree Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="16"><Decode><TranslatedText>Eastern Sedge Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="17"><Decode><TranslatedText>Emerald-spotted Tree Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="18"><Decode><TranslatedText>Floodplain Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="19"><Decode><TranslatedText>Graceful Tree Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="20"><Decode><TranslatedText>Great Barred Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="21"><Decode><TranslatedText>Green Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="22"><Decode><TranslatedText>Green Tree Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="23"><Decode><TranslatedText>Green-eyed Tree Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="24"><Decode><TranslatedText>Kuranda Tree Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="25"><Decode><TranslatedText>Laughing Tree Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="26"><Decode><TranslatedText>Mottled Barred Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="27"><Decode><TranslatedText>Northern Barred Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="28"><Decode><TranslatedText>Northern Green Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="29"><Decode><TranslatedText>Northern Laughing Tree Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="30"><Decode><TranslatedText>Northern Stony-creek Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="31"><Decode><TranslatedText>Ornate Burrowing-Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="32"><Decode><TranslatedText>Pearson&#039;s Tree Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="33"><Decode><TranslatedText>Peron&#039;s Tree Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="34"><Decode><TranslatedText>Red-eyed Tree Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="35"><Decode><TranslatedText>Rocket Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="36"><Decode><TranslatedText>Roth&#039;s Tree Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="37"><Decode><TranslatedText>Southern Cricket Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="38"><Decode><TranslatedText>Southern Orange-eyed Tree Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="39"><Decode><TranslatedText>Stony Creek Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="40"><Decode><TranslatedText>Striped Rocket Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="41"><Decode><TranslatedText>Tarahumara Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="42"><Decode><TranslatedText>Tawny Rocket Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="43"><Decode><TranslatedText>Torrent Tree Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="44"><Decode><TranslatedText>Tusked Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="45"><Decode><TranslatedText>Waterfall Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="46"><Decode><TranslatedText>White&#039;s Tree Frog</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="47"><Decode><TranslatedText>Wood Frog</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="frog_color.choices" Name="frog_color" DataType="text" redcap:Variable="frog_color">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Green</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Brown</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Spotted</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Red</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="5"><Decode><TranslatedText>Orange</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="6"><Decode><TranslatedText>Blue</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="7"><Decode><TranslatedText>Yellow</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="88"><Decode><TranslatedText>Other</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="frog_diet___1.choices" Name="frog_diet___1" DataType="boolean" redcap:Variable="frog_diet" redcap:CheckboxChoices="1, Insects|2, Snails|3, Spiders|4, Worms|5, Fish">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="frog_diet___2.choices" Name="frog_diet___2" DataType="boolean" redcap:Variable="frog_diet" redcap:CheckboxChoices="1, Insects|2, Snails|3, Spiders|4, Worms|5, Fish">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="frog_diet___3.choices" Name="frog_diet___3" DataType="boolean" redcap:Variable="frog_diet" redcap:CheckboxChoices="1, Insects|2, Snails|3, Spiders|4, Worms|5, Fish">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="frog_diet___4.choices" Name="frog_diet___4" DataType="boolean" redcap:Variable="frog_diet" redcap:CheckboxChoices="1, Insects|2, Snails|3, Spiders|4, Worms|5, Fish">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="frog_diet___5.choices" Name="frog_diet___5" DataType="boolean" redcap:Variable="frog_diet" redcap:CheckboxChoices="1, Insects|2, Snails|3, Spiders|4, Worms|5, Fish">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="frog_repord.choices" Name="frog_repord" DataType="text" redcap:Variable="frog_repord">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Prolonged breeding</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Explosive breeding</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="frog_locomotion___1.choices" Name="frog_locomotion___1" DataType="boolean" redcap:Variable="frog_locomotion" redcap:CheckboxChoices="1, jumping|2, running|3, walking|4, swimming|5, burrowing|6, climbing|7, gliding">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="frog_locomotion___2.choices" Name="frog_locomotion___2" DataType="boolean" redcap:Variable="frog_locomotion" redcap:CheckboxChoices="1, jumping|2, running|3, walking|4, swimming|5, burrowing|6, climbing|7, gliding">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="frog_locomotion___3.choices" Name="frog_locomotion___3" DataType="boolean" redcap:Variable="frog_locomotion" redcap:CheckboxChoices="1, jumping|2, running|3, walking|4, swimming|5, burrowing|6, climbing|7, gliding">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="frog_locomotion___4.choices" Name="frog_locomotion___4" DataType="boolean" redcap:Variable="frog_locomotion" redcap:CheckboxChoices="1, jumping|2, running|3, walking|4, swimming|5, burrowing|6, climbing|7, gliding">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="frog_locomotion___5.choices" Name="frog_locomotion___5" DataType="boolean" redcap:Variable="frog_locomotion" redcap:CheckboxChoices="1, jumping|2, running|3, walking|4, swimming|5, burrowing|6, climbing|7, gliding">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="frog_locomotion___6.choices" Name="frog_locomotion___6" DataType="boolean" redcap:Variable="frog_locomotion" redcap:CheckboxChoices="1, jumping|2, running|3, walking|4, swimming|5, burrowing|6, climbing|7, gliding">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="frog_locomotion___7.choices" Name="frog_locomotion___7" DataType="boolean" redcap:Variable="frog_locomotion" redcap:CheckboxChoices="1, jumping|2, running|3, walking|4, swimming|5, burrowing|6, climbing|7, gliding">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="frog_data_complete.choices" Name="frog_data_complete" DataType="text" redcap:Variable="frog_data_complete">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="genera.choices" Name="genera" DataType="text" redcap:Variable="genera">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Swordfish</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Sailfish</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Istiompax</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Makaria</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="5"><Decode><TranslatedText>Tetrapturus</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="sailfish.choices" Name="sailfish" DataType="text" redcap:Variable="sailfish">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Atlantic salifish</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Indo-Pacific sailfish</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="makaira.choices" Name="makaira" DataType="text" redcap:Variable="makaira">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Indo-Pacific blue marlin</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Atlantic blue marlin</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="tetrapturus.choices" Name="tetrapturus" DataType="text" redcap:Variable="tetrapturus">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>White marlin</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Shortbill spearfish</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Striped marlin</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Roundscale spearfish</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="5"><Decode><TranslatedText>Mediterranean spearfish</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="6"><Decode><TranslatedText>Longbill spearfish</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="marlin_diet___1.choices" Name="marlin_diet___1" DataType="boolean" redcap:Variable="marlin_diet" redcap:CheckboxChoices="1, Sardines|2, Anchovies|3, Mackerel|4, Crustaceans|5, Cephalopods|6, Other fish|7, Zooplankton|8, Squid">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="marlin_diet___2.choices" Name="marlin_diet___2" DataType="boolean" redcap:Variable="marlin_diet" redcap:CheckboxChoices="1, Sardines|2, Anchovies|3, Mackerel|4, Crustaceans|5, Cephalopods|6, Other fish|7, Zooplankton|8, Squid">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="marlin_diet___3.choices" Name="marlin_diet___3" DataType="boolean" redcap:Variable="marlin_diet" redcap:CheckboxChoices="1, Sardines|2, Anchovies|3, Mackerel|4, Crustaceans|5, Cephalopods|6, Other fish|7, Zooplankton|8, Squid">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="marlin_diet___4.choices" Name="marlin_diet___4" DataType="boolean" redcap:Variable="marlin_diet" redcap:CheckboxChoices="1, Sardines|2, Anchovies|3, Mackerel|4, Crustaceans|5, Cephalopods|6, Other fish|7, Zooplankton|8, Squid">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="marlin_diet___5.choices" Name="marlin_diet___5" DataType="boolean" redcap:Variable="marlin_diet" redcap:CheckboxChoices="1, Sardines|2, Anchovies|3, Mackerel|4, Crustaceans|5, Cephalopods|6, Other fish|7, Zooplankton|8, Squid">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="marlin_diet___6.choices" Name="marlin_diet___6" DataType="boolean" redcap:Variable="marlin_diet" redcap:CheckboxChoices="1, Sardines|2, Anchovies|3, Mackerel|4, Crustaceans|5, Cephalopods|6, Other fish|7, Zooplankton|8, Squid">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="marlin_diet___7.choices" Name="marlin_diet___7" DataType="boolean" redcap:Variable="marlin_diet" redcap:CheckboxChoices="1, Sardines|2, Anchovies|3, Mackerel|4, Crustaceans|5, Cephalopods|6, Other fish|7, Zooplankton|8, Squid">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="marlin_diet___8.choices" Name="marlin_diet___8" DataType="boolean" redcap:Variable="marlin_diet" redcap:CheckboxChoices="1, Sardines|2, Anchovies|3, Mackerel|4, Crustaceans|5, Cephalopods|6, Other fish|7, Zooplankton|8, Squid">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="habitat_location___1.choices" Name="habitat_location___1" DataType="boolean" redcap:Variable="habitat_location" redcap:CheckboxChoices="1, Atlantic Ocean|2, Caribbean Sea|3, Indian Ocean|4, Pacific Ocean|5, Mediterranean Sea">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="habitat_location___2.choices" Name="habitat_location___2" DataType="boolean" redcap:Variable="habitat_location" redcap:CheckboxChoices="1, Atlantic Ocean|2, Caribbean Sea|3, Indian Ocean|4, Pacific Ocean|5, Mediterranean Sea">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="habitat_location___3.choices" Name="habitat_location___3" DataType="boolean" redcap:Variable="habitat_location" redcap:CheckboxChoices="1, Atlantic Ocean|2, Caribbean Sea|3, Indian Ocean|4, Pacific Ocean|5, Mediterranean Sea">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="habitat_location___4.choices" Name="habitat_location___4" DataType="boolean" redcap:Variable="habitat_location" redcap:CheckboxChoices="1, Atlantic Ocean|2, Caribbean Sea|3, Indian Ocean|4, Pacific Ocean|5, Mediterranean Sea">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="habitat_location___5.choices" Name="habitat_location___5" DataType="boolean" redcap:Variable="habitat_location" redcap:CheckboxChoices="1, Atlantic Ocean|2, Caribbean Sea|3, Indian Ocean|4, Pacific Ocean|5, Mediterranean Sea">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="marlin_data_complete.choices" Name="marlin_data_complete" DataType="text" redcap:Variable="marlin_data_complete">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="poisonous.choices" Name="poisonous" DataType="text" redcap:Variable="poisonous">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Not poisonous</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Poisonous</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="snake_color.choices" Name="snake_color" DataType="text" redcap:Variable="snake_color">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Blue</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Green</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Black</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Brown</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="5"><Decode><TranslatedText>Red</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="6"><Decode><TranslatedText>Yellow</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="7"><Decode><TranslatedText>Grey</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="8"><Decode><TranslatedText>White</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="9"><Decode><TranslatedText>Banded</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="snake_name.choices" Name="snake_name" DataType="text" redcap:Variable="snake_name">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Adder</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Aesculapian sname</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Anaconda</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Arafura file snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="5"><Decode><TranslatedText>Asp</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="6"><Decode><TranslatedText>Ball python</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="7"><Decode><TranslatedText>Bird snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="8"><Decode><TranslatedText>Blind snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="9"><Decode><TranslatedText>Boa</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="10"><Decode><TranslatedText>Boiga</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="11"><Decode><TranslatedText>Boomslang</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="12"><Decode><TranslatedText>Brown snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="13"><Decode><TranslatedText>Bull snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="14"><Decode><TranslatedText>Bushmaster</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="15"><Decode><TranslatedText>Dwarf beaked snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="16"><Decode><TranslatedText>Rufous beaked snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="17"><Decode><TranslatedText>Canebreak</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="18"><Decode><TranslatedText>Cantil</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="19"><Decode><TranslatedText>Cascabel</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="20"><Decode><TranslatedText>Cascavel</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="21"><Decode><TranslatedText>Cat-eyed snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="22"><Decode><TranslatedText>Cat snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="23"><Decode><TranslatedText>Chicken snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="24"><Decode><TranslatedText>Coachwhip snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="25"><Decode><TranslatedText>Cobra</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="26"><Decode><TranslatedText>Collett&#039;s snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="27"><Decode><TranslatedText>Congo snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="28"><Decode><TranslatedText>Copperhead</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="29"><Decode><TranslatedText>Coral snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="30"><Decode><TranslatedText>Corn snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="31"><Decode><TranslatedText>Cottonmpouth</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="32"><Decode><TranslatedText>Crowned snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="33"><Decode><TranslatedText>Cuban wood snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="34"><Decode><TranslatedText>Eastern hognose snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="35"><Decode><TranslatedText>Egg-eater</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="36"><Decode><TranslatedText>Eyelash viper</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="37"><Decode><TranslatedText>Eastern coral snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="38"><Decode><TranslatedText>Fer-de-lance</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="39"><Decode><TranslatedText>Fierce snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="40"><Decode><TranslatedText>Fishing snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="41"><Decode><TranslatedText>Flying snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="42"><Decode><TranslatedText>Fox snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="43"><Decode><TranslatedText>Forest flame snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="44"><Decode><TranslatedText>Garter snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="45"><Decode><TranslatedText>Glossy snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="46"><Decode><TranslatedText>Gopher snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="47"><Decode><TranslatedText>Grass snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="48"><Decode><TranslatedText>Ground snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="49"><Decode><TranslatedText>Habu</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="50"><Decode><TranslatedText>Harlequin snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="51"><Decode><TranslatedText>Herald snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="52"><Decode><TranslatedText>Hognose snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="53"><Decode><TranslatedText>Hoop snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="54"><Decode><TranslatedText>Hundred pacer</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="55"><Decode><TranslatedText>Ikaheka snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="56"><Decode><TranslatedText>Indigo snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="57"><Decode><TranslatedText>Jamaican snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="58"><Decode><TranslatedText>Jararacussu</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="59"><Decode><TranslatedText>Keelback</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="60"><Decode><TranslatedText>King brown</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="61"><Decode><TranslatedText>King cobra</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="62"><Decode><TranslatedText>King snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="63"><Decode><TranslatedText>Krait</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="64"><Decode><TranslatedText>Large shield snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="65"><Decode><TranslatedText>Lancehead</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="66"><Decode><TranslatedText>Lora</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="67"><Decode><TranslatedText>Lyre snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="68"><Decode><TranslatedText>Machete savane</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="69"><Decode><TranslatedText>Mamba</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="70"><Decode><TranslatedText>Mamushi</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="71"><Decode><TranslatedText>Mangrove snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="72"><Decode><TranslatedText>Milk snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="73"><Decode><TranslatedText>Mangrove snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="74"><Decode><TranslatedText>Milk snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="75"><Decode><TranslatedText>Mocassin snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="76"><Decode><TranslatedText>Montpellier snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="77"><Decode><TranslatedText>Mud snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="78"><Decode><TranslatedText>Mussurana</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="79"><Decode><TranslatedText>Night snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="80"><Decode><TranslatedText>Parrot snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="81"><Decode><TranslatedText>Patchnose snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="82"><Decode><TranslatedText>Perrotet&#039;s shieldtail snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="83"><Decode><TranslatedText>Pine snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="84"><Decode><TranslatedText>Pipe snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="85"><Decode><TranslatedText>Python</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="86"><Decode><TranslatedText>Queen snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="87"><Decode><TranslatedText>Racer</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="88"><Decode><TranslatedText>Raddysnake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="89"><Decode><TranslatedText>Rat snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="90"><Decode><TranslatedText>Rattlesnake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="91"><Decode><TranslatedText>Ribbon snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="92"><Decode><TranslatedText>Rinkhals</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="93"><Decode><TranslatedText>River jack</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="94"><Decode><TranslatedText>Sea snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="95"><Decode><TranslatedText>Scott Shields Barrows Deadliest snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="96"><Decode><TranslatedText>Shield-tailed snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="97"><Decode><TranslatedText>Sidewinder</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="98"><Decode><TranslatedText>Small-eyed snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="99"><Decode><TranslatedText>Smooth snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="100"><Decode><TranslatedText>Sonoran</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="101"><Decode><TranslatedText>Stiletto snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="102"><Decode><TranslatedText>Striped snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="103"><Decode><TranslatedText>Sunbeam snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="104"><Decode><TranslatedText>Taipan</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="105"><Decode><TranslatedText>Tentacled snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="106"><Decode><TranslatedText>Tic polonga</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="107"><Decode><TranslatedText>Tiger snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="108"><Decode><TranslatedText>Tigre snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="109"><Decode><TranslatedText>Tree snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="110"><Decode><TranslatedText>Trinket snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="111"><Decode><TranslatedText>Twig snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="112"><Decode><TranslatedText>Twin headed King snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="113"><Decode><TranslatedText>Titanboa</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="114"><Decode><TranslatedText>Urutu</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="115"><Decode><TranslatedText>Vine snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="116"><Decode><TranslatedText>Viper</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="117"><Decode><TranslatedText>Wart snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="118"><Decode><TranslatedText>Water moccasin</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="119"><Decode><TranslatedText>Water snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="120"><Decode><TranslatedText>Whip snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="121"><Decode><TranslatedText>Wolf snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="122"><Decode><TranslatedText>Worm snake</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="123"><Decode><TranslatedText>Wutu</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="124"><Decode><TranslatedText>Xanlder</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="125"><Decode><TranslatedText>Yarara</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="126"><Decode><TranslatedText>Zebra snake</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="snake_diet.choices" Name="snake_diet" DataType="text" redcap:Variable="snake_diet">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Insects</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Rodents</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Birds</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Frogs</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="5"><Decode><TranslatedText>Mammals</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="6"><Decode><TranslatedText>Reptiles</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="7"><Decode><TranslatedText>Eggs</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="snake_habitat.choices" Name="snake_habitat" DataType="text" redcap:Variable="snake_habitat">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Water</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Forest</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Desert</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Prarie</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="snake_data_complete.choices" Name="snake_data_complete" DataType="text" redcap:Variable="snake_data_complete">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="butterfly_family.choices" Name="butterfly_family" DataType="text" redcap:Variable="butterfly_family">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Hedylidae</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Hesperildae</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Lycaenidae</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Nymphalidae</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="5"><Decode><TranslatedText>Papilionidae</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="6"><Decode><TranslatedText>Pieridae</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="7"><Decode><TranslatedText>Riodinidae</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="butterfly_type.choices" Name="butterfly_type" DataType="text" redcap:Variable="butterfly_type">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>American Snout</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Blue Morpho</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>California Dogface</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Garden Tiger</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="5"><Decode><TranslatedText>Goliath Birdwing</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="6"><Decode><TranslatedText>Julia</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="7"><Decode><TranslatedText>Karner Blue</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="8"><Decode><TranslatedText>Milbert&#039;s Tortoiseshell</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="9"><Decode><TranslatedText>Monarch</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="10"><Decode><TranslatedText>Mourning Cloak</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="11"><Decode><TranslatedText>Painted Lady</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="12"><Decode><TranslatedText>Peacock</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="13"><Decode><TranslatedText>Postman Butterfly</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="14"><Decode><TranslatedText>Queen Alexandra&#039;s Birdwing</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="15"><Decode><TranslatedText>Red Admiral</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="16"><Decode><TranslatedText>Saturn</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="17"><Decode><TranslatedText>Southern Dogface</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="18"><Decode><TranslatedText>Summer Azure</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="19"><Decode><TranslatedText>Tiger Swallowtail</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="20"><Decode><TranslatedText>Ulysses</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="21"><Decode><TranslatedText>Viceroy</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="22"><Decode><TranslatedText>Zebra Swallowtail</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="butterfly_diet.choices" Name="butterfly_diet" DataType="text" redcap:Variable="butterfly_diet">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Flower nectar</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Rotting fruit</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Rotting animal flesh</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Animal fluids</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="butterfly_colors___1.choices" Name="butterfly_colors___1" DataType="boolean" redcap:Variable="butterfly_colors" redcap:CheckboxChoices="1, Red|2, Orange|3, Yellow|4, Green|5, Blue|6, Purple|7, Aqua|8, White|9, Black">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="butterfly_colors___2.choices" Name="butterfly_colors___2" DataType="boolean" redcap:Variable="butterfly_colors" redcap:CheckboxChoices="1, Red|2, Orange|3, Yellow|4, Green|5, Blue|6, Purple|7, Aqua|8, White|9, Black">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="butterfly_colors___3.choices" Name="butterfly_colors___3" DataType="boolean" redcap:Variable="butterfly_colors" redcap:CheckboxChoices="1, Red|2, Orange|3, Yellow|4, Green|5, Blue|6, Purple|7, Aqua|8, White|9, Black">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="butterfly_colors___4.choices" Name="butterfly_colors___4" DataType="boolean" redcap:Variable="butterfly_colors" redcap:CheckboxChoices="1, Red|2, Orange|3, Yellow|4, Green|5, Blue|6, Purple|7, Aqua|8, White|9, Black">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="butterfly_colors___5.choices" Name="butterfly_colors___5" DataType="boolean" redcap:Variable="butterfly_colors" redcap:CheckboxChoices="1, Red|2, Orange|3, Yellow|4, Green|5, Blue|6, Purple|7, Aqua|8, White|9, Black">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="butterfly_colors___6.choices" Name="butterfly_colors___6" DataType="boolean" redcap:Variable="butterfly_colors" redcap:CheckboxChoices="1, Red|2, Orange|3, Yellow|4, Green|5, Blue|6, Purple|7, Aqua|8, White|9, Black">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="butterfly_colors___7.choices" Name="butterfly_colors___7" DataType="boolean" redcap:Variable="butterfly_colors" redcap:CheckboxChoices="1, Red|2, Orange|3, Yellow|4, Green|5, Blue|6, Purple|7, Aqua|8, White|9, Black">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="butterfly_colors___8.choices" Name="butterfly_colors___8" DataType="boolean" redcap:Variable="butterfly_colors" redcap:CheckboxChoices="1, Red|2, Orange|3, Yellow|4, Green|5, Blue|6, Purple|7, Aqua|8, White|9, Black">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="butterfly_colors___9.choices" Name="butterfly_colors___9" DataType="boolean" redcap:Variable="butterfly_colors" redcap:CheckboxChoices="1, Red|2, Orange|3, Yellow|4, Green|5, Blue|6, Purple|7, Aqua|8, White|9, Black">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="butterfly_data_complete.choices" Name="butterfly_data_complete" DataType="text" redcap:Variable="butterfly_data_complete">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="parrot_type.choices" Name="parrot_type" DataType="text" redcap:Variable="parrot_type">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Cockatiels</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Lovebirds</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Small parakeets</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Parrotlets</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="5"><Decode><TranslatedText>Caiques</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="6"><Decode><TranslatedText>Small conures</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="7"><Decode><TranslatedText>Lories</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="8"><Decode><TranslatedText>Lorikeets</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="9"><Decode><TranslatedText>Large parakeets</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="10"><Decode><TranslatedText>Pionus parrots</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="11"><Decode><TranslatedText>Poicephalus</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="12"><Decode><TranslatedText>African greys</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="13"><Decode><TranslatedText>Amazons</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="14"><Decode><TranslatedText>Small cockatoos</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="15"><Decode><TranslatedText>Large conures</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="16"><Decode><TranslatedText>Eclectus</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="17"><Decode><TranslatedText>Hawk headed parrots</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="18"><Decode><TranslatedText>Mini-macaws</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="19"><Decode><TranslatedText>Large cockatoos</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="20"><Decode><TranslatedText>Macaws</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="parrot_colors___1.choices" Name="parrot_colors___1" DataType="boolean" redcap:Variable="parrot_colors" redcap:CheckboxChoices="1, Red|2, Orange|3, Yellow|4, Green|5, Blue|6, Purple|7, Grey|8, White">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="parrot_colors___2.choices" Name="parrot_colors___2" DataType="boolean" redcap:Variable="parrot_colors" redcap:CheckboxChoices="1, Red|2, Orange|3, Yellow|4, Green|5, Blue|6, Purple|7, Grey|8, White">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="parrot_colors___3.choices" Name="parrot_colors___3" DataType="boolean" redcap:Variable="parrot_colors" redcap:CheckboxChoices="1, Red|2, Orange|3, Yellow|4, Green|5, Blue|6, Purple|7, Grey|8, White">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="parrot_colors___4.choices" Name="parrot_colors___4" DataType="boolean" redcap:Variable="parrot_colors" redcap:CheckboxChoices="1, Red|2, Orange|3, Yellow|4, Green|5, Blue|6, Purple|7, Grey|8, White">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="parrot_colors___5.choices" Name="parrot_colors___5" DataType="boolean" redcap:Variable="parrot_colors" redcap:CheckboxChoices="1, Red|2, Orange|3, Yellow|4, Green|5, Blue|6, Purple|7, Grey|8, White">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="parrot_colors___6.choices" Name="parrot_colors___6" DataType="boolean" redcap:Variable="parrot_colors" redcap:CheckboxChoices="1, Red|2, Orange|3, Yellow|4, Green|5, Blue|6, Purple|7, Grey|8, White">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="parrot_colors___7.choices" Name="parrot_colors___7" DataType="boolean" redcap:Variable="parrot_colors" redcap:CheckboxChoices="1, Red|2, Orange|3, Yellow|4, Green|5, Blue|6, Purple|7, Grey|8, White">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="parrot_colors___8.choices" Name="parrot_colors___8" DataType="boolean" redcap:Variable="parrot_colors" redcap:CheckboxChoices="1, Red|2, Orange|3, Yellow|4, Green|5, Blue|6, Purple|7, Grey|8, White">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="parrot_data_complete.choices" Name="parrot_data_complete" DataType="text" redcap:Variable="parrot_data_complete">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="rut.choices" Name="rut" DataType="boolean" redcap:Variable="rut">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Yes</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>No</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="maleonly_form_complete.choices" Name="maleonly_form_complete" DataType="text" redcap:Variable="maleonly_form_complete">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="gravid.choices" Name="gravid" DataType="boolean" redcap:Variable="gravid">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Yes</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>No</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="estrus.choices" Name="estrus" DataType="boolean" redcap:Variable="estrus">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Yes</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>No</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="femaleonly_form_complete.choices" Name="femaleonly_form_complete" DataType="text" redcap:Variable="femaleonly_form_complete">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="big_critters_complete.choices" Name="big_critters_complete" DataType="text" redcap:Variable="big_critters_complete">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="small_critters_complete.choices" Name="small_critters_complete" DataType="text" redcap:Variable="small_critters_complete">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+</MetaDataVersion>
+</Study>
+<ClinicalData StudyOID="Project.AnimalIdentification" MetaDataVersionOID="Metadata.AnimalIdentification_2018-06-02_2257">
+	<SubjectData SubjectKey="1" redcap:RecordIdField="record_id">
+		<StudyEventData StudyEventOID="Event.event_1_arm_1" StudyEventRepeatKey="1" redcap:UniqueEventName="event_1_arm_1">
+			<FormData FormOID="Form.animal_identification" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="animal_identification.record_id" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="record_id" Value="1"/>
+					<ItemData ItemOID="species" Value="1"/>
+					<ItemData ItemOID="classification" Value="1"/>
+					<ItemData ItemOID="order" Value="5"/>
+					<ItemData ItemOID="weight" Value="10"/>
+					<ItemData ItemOID="sex" Value="M"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="animal_identification.animal_identification_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="animal_identification_complete" Value="2"/>
+				</ItemGroupData>
+			</FormData>
+			<FormData FormOID="Form.maleonly_form" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="maleonly_form.rut" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="rut" Value="1"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="maleonly_form.maleonly_form_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="maleonly_form_complete" Value="2"/>
+				</ItemGroupData>
+			</FormData>
+			<FormData FormOID="Form.femaleonly_form" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="femaleonly_form.femaleonly_form_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="femaleonly_form_complete" Value="0"/>
+				</ItemGroupData>
+			</FormData>
+			<FormData FormOID="Form.big_critters" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="big_critters.big_critters_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="big_critters_complete" Value="0"/>
+				</ItemGroupData>
+			</FormData>
+			<FormData FormOID="Form.small_critters" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="small_critters.small_critters_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="small_critters_complete" Value="0"/>
+				</ItemGroupData>
+			</FormData>
+		</StudyEventData>
+	</SubjectData>
+	<SubjectData SubjectKey="2" redcap:RecordIdField="record_id">
+		<StudyEventData StudyEventOID="Event.event_1_arm_1" StudyEventRepeatKey="1" redcap:UniqueEventName="event_1_arm_1">
+			<FormData FormOID="Form.animal_identification" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="animal_identification.record_id" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="record_id" Value="2"/>
+					<ItemData ItemOID="species" Value="3"/>
+					<ItemData ItemOID="classification" Value="1"/>
+					<ItemData ItemOID="order" Value="3"/>
+					<ItemData ItemOID="weight" Value="200"/>
+					<ItemData ItemOID="sex" Value="F"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="animal_identification.animal_identification_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="animal_identification_complete" Value="2"/>
+				</ItemGroupData>
+			</FormData>
+			<FormData FormOID="Form.maleonly_form" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="maleonly_form.maleonly_form_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="maleonly_form_complete" Value="0"/>
+				</ItemGroupData>
+			</FormData>
+			<FormData FormOID="Form.femaleonly_form" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="femaleonly_form.femaleonly_form_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="femaleonly_form_complete" Value="0"/>
+				</ItemGroupData>
+			</FormData>
+			<FormData FormOID="Form.big_critters" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="big_critters.big_critters_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="big_critters_complete" Value="0"/>
+				</ItemGroupData>
+			</FormData>
+			<FormData FormOID="Form.small_critters" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="small_critters.small_critters_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="small_critters_complete" Value="0"/>
+				</ItemGroupData>
+			</FormData>
+		</StudyEventData>
+	</SubjectData>
+	<SubjectData SubjectKey="3" redcap:RecordIdField="record_id">
+		<StudyEventData StudyEventOID="Event.event_1_arm_1" StudyEventRepeatKey="1" redcap:UniqueEventName="event_1_arm_1">
+			<FormData FormOID="Form.animal_identification" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="animal_identification.record_id" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="record_id" Value="3"/>
+					<ItemData ItemOID="collect_date" Value="2017-07-14"/>
+					<ItemData ItemOID="species" Value="6"/>
+					<ItemData ItemOID="classification" Value="2"/>
+					<ItemData ItemOID="order" Value="6"/>
+					<ItemData ItemOID="weight" Value="15"/>
+					<ItemData ItemOID="sex" Value="F"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="animal_identification.animal_identification_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="animal_identification_complete" Value="2"/>
+				</ItemGroupData>
+			</FormData>
+			<FormData FormOID="Form.maleonly_form" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="maleonly_form.maleonly_form_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="maleonly_form_complete" Value="0"/>
+				</ItemGroupData>
+			</FormData>
+			<FormData FormOID="Form.femaleonly_form" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="femaleonly_form.femaleonly_form_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="femaleonly_form_complete" Value="0"/>
+				</ItemGroupData>
+			</FormData>
+			<FormData FormOID="Form.big_critters" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="big_critters.big_critters_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="big_critters_complete" Value="0"/>
+				</ItemGroupData>
+			</FormData>
+			<FormData FormOID="Form.small_critters" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="small_critters.small_critters_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="small_critters_complete" Value="0"/>
+				</ItemGroupData>
+			</FormData>
+		</StudyEventData>
+	</SubjectData>
+	<SubjectData SubjectKey="4" redcap:RecordIdField="record_id">
+		<StudyEventData StudyEventOID="Event.event_1_arm_1" StudyEventRepeatKey="1" redcap:UniqueEventName="event_1_arm_1">
+			<FormData FormOID="Form.animal_identification" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="animal_identification.record_id" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="record_id" Value="4"/>
+					<ItemData ItemOID="collect_date" Value="2018-05-30"/>
+					<ItemData ItemOID="species" Value="2"/>
+					<ItemData ItemOID="classification" Value="2"/>
+					<ItemData ItemOID="order" Value="7"/>
+					<ItemData ItemOID="weight" Value="200"/>
+					<ItemData ItemOID="sex" Value="M"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="animal_identification.animal_identification_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="animal_identification_complete" Value="2"/>
+				</ItemGroupData>
+			</FormData>
+			<FormData FormOID="Form.maleonly_form" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="maleonly_form.maleonly_form_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="maleonly_form_complete" Value="0"/>
+				</ItemGroupData>
+			</FormData>
+			<FormData FormOID="Form.femaleonly_form" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="femaleonly_form.femaleonly_form_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="femaleonly_form_complete" Value="0"/>
+				</ItemGroupData>
+			</FormData>
+			<FormData FormOID="Form.big_critters" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="big_critters.big_critters_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="big_critters_complete" Value="0"/>
+				</ItemGroupData>
+			</FormData>
+			<FormData FormOID="Form.small_critters" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="small_critters.small_critters_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="small_critters_complete" Value="0"/>
+				</ItemGroupData>
+			</FormData>
+		</StudyEventData>
+	</SubjectData>
+</ClinicalData>
+</ODM>
