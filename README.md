@@ -36,6 +36,8 @@ The image below shows a sample configuration where the control field is named `r
 
 ![module configuration screen](img/configuration_form.png)
 
+See [Animal Identification Example](samples/Animal_Identification.md) for a working example of a project that uses FRSL.
+
 ## Upgrading From Version 2.x - 3.x
 
 Note that version 3.0.0 introduced a breaking change in the configuration. To execute the upgrade you will need to follow these steps:
