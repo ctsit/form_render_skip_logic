@@ -19,6 +19,25 @@ $(document).ready(function() {
 
             $modal.addClass('frsl');
 
+            var place2ndColumnField = function($row) {
+                if ($row.hasClass('frsl-moved') || !$row.is(':visible')) {
+                    return;
+                }
+
+                var $element = $row.find('.external-modules-input-element');
+                var $target = $row.prev().find('.external-modules-input-element');
+
+                $element.css('width', ($target.parent().width() - $target.outerWidth(true) - 10) + 'px');
+                $element.position({
+                    my: 'left+10 top',
+                    at: 'right top',
+                    of: $target[0],
+                    collision: "none"
+                });
+
+                $row.addClass('frsl-moved');
+            }
+
             var branchingLogicCheckboxes = function($checkbox) {
                 var prefix = $checkbox.attr('name').replace('_select', '');
                 $target = $modal.find('select[name^="' + prefix + '"]').parent().parent();
@@ -46,6 +65,8 @@ $(document).ready(function() {
 
                 $(selectorShow).parent().parent().show();
                 $(selectorHide).parent().parent().hide();
+
+                place2ndColumnField($('[name="control_field_key' + suffix + '"]').parent().parent());
             };
 
             var $checkboxes = $modal.find('tr[field="target_events_select"] .external-modules-input-element');
@@ -60,6 +81,9 @@ $(document).ready(function() {
             $modal.find('tr[field="control_mode"]').each(function() {
                 var defaultValue = 'default';
                 $(this).find('.external-modules-input-element').each(function() {
+                    // Not using ":checked" selector to get the selected radio
+                    // due to a possible bug on EM that unchecks radios within
+                    // repeatable elements.
                     if (typeof this.attributes.checked !== 'undefined') {
                         defaultValue = $(this).val();
                         return false;
@@ -79,21 +103,8 @@ $(document).ready(function() {
                 }
             });
 
-            $modal.find('tr[field="control_field_key"], tr[field="condition_value"]').each(function() {
-                if (!$(this).is(':visible')) {
-                    return;
-                }
-
-                var $element = $(this).find('.external-modules-input-element');
-                var $target = $(this).prev().find('.external-modules-input-element');
-
-                $element.css('width', ($target.parent().width() - $target.outerWidth(true) - 10) + 'px');
-                $element.position({
-                    my: 'left+10 top',
-                    at: 'right top',
-                    of: $target[0],
-                    collision: "none"
-                });
+            $modal.find('tr[field="condition_value"]').each(function() {
+                place2ndColumnField($(this));
             });
         };
     });
