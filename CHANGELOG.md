@@ -2,6 +2,11 @@
 All notable changes to the Form Render Skip Logic module will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.1.1] - 2018-06-04
+### Changed
+- Fixing control field's 2nd column visibility. (Tiago Bember Simeao)
+
+
 ## [3.1.0] - 2018-06-02
 ### Added
 - Add support for data piping and smart variables in place of a control field. (Tiago Bember Simeao & Philip Chase)
