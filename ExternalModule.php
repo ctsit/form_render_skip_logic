@@ -480,6 +480,22 @@ class ExternalModule extends AbstractExternalModule {
     }
 
     /**
+     * checks if FRSL version 2.X settings exist.
+     */
+     function CheckIfVersion2SettingsExist() {
+       $module_id = $this->getFRSLModuleId();
+
+       //search for existing 2.X settings
+       $q = "SELECT 1 FROM redcap_external_module_settings WHERE external_module_id='$module_id' AND `key` IN ('control_field', 'event_name', 'event_name', 'field_name', 'enabled_before_ctrl_field_is_set', 'target_instruments', 'instrument_name', 'control_field_value');";
+       $result = $this->query($q);
+
+       //if we got something return true, otherwise false
+       $settings_exist = !empty($result->fetch_assoc());
+
+       return $settings_exist;
+     }
+
+    /**
      * gets external module_id for FRSL.
      * cannot use ExternalModules::getIdForPrefix() because it is private.
      */
