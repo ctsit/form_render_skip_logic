@@ -478,4 +478,17 @@ class ExternalModule extends AbstractExternalModule {
 
         return $formatted;
     }
+
+    /**
+     * gets external module_id for FRSL.
+     * cannot use ExternalModules::getIdForPrefix() because it is private.
+     */
+     function getFRSLModuleId() {
+       $q = "SELECT external_module_id FROM redcap_external_modules where directory_prefix = '" . $this->PREFIX . "'" ;
+
+       $result = $this->query($q);
+       $id = $result->fetch_assoc()['external_module_id'];
+
+       return $id;
+     }
 }
