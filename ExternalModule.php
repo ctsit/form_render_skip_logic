@@ -591,4 +591,36 @@ class ExternalModule extends AbstractExternalModule {
 
      }
 
+     /**
+      * stores FRSL_v3.X created by convert2XSettingsTo3XSettings method into db
+      * @param array $settings, array of v3 settings indexed by project_id and
+      * maps to a array of setting keys pointing to their associated values.
+      */
+     function store3XSettings($settings) {
+       $module_id = $this->getFRSLModuleId();
+
+       foreach ($settings as $project_id => $setting) {
+         /*creates all of the local variables used in the VALUES clause in the
+         statement below*/
+         extract($setting);
+
+         $q = "INSERT INTO redcap_external_module_settings
+                (external_module_id, project_id, `key`, type, value)
+              VALUES
+                ($module_id, $project_id, 'control_fields', 'json-array', '$control_fields'),
+                ($module_id, $project_id, 'control_mode', 'json-array', '$control_mode'),
+                ($module_id, $project_id, 'control_event_id', 'json-array', '$control_event_id'),
+                ($module_id, $project_id, 'control_field_key', 'json-array', '$control_field_key'),
+                ($module_id, $project_id, 'control_piping', 'json-array', '$control_piping'),
+                ($module_id, $project_id, 'control_default_value', 'json-array', '$control_default_value'),
+                ($module_id, $project_id, 'branching_logic', 'json-array', '$branching_logic'),
+                ($module_id, $project_id, 'condition_value', 'json-array', '$condition_value'),
+                ($module_id, $project_id, 'condition_operator', 'json-array', '$condition_operator'),
+                ($module_id, $project_id, 'target_forms', 'json-array', '$target_forms'),
+                ($module_id, $project_id, 'target_events_select', 'json-array', '$target_events_select'),
+                ($module_id, $project_id, 'target_events', 'json-array', '$target_events')";
+
+          $this->query($q);
+       }
+     }
 }
