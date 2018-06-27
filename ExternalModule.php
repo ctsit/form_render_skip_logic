@@ -486,7 +486,7 @@ class ExternalModule extends AbstractExternalModule {
        $module_id = $this->getFRSLModuleId();
 
        //search for existing 2.X settings
-       $q = "SELECT 1 FROM redcap_external_module_settings WHERE external_module_id='$module_id' AND `key` IN ('control_field', 'event_name', 'event_name', 'field_name', 'enabled_before_ctrl_field_is_set', 'target_instruments', 'instrument_name', 'control_field_value');";
+       $q = "SELECT 1 FROM redcap_external_module_settings WHERE external_module_id='$module_id' AND `key` IN ('control_field', 'event_name', 'event_name', 'field_name', 'enabled_before_ctrl_field_is_set', 'target_instruments', 'instrument_name', 'control_field_value')";
        $result = $this->query($q);
 
        //if we got something return true, otherwise false
@@ -501,10 +501,35 @@ class ExternalModule extends AbstractExternalModule {
      */
      function getFRSLModuleId() {
        $q = "SELECT external_module_id FROM redcap_external_modules where directory_prefix = '" . $this->PREFIX . "'" ;
-
        $result = $this->query($q);
        $id = $result->fetch_assoc()['external_module_id'];
 
        return $id;
      }
+
+    /**
+     * gets FRSLv2.x.x settings for each as an associative array indexed by
+     * project_id, where each project setting is an associative array indexed by
+     * setting name and maps to a setting value
+     * @return array $settings
+     */
+     function getV2XSettings() {
+       $module_id = $this->getFRSLModuleId();
+
+       //get old settings data
+       $q = "SELECT project_id, `key`, value FROM redcap_external_module_settings WHERE external_module_id='$module_id' AND `key` IN ('control_field', 'event_name', 'event_name', 'field_name', 'enabled_before_ctrl_field_is_set', 'target_instruments', 'instrument_name', 'control_field_value')";
+       $result = $this->query($q);
+
+       //create data stucture to represent old settings data
+       $settings = [];
+       while($row = $result->fetch_assoc()) {
+         $project_id = $row["project_id"];
+         $key = $row["key"];
+         $value = $row["value"];
+         $settings[$project_id][$key] = $value;
+       }
+
+       return $settings;
+     }
+
 }
