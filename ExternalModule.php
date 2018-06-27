@@ -85,6 +85,17 @@ class ExternalModule extends AbstractExternalModule {
     }
 
     /**
+     * @inheritdoc
+     */
+    function redcap_module_system_change_version($version, $old_version) {
+      if (preg_match("/v3\.*/", $version) && preg_match("/v2\.*/", $old_version) && $this->CheckIfVersion2SettingsExist()) {
+        $old_setting = $this->getV2XSettings();
+        $new_setting = $this->convert2XSettingsTo3XSettings($old_setting);
+        $this->store3XSettings($new_setting);
+      }
+    }
+
+    /**
      * Gets forms access matrix.
      *
      * @param string $arm
