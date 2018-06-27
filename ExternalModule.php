@@ -538,9 +538,6 @@ class ExternalModule extends AbstractExternalModule {
      * @return array $new_settings, array of v3 settings indexed by project_id
      */
      function convert2XSettingsTo3XSettings($old_settings) {
-       $module_id = $this->getFRSLModuleId();
-
-       //use old_settings to create new_settings
        $new_settings = [];
        foreach ($old_settings as $project_id => $old_setting) {
 
