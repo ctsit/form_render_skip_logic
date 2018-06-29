@@ -40,10 +40,4 @@ See [Animal Identification Example](samples/Animal_Identification.md) for a work
 
 ## Upgrading From Version 2.x - 3.x
 
-Note that version 3.0.0 introduced a breaking change in the configuration. To execute the upgrade you will need to follow these steps:
-
-* Note the projects that use FRSL
-* Record the configuration of each project
-* Erase the configuration of each project
-* Upgrade FRSL to 3.x
-* Re-enter the configuration for each project
+Note that version 3.0.0 introduced a breaking change in the configuration. When you upgrade to version 3.x all of your old configurations in 2.x will be converted into the 3.x configuration scheme. This migration only occurs the first time you upgrade from 2.x to 3.x . Thereafter, if you decided to switch back and forth between the two versions, your configurations will not transfer. This is to ensure that all of your old 2.x configurations will still be available to you if you decide to go back to version 2.x .
