@@ -88,7 +88,7 @@ class ExternalModule extends AbstractExternalModule {
      * @inheritdoc
      */
     function redcap_module_system_change_version($version, $old_version) {
-      if (preg_match("/v3\.*/", $version) && preg_match("/v2\.*/", $old_version) && $this->CheckIfVersion2SettingsExist()) {
+      if (preg_match("/v3\.*/", $version) && preg_match("/v2\.*/", $old_version) && $this->checkIfVersionSettingsExist($old_version)) {
         $old_setting = $this->getV2XSettings();
         $new_setting = $this->convert2XSettingsTo3XSettings($old_setting);
         $this->store3XSettings($new_setting);
@@ -491,13 +491,24 @@ class ExternalModule extends AbstractExternalModule {
     }
 
     /**
-     * checks if FRSL version 2.X settings exist.
+     * checks if FRSL settings for specified version exist. Does not support version
+     * 1. Will return false for any invalid version.
+     * @param string $version, module version in REDCap format e.g. 'v3.1.1'
+     * @return boolean, true if they exist, false otherwise
      */
-     function CheckIfVersion2SettingsExist() {
+     function checkIfVersionSettingsExist($version) {
        $module_id = $this->getFRSLModuleId();
 
-       //search for existing 2.X settings
-       $q = "SELECT 1 FROM redcap_external_module_settings WHERE external_module_id='$module_id' AND `key` IN ('control_field', 'event_name', 'event_name', 'field_name', 'enabled_before_ctrl_field_is_set', 'target_instruments', 'instrument_name', 'control_field_value')";
+       $q = "SELECT 1 FROM redcap_external_module_settings WHERE external_module_id='$module_id' AND `key` IN ";
+
+       if (preg_match("/v2\.[0-9]+(\.[0-9]+)?/", $version)) {
+          $q .= "('control_field', 'event_name', 'event_name', 'field_name', 'enabled_before_ctrl_field_is_set', 'target_instruments', 'instrument_name', 'control_field_value')";
+       } else if (preg_match("/v3\.[0-9]+(\.[0-9]+)?/", $version)) {
+          $q .= "('control_fields', 'control_mode', 'control_event_id', 'control_field_key', 'control_piping', 'control_default_value', 'branching_logic', 'condition_operator', 'condition_value', 'target_forms', 'target_events_select', 'target_events')";
+       } else {
+         return false;
+       }
+
        $result = $this->query($q);
 
        //if we got something return true, otherwise false
