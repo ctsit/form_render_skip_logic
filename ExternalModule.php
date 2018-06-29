@@ -89,9 +89,9 @@ class ExternalModule extends AbstractExternalModule {
      */
     function redcap_module_system_change_version($version, $old_version) {
       if (preg_match("/v3\.[0-9]+(\.[0-9]+)?/", $version) && preg_match("/v2\.[0-9]+(\.[0-9]+)?/", $old_version) && $this->checkIfVersionSettingsExist($old_version) && !$this->checkIfVersionSettingsExist($version)) {
-        $old_setting = $this->getV2XSettings();
-        $new_setting = $this->convert2XSettingsTo3XSettings($old_setting);
-        $this->store3XSettings($new_setting);
+        $old_setting = $this->getV2Settings();
+        $new_setting = $this->convertV2SettingsToV3Settings($old_setting);
+        $this->storeV3Settings($new_setting);
       }
     }
 
@@ -535,7 +535,7 @@ class ExternalModule extends AbstractExternalModule {
      * setting name and maps to a setting value
      * @return array $settings
      */
-     function getV2XSettings() {
+     function getV2Settings() {
        $module_id = $this->getFRSLModuleId();
 
        //get old settings data
@@ -559,7 +559,7 @@ class ExternalModule extends AbstractExternalModule {
      * @param array $old_settings, array of v2 settings indexed by project_id
      * @return array $new_settings, array of v3 settings indexed by project_id
      */
-     function convert2XSettingsTo3XSettings($old_settings) {
+     function convertV2SettingsToV3Settings($old_settings) {
        $new_settings = [];
        foreach ($old_settings as $project_id => $old_setting) {
 
@@ -618,7 +618,7 @@ class ExternalModule extends AbstractExternalModule {
       * @param array $settings, array of v3 settings indexed by project_id and
       * maps to a array of setting keys pointing to their associated values.
       */
-     function store3XSettings($settings) {
+     function storeV3Settings($settings) {
        $module_id = $this->getFRSLModuleId();
 
        foreach ($settings as $project_id => $setting) {
