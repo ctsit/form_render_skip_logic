@@ -88,26 +88,14 @@ class ExternalModule extends AbstractExternalModule {
      * @inheritdoc
      */
     function redcap_module_system_change_version($version, $old_version) {
-        //migrate settings only if version 2 settings exist and version 3 settings
-        //do not exist.
-        if ($this->checkIfVersionSettingsExist("v2.0.0") && !$this->checkIfVersionSettingsExist("v3.0.0")) {
-            $old_setting = $this->getV2Settings();
-            $new_setting = $this->convertV2SettingsToV3Settings($old_setting);
-            $this->storeV3Settings($new_setting);
-        }
+        $this->migrateSettings();
     }
 
     /**
      * @inheritdoc
      */
     function redcap_module_system_enable($version) {
-        //migrate settings only if version 2 settings exist and version 3 settings
-        //do not exist.
-        if ($this->checkIfVersionSettingsExist("v2.0.0") && !$this->checkIfVersionSettingsExist("v3.0.0")) {
-            $old_setting = $this->getV2Settings();
-            $new_setting = $this->convertV2SettingsToV3Settings($old_setting);
-            $this->storeV3Settings($new_setting);
-        }
+        $this->migrateSettings();
     }
 
     /**
@@ -648,5 +636,20 @@ class ExternalModule extends AbstractExternalModule {
          $q .= join(",", $values_to_insert);
          $this->query($q);
        }
+     }
+
+     /**
+      * migrates stored module settings from v2.x.x to v3.x.x if needed.
+      * @param none.
+      * @return none.
+      */
+     function migrateSettings() {
+         //migrate settings only if version 2 settings exist and version 3 settings
+         //do not exist.
+         if ($this->checkIfVersionSettingsExist("v2.0.0") && !$this->checkIfVersionSettingsExist("v3.0.0")) {
+             $old_setting = $this->getV2Settings();
+             $new_setting = $this->convertV2SettingsToV3Settings($old_setting);
+             $this->storeV3Settings($new_setting);
+         }
      }
 }
