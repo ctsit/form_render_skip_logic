@@ -7,7 +7,8 @@
         "redcap_data_entry_form_top",
         "redcap_survey_page_top",
         "redcap_save_record",
-        "redcap_module_system_change_version"
+        "redcap_module_system_change_version",
+        "redcap_module_system_enable"
     ],
     "authors": [
         {

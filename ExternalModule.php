@@ -88,11 +88,26 @@ class ExternalModule extends AbstractExternalModule {
      * @inheritdoc
      */
     function redcap_module_system_change_version($version, $old_version) {
-      if (preg_match("/v3\.[0-9]+(\.[0-9]+)?/", $version) && preg_match("/v2\.[0-9]+(\.[0-9]+)?/", $old_version) && $this->checkIfVersionSettingsExist($old_version) && !$this->checkIfVersionSettingsExist($version)) {
-        $old_setting = $this->getV2Settings();
-        $new_setting = $this->convertV2SettingsToV3Settings($old_setting);
-        $this->storeV3Settings($new_setting);
-      }
+        //migrate settings only if version 2 settings exist and version 3 settings
+        //do not exist.
+        if ($this->checkIfVersionSettingsExist("v2.0.0") && !$this->checkIfVersionSettingsExist("v3.0.0")) {
+            $old_setting = $this->getV2Settings();
+            $new_setting = $this->convertV2SettingsToV3Settings($old_setting);
+            $this->storeV3Settings($new_setting);
+        }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    function redcap_module_system_enable($version) {
+        //migrate settings only if version 2 settings exist and version 3 settings
+        //do not exist.
+        if ($this->checkIfVersionSettingsExist("v2.0.0") && !$this->checkIfVersionSettingsExist("v3.0.0")) {
+            $old_setting = $this->getV2Settings();
+            $new_setting = $this->convertV2SettingsToV3Settings($old_setting);
+            $this->storeV3Settings($new_setting);
+        }
     }
 
     /**
