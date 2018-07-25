@@ -85,26 +85,39 @@ class Migration {
        $new_settings = [];
        foreach ($old_settings as $project_id => $old_setting) {
 
-         //generate some of the new settings using the old "instrument_name" values
+         //generate branching_logic settings using old values
          $old_instrument_names = json_decode($old_setting["instrument_name"]);
          $old_instrument_count = count($old_instrument_names);
+         $old_control_field_values = json_decode($old_setting["control_field_value"]);
          $branching_logic = [];
          $condition_operator = [];
+         $condition_value = [];
          $target_forms = [];
          $target_events_select = [];
          $target_events = [];
 
          for($i = 0; $i < $old_instrument_count; $i++) {
-           $branching_logic[] = true;
-           $condition_operator[] = null;
-           $target_forms[] = [$old_instrument_names[$i]];
-           $target_events_select[] = false;
-           $target_events[] = [null];
+             //check if a branching_logic setting already exists for this instrument
+             $index = array_search($old_control_field_values[$i], $condition_value);
+
+             if($index !== false) {
+                 //append instrument to existing branching_logic configuration
+                 $target_forms[$index][] = $old_instrument_names[$i];
+             } else {
+                 //create a new branching_logic sub setting
+                 $branching_logic[] = true;
+                 $condition_operator[] = null;
+                 $condition_value[] = $old_control_field_values[$i];
+                 $target_forms[] = [$old_instrument_names[$i]];
+                 $target_events_select[] = false;
+                 $target_events[] = [null];
+             }
          }
 
          //convert to nested JSON-arrays for storage
          $branching_logic = "[" . json_encode($branching_logic) . "]";
          $condition_operator = "[" . json_encode($condition_operator) . "]";
+         $condition_value = "[" . json_encode($condition_value) . "]";
          $target_forms = "[" . json_encode($target_forms) . "]";
          $target_events_select =  "[" . json_encode($target_events_select) . "]";
          $target_events = "[" . json_encode($target_events) . "]";
@@ -112,8 +125,6 @@ class Migration {
          //create sub-structure for project setting
          $setting = [];
 
-         /*added extra angle brackets around some values because every new config
-          is stored as a JSON-array or as a nested JSON-array*/
          $setting["control_fields"] = $old_setting["control_field"];
          $setting["control_mode"] = '["default"]';
          $setting["control_event_id"] = $old_setting["event_name"];
@@ -121,7 +132,7 @@ class Migration {
          $setting["control_piping"] = "[null]";
          $setting["control_default_value"] = "[null]";
          $setting["branching_logic"] = $branching_logic;
-         $setting["condition_value"] = "[" . $old_setting["control_field_value"] . "]";
+         $setting["condition_value"] = $condition_value;
          $setting["condition_operator"] = $condition_operator;
          $setting["target_forms"] = $target_forms;
          $setting["target_events_select"] = $target_events_select;
