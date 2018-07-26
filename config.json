@@ -65,7 +65,7 @@
                         },
                         {
                             "value": "advanced",
-                            "name": "Advanced (Piping)"
+                            "name": "Advanced (equation and/or Piping)"
                         }
                     ]
                 },
@@ -81,8 +81,8 @@
                 },
                 {
                     "key": "control_piping",
-                    "name": "Piping",
-                    "type": "text"
+                    "name": "Equation / Piping",
+                    "type": "textarea"
                 },
                 {
                     "key": "control_default_value",

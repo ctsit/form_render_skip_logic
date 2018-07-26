@@ -6,10 +6,12 @@
 
 namespace FormRenderSkipLogic\ExternalModule;
 
+use Calculate;
 use ExternalModules\AbstractExternalModule;
 use ExternalModules\ExternalModules;
 use FormRenderSkipLogic\Migration\Migration;
 use Form;
+use LogicTester;
 use Piping;
 use Project;
 use Records;
@@ -71,7 +73,7 @@ class ExternalModule extends AbstractExternalModule {
         }
 
         // Access denied for this survey.
-        if (!$redirect_url = Survey::getAutoContinueSurveyUrl($record, $form_name, $event_id, $repeat_instance)) {
+        if (!$redirect_url = Survey::getAutoContinueSurveyUrl($record, $instrument, $event_id, $repeat_instance)) {
             $redirect_url = APP_PATH_WEBROOT;
         }
 
@@ -191,9 +193,16 @@ class ExternalModule extends AbstractExternalModule {
                 $b = $cf['condition_value'];
 
                 if ($cf['control_mode'] == 'advanced') {
-                    $piped = Piping::replaceVariablesInLabel($cf['control_piping'], $id, $event_id, 1, array(), true, null, false);
+                    $piped = Piping::pipeSpecialTags($cf['control_piping'], $Proj->project_id, $id, null, null, null, true);
+                    $piped = Piping::replaceVariablesInLabel($piped, $id, null, 1, array(), false);
+
                     if ($piped !== '') {
-                        $a = $piped;
+                        $piped = preg_replace('/<span[^>]*piping_receiver[^>]*>/', '"', str_replace('</span>', '"', $piped));
+                        $piped = strval(LogicTester::evaluateCondition(Calculate::formatCalcToPHP($piped)));
+
+                        if ($piped !== '') {
+                            $a = $piped;
+                        }
                     }
                 }
                 else {
@@ -459,7 +468,8 @@ class ExternalModule extends AbstractExternalModule {
             $output .= RCView::button(array('class' => 'btn btn-xs btn-rc' . $color . ' btn-rc' . $color . '-light', 'onclick' => $btn['callback'] . '(); return false;'), $btn['contents']);
         }
 
-        return RCView::span(array('class' => 'frsl-piping-helper'), $output);
+        $output .= RCView::br() . RCView::a(array('href' => 'javascript:;', 'onclick' => 'helpPopup("ss78");'), $lang['design_165']);
+        return RCView::br() . RCView::span(array('class' => 'frsl-piping-helper'), $output);
     }
 
     /**
