@@ -33,7 +33,9 @@ The top level entry in the configuration is a Control Field. A control field is 
 
 Each control field can govern the display of a set of forms. You can define multiple control fields as long as each controls a separate set of forms.
 
-Each control field can have multiple conditions. Each condition compares the control field to a string or number.  If the condition evaluates as true, the forms listed under the condition will be displayed.  If the condition is false and no other true condition displays them, the forms will be hidden. Be careful that the values in the conditions of a control field are mutually exclusive or the results could be unexpected.
+Each control field can have multiple conditions. Each condition compares the control field to a string or number. If the condition evaluates as true, the forms listed under the condition will be displayed. If the condition is false and no other true condition displays them, the forms will be hidden.
+
+Obs.: if multiple conditions are applied to the same instrument, the form is displayed if *at least* one of the conditions is met.
 
 All forms _not_ named under a condition will be displayed at all times. Optionally, each condition can specify a list of events that restrict the behavior of this rule.
 

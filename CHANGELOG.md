@@ -2,10 +2,11 @@
 All notable changes to the Form Render Skip Logic module will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [3.2.0] - 2018-07-27
+## [3.2.0] - 2018-07-30
 ### Added
 - Added support for migrating FRSL v2.x.x configurations to FRSL v3.x.x configurations automatically (Dileep Rajput)
 - Added support for equations on Advanced control mode (Tiago Bember Simeao)
+- Added support to event-relative control fields (Tiago Bember Simeao)
 
 ## [3.1.1] - 2018-06-04
 ### Changed

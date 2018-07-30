@@ -70,14 +70,14 @@
                     ]
                 },
                 {
-                    "key": "control_event_id",
-                    "name": "Field",
-                    "type": "event-list"
-                },
-                {
                     "key": "control_field_key",
                     "name": "Field",
                     "type": "field-list"
+                },
+                {
+                    "key": "control_event_id",
+                    "name": "Field",
+                    "type": "event-list"
                 },
                 {
                     "key": "control_piping",
