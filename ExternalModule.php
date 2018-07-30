@@ -126,7 +126,7 @@ class ExternalModule extends AbstractExternalModule {
      *   -- event ID
      *   --- instrument name: TRUE/FALSE
      */
-    function getFormsAccessMatrix($event_id = null, $record) {
+    function getFormsAccessMatrix($event_id = null, $record = null) {
         if (isset(self::$accessMatrix)) {
             return self::$accessMatrix;
         }
