@@ -25,7 +25,14 @@ require_once dirname(__FILE__) . '/Migration.php';
  * ExternalModule class for REDCap Form Render Skip Logic.
  */
 class ExternalModule extends AbstractExternalModule {
-    protected static $accessMatrix;
+    static protected $accessMatrix;
+
+    /**
+     * @inheritdoc
+     */
+    function redcap_every_page_before_render($project_id) {
+        define('FORM_RENDER_SKIP_LOGIC_PREFIX', $this->PREFIX);
+    }
 
     /**
      * @inheritdoc
