@@ -408,7 +408,7 @@ class ExternalModule extends AbstractExternalModule {
      *   returned otherwise.
      */
     function getQueryParam($param, $default = null) {
-        return empty($_GET[$param]) ? $default : $_GET[$param];
+        return empty($_GET[$param]) ? $default : REDCap::escapeHtml($_GET[$param]);
     }
 
     /**
