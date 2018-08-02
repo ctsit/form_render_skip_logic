@@ -213,6 +213,8 @@ class ExternalModule extends AbstractExternalModule {
             $control_data = array($record => $data);
         }
 
+        $fake_field = uniqid('frsl_aux_');
+
         // Building forms access matrix.
         $forms_access = array();
         foreach ($control_data as $id => $data) {
@@ -235,10 +237,17 @@ class ExternalModule extends AbstractExternalModule {
                         }
                     }
                     else {
-                        $logic = Piping::pipeSpecialTags($control['logic'], $Proj->project_id, $id, $event_id, 1, null, true);
+                        $logic = Piping::pipeSpecialTags(str_replace("''", '""', $control['logic']), $Proj->project_id, $id, $event_id, 1, null, true);
+
+                        // If a smart variable is empty, it is converted into
+                        // a dummy wildcard so REDCap calculation will handle
+                        // it properly.
+                        $logic = str_replace("''", '[' . $fake_field . ']', $logic);
+
                         $logic = Calculate::formatCalcToPHP($logic, $Proj);
                         $logic = LogicTester::logicPrependEventName($logic, $events_names[$event_id]);
 
+                        $data[$event_id] += array($fake_field => '');
                         $controls[$i]['value'] = (string) LogicTester::evaluateCondition($logic, $data);
                     }
                 }
