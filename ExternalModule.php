@@ -213,6 +213,8 @@ class ExternalModule extends AbstractExternalModule {
             $control_data = array($record => $data);
         }
 
+        // This field will be used to avoid conflicts between empty smart vars
+        // piping and formulas calculation.
         $fake_field = uniqid('frsl_aux_');
 
         // Building forms access matrix.
@@ -237,7 +239,10 @@ class ExternalModule extends AbstractExternalModule {
                         }
                     }
                     else {
-                        $logic = Piping::pipeSpecialTags(str_replace("''", '""', $control['logic']), $Proj->project_id, $id, $event_id, 1, null, true);
+                        // Ensuring that only smart vars piping will produce
+                        // single quoted null values ('').
+                        $logic = str_replace("''", '""', $control['logic']);
+                        $logic = Piping::pipeSpecialTags($logic, $Proj->project_id, $id, $event_id, 1, null, true);
 
                         // If a smart variable is empty, it is converted into
                         // a dummy wildcard so REDCap calculation will handle
