@@ -3,10 +3,13 @@
     "namespace": "FormRenderSkipLogic\\ExternalModule",
     "description": "This module hides and shows instruments based on the values of REDCap form fields. Multiple control fields can be defined to control the display of non-overlapping sets of forms.",
     "permissions": [
+        "redcap_every_page_before_render",
         "redcap_every_page_top",
         "redcap_data_entry_form_top",
         "redcap_survey_page_top",
-        "redcap_save_record"
+        "redcap_save_record",
+        "redcap_module_system_change_version",
+        "redcap_module_system_enable"
     ],
     "authors": [
         {
@@ -63,14 +66,9 @@
                         },
                         {
                             "value": "advanced",
-                            "name": "Advanced (Piping)"
+                            "name": "Advanced (Equation with Piping and/or Smart Variables)"
                         }
                     ]
-                },
-                {
-                    "key": "control_event_id",
-                    "name": "Field",
-                    "type": "event-list"
                 },
                 {
                     "key": "control_field_key",
@@ -78,9 +76,14 @@
                     "type": "field-list"
                 },
                 {
+                    "key": "control_event_id",
+                    "name": "Field",
+                    "type": "event-list"
+                },
+                {
                     "key": "control_piping",
-                    "name": "Piping",
-                    "type": "text"
+                    "name": "Equation / Piping",
+                    "type": "textarea"
                 },
                 {
                     "key": "control_default_value",

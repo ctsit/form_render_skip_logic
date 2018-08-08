@@ -1,5 +1,7 @@
 # REDCap Form Render Skip Logic (FRSL)
 
+[![DOI](https://zenodo.org/badge/97271445.svg)](https://zenodo.org/badge/latestdoi/97271445)
+
 This REDCap module hides and shows instruments based on the values of REDCap form fields  i.e. a branching logic for instruments.
 
 ## Motivation
@@ -24,9 +26,18 @@ See the original functional specification at [https://docs.google.com/document/d
 ## Configuration
 Access **Manage External Modules** section of your project, click on Form Render Skip Logic's configure button, and save settings in order to show or hide instruments according to your needs.
 
-The top level entry in the configuration is a Control Field.  A control field is described by either an event name and a field name _or_ a smart variable _or_ piped data.  Each control field can govern the display of a set of forms. You can define multiple control fields as long as each controls a separate set of forms.
+The top level entry in the configuration is a Control Field. A control field is described by either:
 
-Each control field can have multiple conditions. Each condition compares the control field to a string or number.  If the condition evaluates as true, the forms listed under the condition will be displayed.  If the condition is false and no other true condition displays them, the forms will be hidden. Be careful that the values in the conditions of a control field are mutually exclusive or the results could be unexpected.
+1. a selected event-field pair _or_
+2. a text that describes an equation, working as a [calculated field](https://www.ctsi.ufl.edu/files/2017/06/Calculated-Fields-%E2%80%93-REDCap-How.pdf) (you may use Piping and smart variables)
+
+![advanced control field](img/advanced_control_field.png)
+
+Each control field can govern the display of a set of forms. You can define multiple control fields as long as each controls a separate set of forms.
+
+Each control field can have multiple conditions. Each condition compares the control field to a string or number. If the condition evaluates as true, the forms listed under the condition will be displayed. If the condition is false and no other true condition displays them, the forms will be hidden.
+
+Obs.: if multiple conditions are applied to the same instrument, the form is displayed if *at least* one of the conditions is met.
 
 All forms _not_ named under a condition will be displayed at all times. Optionally, each condition can specify a list of events that restrict the behavior of this rule.
 
@@ -40,10 +51,4 @@ See [Animal Identification Example](samples/Animal_Identification.md) for a work
 
 ## Upgrading From Version 2.x - 3.x
 
-Note that version 3.0.0 introduced a breaking change in the configuration. To execute the upgrade you will need to follow these steps:
-
-* Note the projects that use FRSL
-* Record the configuration of each project
-* Erase the configuration of each project
-* Upgrade FRSL to 3.x
-* Re-enter the configuration for each project
+Note that version 3.0.0 introduced a breaking change in the configuration. When you upgrade to version 3.x all of your old configurations in 2.x will be converted into the 3.x configuration scheme. This migration only occurs the first time you upgrade from 2.x to 3.x . Thereafter, if you decided to switch back and forth between the two versions, your configurations will not transfer. This is to ensure that all of your old 2.x configurations will still be available to you if you decide to go back to version 2.x .

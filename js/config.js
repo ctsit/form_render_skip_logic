@@ -66,7 +66,7 @@ $(document).ready(function() {
                 $(selectorShow).parent().parent().show();
                 $(selectorHide).parent().parent().hide();
 
-                place2ndColumnField($('[name="control_field_key' + suffix + '"]').parent().parent());
+                place2ndColumnField($('[name="control_event_id' + suffix + '"]').parent().parent());
             };
 
             var $checkboxes = $modal.find('tr[field="target_events_select"] .external-modules-input-element');
