@@ -1,5 +1,7 @@
 # REDCap Form Render Skip Logic (FRSL)
 
+[![DOI](https://zenodo.org/badge/97271445.svg)](https://zenodo.org/badge/latestdoi/97271445)
+
 This REDCap module hides and shows instruments based on the values of REDCap form fields  i.e. a branching logic for instruments.
 
 ## Motivation
