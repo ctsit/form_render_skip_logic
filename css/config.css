@@ -1,4 +1,4 @@
-#external-modules-configure-modal.frsl tr[field="control_field_key"],
+#external-modules-configure-modal.frsl tr[field="control_event_id"],
 #external-modules-configure-modal.frsl tr[field="condition_value"] {
     position: absolute;
     right: 10000px;

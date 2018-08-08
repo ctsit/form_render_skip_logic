@@ -6,10 +6,12 @@
 
 namespace FormRenderSkipLogic\ExternalModule;
 
+use Calculate;
 use ExternalModules\AbstractExternalModule;
 use ExternalModules\ExternalModules;
 use FormRenderSkipLogic\Migration\Migration;
 use Form;
+use LogicTester;
 use Piping;
 use Project;
 use Records;
@@ -23,6 +25,15 @@ require_once dirname(__FILE__) . '/Migration.php';
  * ExternalModule class for REDCap Form Render Skip Logic.
  */
 class ExternalModule extends AbstractExternalModule {
+    static protected $accessMatrix;
+
+    /**
+     * @inheritdoc
+     */
+    function redcap_every_page_before_render($project_id) {
+        define('FORM_RENDER_SKIP_LOGIC_PREFIX', $this->PREFIX);
+    }
+
     /**
      * @inheritdoc
      */
@@ -40,7 +51,7 @@ class ExternalModule extends AbstractExternalModule {
         }
 
         $location = substr(PAGE, 10, strlen(PAGE) - 14);
-        $this->loadFRSL($location, $this->getNumericQueryParam('id'));
+        $this->loadFRSL($location, $this->getQueryParam('id'));
     }
 
     /**
@@ -48,7 +59,7 @@ class ExternalModule extends AbstractExternalModule {
      */
     function redcap_data_entry_form_top($project_id, $record = null, $instrument, $event_id, $group_id = null) {
         if (empty($record)) {
-            $record = $this->getNumericQueryParam('id');
+            $record = $this->getQueryParam('id');
         }
 
         $this->loadFRSL('data_entry_form', $record, $event_id, $instrument);
@@ -59,7 +70,7 @@ class ExternalModule extends AbstractExternalModule {
      */
     function redcap_survey_page_top($project_id, $record = null, $instrument, $event_id, $group_id = null, $survey_hash, $response_id = null, $repeat_instance = 1) {
         if (empty($record)) {
-            $record = $this->getNumericQueryParam('id');
+            $record = $this->getQueryParam('id');
         }
 
         $this->overrideSurveysStatuses($record, $event_id);
@@ -71,7 +82,7 @@ class ExternalModule extends AbstractExternalModule {
         }
 
         // Access denied for this survey.
-        if (!$redirect_url = Survey::getAutoContinueSurveyUrl($record, $form_name, $event_id, $repeat_instance)) {
+        if (!$redirect_url = Survey::getAutoContinueSurveyUrl($record, $instrument, $event_id, $repeat_instance)) {
             $redirect_url = APP_PATH_WEBROOT;
         }
 
@@ -104,10 +115,10 @@ class ExternalModule extends AbstractExternalModule {
     /**
      * Gets forms access matrix.
      *
-     * @param string $arm
-     *   The arm name.
+     * @param int $event_id
+     *   The current event ID.
      * @param int $record
-     *   The data entry record ID.
+     *   The current record ID.
      *
      * @return array
      *   The forms access matrix. The array is keyed as follows:
@@ -115,45 +126,60 @@ class ExternalModule extends AbstractExternalModule {
      *   -- event ID
      *   --- instrument name: TRUE/FALSE
      */
-    function getFormsAccessMatrix($arm, $record = null) {
+    function getFormsAccessMatrix($event_id = null, $record = null) {
+        if (isset(self::$accessMatrix)) {
+            return self::$accessMatrix;
+        }
+
         global $Proj;
 
-        // Getting events of the current arm.
-        $events = array_keys($Proj->events[$arm]['events']);
+        if ($event_id) {
+            $events = array($event_id);
+        }
+        else {
+            // Getting events of the current arm.
+            $arm = $event_id ? $Proj->eventInfo[$event_id]['arm_num'] : $this->getQueryParam('arm', 1);
+            $events = array_keys($Proj->events[$arm]['events']);
+        }
+
+        $settings = $this->getFormattedSettings($Proj->project_id);
+        $events_names = $Proj->getUniqueEventNames();
+
+        $controls = array();
+        $fields_utilized = array($Proj->table_pk);
 
         $target_forms = array();
-        $settings = $this->getFormattedSettings($Proj->project_id);
-
-        $control_fields = array();
-        $control_fields_keys = array();
-
-        $i = 0;
-        foreach ($settings['control_fields'] as $cf) {
-            if ($cf['control_mode'] == 'default' && (!$cf['control_event_id'] || !$cf['control_field_key'])) {
+        foreach ($settings['control_fields'] as $i => $cf) {
+            if ($cf['control_mode'] == 'default') {
                 // Checking for required fields in default mode.
-                continue;
-            }
+                if (!$cf['control_field_key']) {
+                    continue;
+                }
 
-            if ($cf['control_mode'] == 'advanced' && !$cf['control_piping']) {
+                $controls[$i] = array('type' => 'default', 'field' => $cf['control_field_key'], 'event' => $cf['control_event_id']);
+                $fields_utilized[] = $cf['control_field_key'];
+            }
+            elseif ($cf['control_mode'] == 'advanced') {
                 // Checking for required fields in advanced mode.
+                if (!$cf['control_piping']) {
+                    continue;
+                }
+
+                $controls[$i] = array('type' => 'advanced', 'logic' => $cf['control_piping']);
+                $fields_utilized = array_merge($fields_utilized, array_keys(getBracketedFields($cf['control_piping'], true, true, true)));
+            }
+            else {
                 continue;
             }
 
-            $control_fields_keys[] = $cf['control_field_key'];
-            if (empty($cf['control_default_value']) && !is_numeric($cf['control_default_value'])) {
-                $cf['control_default_value'] = '';
-            }
+            $control[$i]['default'] = $cf['control_default_value'];
 
-            $branching_logic = $cf['branching_logic'];
-            unset($cf['branching_logic']);
-
-            foreach ($branching_logic as $bl) {
+            foreach ($cf['branching_logic'] as $bl) {
                 if (empty($bl['target_forms'])) {
                     continue;
                 }
 
-                $control_fields[$i] = $cf + $bl;
-                $target_events = $bl['target_events_select'] ? $bl['target_events'] : $events;
+                $target_events = $bl['target_events_select'] ? array_intersect($bl['target_events'], $events) : $events;
 
                 foreach ($target_events as $event_id) {
                     if (!isset($target_forms[$event_id])) {
@@ -165,70 +191,71 @@ class ExternalModule extends AbstractExternalModule {
                             $target_forms[$event_id][$form] = array();
                         }
 
-                        $target_forms[$event_id][$form][] = $i;
+                        $target_forms[$event_id][$form][] = array(
+                            'a' => $i,
+                            'b' => $bl['condition_value'],
+                            'op' => empty($bl['condition_operator']) ? '=' : $bl['condition_operator'],
+                        );
                     }
                 }
-
-                $i++;
             }
         }
 
-        $control_data = REDCap::getData($Proj->project_id, 'array', $record, $control_field_keys);
+        $control_data = REDCap::getData($Proj->project_id, 'array', $record, $fields_utilized, null, null,
+            false, false, false, false, false, false, false, false, false, array(),
+            false, false, false, false, false, false, 'EVENT', false, false, true);
+
         if ($record && !isset($control_data[$record])) {
             // Handling new record case.
-            $control_data = array($record => array());
+            $data = array_combine(array_keys($Proj->metadata), array_fill(0, count($Proj->metadata), ''));
+            $data = array_combine(array_keys($Proj->eventInfo), array_fill(0, count($Proj->eventInfo), $data));
+
+            $control_data = array($record => $data);
         }
+
+        // This field will be used to avoid conflicts between empty smart vars
+        // piping and formulas calculation.
+        $fake_field = uniqid('frsl_aux_');
 
         // Building forms access matrix.
         $forms_access = array();
         foreach ($control_data as $id => $data) {
-            $control_values = array();
-            foreach ($control_fields as $i => $cf) {
-                $ev = $cf['control_event_id'];
-                $fd = $cf['control_field_key'];
-
-                $a = $cf['control_default_value'];
-                $b = $cf['condition_value'];
-
-                if ($cf['control_mode'] == 'advanced') {
-                    $piped = Piping::replaceVariablesInLabel($cf['control_piping'], $id, $event_id, 1, array(), true, null, false);
-                    if ($piped !== '') {
-                        $a = $piped;
-                    }
-                }
-                else {
-                    if (isset($data[$ev][$fd]) && Records::formHasData($id, $Proj->metadata[$fd]['form_name'], $ev)) {
-                        $a = $data[$ev][$fd];
-                    }
-                }
-
-                switch ($cf['condition_operator']) {
-                    case '>':
-                        $matches = $a > $b;
-                        break;
-                    case '>=':
-                        $matches = $a >= $b;
-                        break;
-                    case '<':
-                        $matches = $a < $b;
-                        break;
-                    case '<=':
-                        $matches = $a <= $b;
-                        break;
-                    case '<>':
-                        $matches = $a !== $b;
-                        break;
-                    default:
-                        $matches = $a === $b;
-                }
-
-                $control_values[$i] = $matches;
-            }
-
             $forms_access[$id] = array();
 
             foreach ($events as $event_id) {
                 $forms_access[$id][$event] = array();
+
+                // Calculating the control values for the current record and
+                // current event.
+                foreach ($controls as $i => $control) {
+                    $controls[$i]['value'] = $controls[$i]['default'];
+
+                    if ($control['type'] == 'default') {
+                        // Getting 1st operand for default mode.
+                        $source_event = empty($control['event']) ? $event_id : $control['event'];
+
+                        if (isset($data[$source_event][$control['field']])) {
+                            $controls[$i]['value'] = $data[$source_event][$control['field']];
+                        }
+                    }
+                    else {
+                        // Ensuring that only smart vars piping will produce
+                        // single quoted null values ('').
+                        $logic = str_replace("''", '""', $control['logic']);
+                        $logic = Piping::pipeSpecialTags($logic, $Proj->project_id, $id, $event_id, 1, null, true);
+
+                        // If a smart variable is empty, it is converted into
+                        // a dummy wildcard so REDCap calculation will handle
+                        // it properly.
+                        $logic = str_replace("''", '[' . $fake_field . ']', $logic);
+
+                        $logic = Calculate::formatCalcToPHP($logic, $Proj);
+                        $logic = LogicTester::logicPrependEventName($logic, $events_names[$event_id]);
+
+                        $data[$event_id] += array($fake_field => '');
+                        $controls[$i]['value'] = (string) LogicTester::evaluateCondition($logic, $data);
+                    }
+                }
 
                 foreach ($Proj->eventsForms[$event_id] as $form) {
                     $access = true;
@@ -236,10 +263,8 @@ class ExternalModule extends AbstractExternalModule {
                     if (isset($target_forms[$event_id][$form])) {
                         $access = false;
 
-                        foreach ($target_forms[$event_id][$form] as $i) {
-                            if ($control_values[$i]) {
-                                // If one condition is satisfied, the form
-                                // should be displayed.
+                        foreach ($target_forms[$event_id][$form] as $cond) {
+                            if ($this->_calculateCondition($controls[$cond['a']]['value'], $cond['b'], $cond['op'])) {
                                 $access = true;
                                 break;
                             }
@@ -251,6 +276,7 @@ class ExternalModule extends AbstractExternalModule {
             }
         }
 
+        self::$accessMatrix = $forms_access;
         return $forms_access;
     }
 
@@ -273,9 +299,8 @@ class ExternalModule extends AbstractExternalModule {
     protected function loadFRSL($location, $record = null, $event_id = null, $instrument = null) {
         global $Proj;
 
-        $arm = $event_id ? $Proj->eventInfo[$event_id]['arm_num'] : $this->getNumericQueryParam('arm', 1);
         $next_step_path = '';
-        $forms_access = $this->getFormsAccessMatrix($arm, $record);
+        $forms_access = $this->getFormsAccessMatrix($event_id, $record);
 
         if ($record && $event_id && $instrument) {
             $instruments = $Proj->eventsForms[$event_id];
@@ -301,6 +326,7 @@ class ExternalModule extends AbstractExternalModule {
             // Access denied to the current page.
             if (!$forms_access[$record][$event_id][$instrument]) {
                 if (!$next_step_path) {
+                    $arm = $event_id ? $Proj->eventInfo[$event_id]['arm_num'] : $this->getQueryParam('arm', 1);
                     $next_step_path = APP_PATH_WEBROOT . 'DataEntry/record_home.php?pid=' . $Proj->project_id . '&id=' . $record . '&arm=' . $arm;
                 }
 
@@ -331,8 +357,7 @@ class ExternalModule extends AbstractExternalModule {
     protected function overrideSurveysStatuses($record, $event_id) {
         global $Proj;
 
-        $arm = $Proj->eventInfo[$event_id]['arm_num'];
-        $forms_access = $this->getFormsAccessMatrix($arm, $record);
+        $forms_access = $this->getFormsAccessMatrix($event_id, $record);
 
         foreach ($forms_access[$record][$event_id] as $form => $value) {
             if ($value || empty($Proj->forms[$form]['survey_id'])) {
@@ -371,7 +396,7 @@ class ExternalModule extends AbstractExternalModule {
     }
 
     /**
-     * Gets numaric URL query parameter.
+     * Gets URL query parameter.
      *
      * @param string $param
      *   The parameter name
@@ -382,8 +407,8 @@ class ExternalModule extends AbstractExternalModule {
      *   The parameter from URL if available. The default value provided is
      *   returned otherwise.
      */
-    function getNumericQueryParam($param, $default = null) {
-        return empty($_GET[$param]) || !is_numeric($_GET[$param]) ? $default : $_GET[$param];
+    function getQueryParam($param, $default = null) {
+        return empty($_GET[$param]) ? $default : REDCap::escapeHtml($_GET[$param]);
     }
 
     /**
@@ -459,7 +484,8 @@ class ExternalModule extends AbstractExternalModule {
             $output .= RCView::button(array('class' => 'btn btn-xs btn-rc' . $color . ' btn-rc' . $color . '-light', 'onclick' => $btn['callback'] . '(); return false;'), $btn['contents']);
         }
 
-        return RCView::span(array('class' => 'frsl-piping-helper'), $output);
+        $output .= RCView::br() . RCView::a(array('href' => 'javascript:;', 'onclick' => 'helpPopup("ss78");'), $lang['design_165']);
+        return RCView::br() . RCView::span(array('class' => 'frsl-piping-helper'), $output);
     }
 
     /**
@@ -496,6 +522,25 @@ class ExternalModule extends AbstractExternalModule {
         return $formatted;
     }
 
+    /**
+     * Auxiliary function to calculate condition.
+     */
+    function _calculateCondition($a, $b, $op = '=') {
+        switch ($op) {
+            case '>':
+                return $a > $b;
+            case '>=':
+                return $a >= $b;
+            case '<':
+                return $a < $b;
+            case '<=':
+                return $a <= $b;
+            case '<>':
+                return $a !== $b;
+        }
+
+        return $a === $b;
+    }
 
     /**
      * migrates stored module settings from v2.x.x to v3.x.x if needed.
