@@ -50,6 +50,11 @@
     ],
     "project-settings": [
         {
+            "key": "prevent_hidden_data",
+            "name": "Prevent filled forms to be hidden",
+            "type": "checkbox"
+        },
+        {
             "key": "control_fields",
             "name": "Control fields",
             "type": "sub_settings",
