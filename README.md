@@ -49,10 +49,10 @@ The image below shows a sample configuration where the control field is named `r
 
 See [Animal Identification Example](samples/Animal_Identification.md) for a working example of a project that uses FRSL.
 
-### Preventing filled forms to be hidden
-If you want to make sure no filled forms will be affected by FRSL rules, check "Prevent filled forms to be hidden" option.
+### Preventing hiding of filled forms
+If you want to make sure no filled forms will be affected by FRSL rules, check "Prevent hiding of filled forms" option.
 
-![prevent forms to be hidden checkbox](img/prevent_hidden_data_checkbox.png)
+![Prevent hiding of filled forms](img/prevent_hidden_data_checkbox.png)
 
 
 ## Upgrading From Version 2.x - 3.x

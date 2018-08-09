@@ -2,6 +2,12 @@
 All notable changes to the Form Render Skip Logic module will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [3.3.0] - 2018-08-09
+### Added
+- Add "Prevent hiding of filled forms" config. (Tiago Bember Simeao)
+
+
 ## [3.2.0] - 2018-08-08
 ### Added
 - Add support for migrating FRSL v2.x.x configurations to FRSL v3.x.x configurations automatically (Dileep Rajput)
