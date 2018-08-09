@@ -51,7 +51,7 @@
     "project-settings": [
         {
             "key": "prevent_hidden_data",
-            "name": "Prevent filled forms to be hidden",
+            "name": "Prevent hiding of filled forms",
             "type": "checkbox"
         },
         {
