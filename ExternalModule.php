@@ -133,6 +133,13 @@ class ExternalModule extends AbstractExternalModule {
 
         global $Proj;
 
+        if ($prevent_hidden_data = $this->getProjectSetting('prevent_hidden_data')) {
+            $records = $record ? array($record) : Records::getRecordList($Proj->project_id);
+            $events = $event_id ? array($event_id => $Proj->eventsForms[$event_id]) : array();
+
+            $forms_status = Records::getFormStatus($Proj->project_id, $records, $arm, null, $events);
+        }
+
         if ($event_id) {
             $events = array($event_id);
         }
@@ -257,7 +264,22 @@ class ExternalModule extends AbstractExternalModule {
                     }
                 }
 
-                foreach ($Proj->eventsForms[$event_id] as $form) {
+                $forms = $Proj->eventsForms[$event_id];
+
+                if ($prevent_hidden_data) {
+                    $forms = array();
+
+                    foreach ($forms_status[$id][$event_id] as $form => $instances) {
+                        if (empty($instances)) {
+                            $forms[] = $form;
+                        }
+                        else {
+                            $forms_access[$id][$event_id][$form] = true;
+                        }
+                    }
+                }
+
+                foreach ($forms as $form) {
                     $access = true;
 
                     if (isset($target_forms[$event_id][$form])) {
