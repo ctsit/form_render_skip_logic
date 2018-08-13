@@ -9,7 +9,6 @@ namespace FormRenderSkipLogic\ExternalModule;
 use Calculate;
 use ExternalModules\AbstractExternalModule;
 use ExternalModules\ExternalModules;
-use FormRenderSkipLogic\Migration\Migration;
 use Form;
 use LogicTester;
 use Piping;
@@ -18,8 +17,6 @@ use Records;
 use Survey;
 use RCView;
 use REDCap;
-
-require_once dirname(__FILE__) . '/Migration.php';
 
 /**
  * ExternalModule class for REDCap Form Render Skip Logic.
@@ -102,14 +99,59 @@ class ExternalModule extends AbstractExternalModule {
      * @inheritdoc
      */
     function redcap_module_system_change_version($version, $old_version) {
-        $this->migrateSettings();
-    }
+        if (strpos($old_version, 'v2.') !== 0 || $version[0] != 'v' || !is_numeric($version[1]) || $version[1] < 3) {
+            return;
+        }
 
-    /**
-     * @inheritdoc
-     */
-    function redcap_module_system_enable($version) {
-        $this->migrateSettings();
+        // Migrating settings from version 2.x to 3.x.
+        foreach (ExternalModules::getEnabledProjects($this->PREFIX) as $project) {
+            $pid = $project['project_id'];
+
+            if ($this->getProjectSetting('control_field', $pid) === null || $this->getProjectSetting('control_fields', $pid) !== null) {
+                // Skip if there is no config from v2 available or if there is
+                // already config from v3.
+                continue;
+            }
+
+            $conds = array_combine(
+                $this->getProjectSetting('instrument_name', $pid),
+                $this->getProjectSetting('control_field_value', $pid)
+            );
+
+            $bl = array();
+            foreach ($conds as $form => $value) {
+                if (!isset($bl[$value])) {
+                    $bl[$value] = array();
+                }
+
+                $bl[$value][] = $form;
+            }
+
+            $target_forms = array();
+            foreach ($bl as $forms) {
+                $target_forms[] = array_values($forms);
+            }
+
+            $count = count($bl);
+            $settings = array(
+                'control_fields' => array('true'),
+                'control_mode' => array('default'),
+                'control_piping' => array(null),
+                'control_default_value' => array(null),
+                'control_event_id' => $this->getProjectSetting('event_name', $pid),
+                'control_field_key' => $this->getProjectSetting('field_name', $pid),
+                'branching_logic' => array(array_fill(0, $count, 'true')),
+                'condition_value' => array(array_map('strval', array_keys($bl))),
+                'condition_operator' => array(array_fill(0, $count, null)),
+                'target_events_select' => array(array_fill(0, $count, false)),
+                'target_events' => array(array_fill(0, $count, array(null))),
+                'target_forms' => array($target_forms),
+            );
+
+            foreach ($settings as $key => $value) {
+                $this->setProjectSetting($key, $value, $pid);
+            }
+        }
     }
 
     /**
@@ -562,20 +604,5 @@ class ExternalModule extends AbstractExternalModule {
         }
 
         return $a === $b;
-    }
-
-    /**
-     * migrates stored module settings from v2.x.x to v3.x.x if needed.
-     */
-    function migrateSettings() {
-        $migrate = new Migration($this->PREFIX);
-
-        //migrate settings only if version 2 settings exist and version 3 settings
-        //do not exist.
-        if ($migrate->checkIfVersionSettingsExist("v2.0.0") && !$migrate->checkIfVersionSettingsExist("v3.0.0")) {
-            $old_setting = $migrate->getV2Settings();
-            $new_setting = $migrate->convertV2SettingsToV3Settings($old_setting);
-            $migrate->storeV3Settings($new_setting);
-        }
     }
 }
