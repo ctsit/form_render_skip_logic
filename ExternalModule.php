@@ -148,9 +148,7 @@ class ExternalModule extends AbstractExternalModule {
                 'target_forms' => array($target_forms),
             );
 
-            foreach ($settings as $key => $value) {
-                $this->setProjectSetting($key, $value, $pid);
-            }
+            $this->setProjectSettings($settings, $pid);
         }
     }
 
