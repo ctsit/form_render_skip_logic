@@ -79,18 +79,13 @@ $(document).ready(function() {
             });
 
             $modal.find('tr[field="control_mode"]').each(function() {
-                var defaultValue = 'default';
-                $(this).find('.external-modules-input-element').each(function() {
-                    // Not using ":checked" selector to get the selected radio
-                    // due to a possible bug on EM that unchecks radios within
-                    // repeatable elements.
-                    if (typeof this.attributes.checked !== 'undefined') {
-                        defaultValue = $(this).val();
-                        return false;
-                    }
-                });
+                var $checked = $(this).find('.external-modules-input-element:checked');
 
-                branchingLogicRadios($(this).find('.external-modules-input-element[value="' + defaultValue + '"]'));
+                if ($checked.length === 0) {
+                    $checked = $(this).find('.external-modules-input-element[value="default"]');
+                }
+
+                branchingLogicRadios($checked);
             });
 
             $modal.find('tr[field="control_mode"] .external-modules-input-element').change(function() {
