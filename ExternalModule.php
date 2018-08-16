@@ -113,13 +113,16 @@ class ExternalModule extends AbstractExternalModule {
                 continue;
             }
 
-            $conds = array_combine(
-                $this->getProjectSetting('instrument_name', $pid),
-                $this->getProjectSetting('control_field_value', $pid)
-            );
+            $forms = $this->getProjectSetting('instrument_name', $pid);
+            $values = $this->getProjectSetting('control_field_value', $pid);
 
             $bl = array();
-            foreach ($conds as $form => $value) {
+            foreach ($forms as $i => $form) {
+                if (empty($form)) {
+                    continue;
+                }
+
+                $value = $values[$i];
                 if (!isset($bl[$value])) {
                     $bl[$value] = array();
                 }
