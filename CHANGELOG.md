@@ -2,6 +2,12 @@
 All notable changes to the Form Render Skip Logic module will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.3.3] - 2018-08-16
+### Changed
+- Fixing wrong behavior of "Control mode" field on config form: part II. (Tiago Bember Simeao)
+- Fixing wrong logic on 2.x - 3.x migration. (Tiago Bember Simeao)
+
+
 ## [3.3.2] - 2018-08-14
 ### Changed
 - Fix wrong behavior of "Control mode" field on config form. (Tiago Bember Simeao)
