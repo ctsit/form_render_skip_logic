@@ -82,7 +82,18 @@ $(document).ready(function() {
                 var $checked = $(this).find('.external-modules-input-element:checked');
 
                 if ($checked.length === 0) {
-                    $checked = $(this).find('.external-modules-input-element[value="default"]');
+                    $(this).find('.external-modules-input-element').each(function() {
+                        // This is a workaround for an EM bug that does not load
+                        // radios default values properly.
+                        if (typeof this.attributes.checked !== 'undefined') {
+                            $checked = $(this);
+                            return false;
+                        }
+                    });
+
+                    if ($checked.length === 0) {
+                        $checked = $(this).find('.external-modules-input-element[value="default"]');
+                    }
                 }
 
                 branchingLogicRadios($checked);
