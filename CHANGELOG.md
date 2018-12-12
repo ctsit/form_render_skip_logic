@@ -2,6 +2,12 @@
 All notable changes to the Form Render Skip Logic module will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.3.4] - 2018-12-12
+### Changed
+- Move authors from config.json to authors.md and add Marly as an author (Philip Chase)
+- Preventing "Unsupported operands types" error (tbembersimeao)
+
+
 ## [3.3.3] - 2018-08-16
 ### Changed
 - Fixing wrong behavior of "Control mode" field on config form: part II. (Tiago Bember Simeao)
