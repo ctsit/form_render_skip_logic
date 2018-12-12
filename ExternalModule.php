@@ -303,6 +303,10 @@ class ExternalModule extends AbstractExternalModule {
 
                         $logic = Calculate::formatCalcToPHP($logic, $Proj);
                         $logic = LogicTester::logicPrependEventName($logic, $events_names[$event_id]);
+                        
+                        if (empty($data[$event_id])) {
+                            $data[$event_id] = array();
+                        }
 
                         $data[$event_id] += array($fake_field => '');
                         $controls[$i]['value'] = (string) LogicTester::evaluateCondition($logic, $data);
