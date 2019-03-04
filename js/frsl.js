@@ -19,11 +19,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     $links.each(function() {
-        if (this.href.indexOf(app_path_webroot + 'DataEntry/index.php?') === -1) {
+        if (this.href != "javascript:;" && 
+            this.href.indexOf(app_path_webroot + 'DataEntry/index.php?') === -1) {
             return;
         }
-
-        var params = getQueryParameters(this.href);
+        
+        var params = getQueryParameters(this.href,this.getAttribute('onclick'));
         if (!formRenderSkipLogic.formsAccess[params.id][params.event_id][params.page]) {
             disableForm(this);
         }
@@ -92,16 +93,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     /**
      * Returns a set of key-value pairs that correspond to the query
-     * parameters in the given url.
+     * parameters in the given url. When handling repeating instruments
+     * (i.e. the url points to js) the onclick call is picked apart
+     * and returned as the parameters.
      */
-    function getQueryParameters(url) {
-        var parameters = {};
-        var queryString = getQueryString(url);
-        var reg = /([^?&=]+)=?([^&]*)/g;
-        var keyValuePair;
+    function getQueryParameters(url, click) {
+        if (url == "javascript:;") {
+            var tmp = click.replace(/ |'|\);/g,'').split(',')
+            var parameters = {id: tmp[1], event_id: tmp[2], page: tmp[3]}
+        }
+        else {
+            var parameters = {};
+            var queryString = getQueryString(url);
+            var reg = /([^?&=]+)=?([^&]*)/g;
+            var keyValuePair;
 
-        while (keyValuePair = reg.exec(queryString)) {
-            parameters[keyValuePair[1]] = keyValuePair[2];
+            while (keyValuePair = reg.exec(queryString)) {
+                parameters[keyValuePair[1]] = keyValuePair[2];
+            }
         }
 
         return parameters;
