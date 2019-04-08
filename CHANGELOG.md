@@ -2,6 +2,12 @@
 All notable changes to the Form Render Skip Logic module will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [3.3.5] - 2019-04-08
+### Changed
+- Fix for repeating instruments display bug - issue #40 (adam nunez)
+
+
 ## [3.3.4] - 2018-12-12
 ### Changed
 - Move authors from config.json to authors.md and add Marly as an author (Philip Chase)
