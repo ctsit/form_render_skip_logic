@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.href.indexOf(app_path_webroot + 'DataEntry/index.php?') === -1) {
             return;
         }
-        
+
         var params = getQueryParameters(this.href,this.getAttribute('onclick'));
         if (!formRenderSkipLogic.formsAccess[params.id][params.event_id][params.page]) {
             disableForm(this);

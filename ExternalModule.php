@@ -303,7 +303,7 @@ class ExternalModule extends AbstractExternalModule {
 
                         $logic = Calculate::formatCalcToPHP($logic, $Proj);
                         $logic = LogicTester::logicPrependEventName($logic, $events_names[$event_id]);
-                        
+
                         if (empty($data[$event_id])) {
                             $data[$event_id] = array();
                         }
@@ -315,7 +315,7 @@ class ExternalModule extends AbstractExternalModule {
 
                 $forms = $Proj->eventsForms[$event_id];
 
-                if ($prevent_hidden_data) {
+                if ($prevent_hidden_data && !empty($forms_status)) {
                     $forms = array();
 
                     foreach ($forms_status[$id][$event_id] as $form => $instances) {
