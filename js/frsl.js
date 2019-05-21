@@ -25,8 +25,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         var params = getQueryParameters(this.href,this.getAttribute('onclick'));
-        if (!formRenderSkipLogic.formsAccess[params.id][params.event_id][params.page]) {
-            disableForm(this);
+        try{
+            if (!formRenderSkipLogic.formsAccess[params.id][params.event_id][params.page]) {
+                disableForm(this);
+            }
+        } catch (ReferenceError) {
+            // formRenderSkipLogic object will be created and act as expected after first entry is made for DAG
         }
     });
 
