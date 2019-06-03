@@ -2,6 +2,10 @@
 All notable changes to the Form Render Skip Logic module will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.3.6] - 2019-06-03
+### Changed
+- Checks if records exist before preventing hidden data (Kyle Chesney)
+
 
 ## [3.3.5] - 2019-04-08
 ### Changed
