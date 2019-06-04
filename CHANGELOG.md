@@ -2,6 +2,11 @@
 All notable changes to the Form Render Skip Logic module will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.3.7] - 2019-06-04
+- Update LogicTester call for new variable in v9 (Kyle Chesney)
+- Add Kyle Chesney as contributor (Kyle Chesney)
+
+
 ## [3.3.6] - 2019-06-03
 ### Changed
 - Checks if records exist before preventing hidden data (Kyle Chesney)
