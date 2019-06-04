@@ -302,7 +302,7 @@ class ExternalModule extends AbstractExternalModule {
                         $logic = str_replace("''", '[' . $fake_field . ']', $logic);
 
                         $logic = Calculate::formatCalcToPHP($logic, $Proj);
-                        $logic = LogicTester::logicPrependEventName($logic, $events_names[$event_id]);
+                        $logic = LogicTester::logicPrependEventName($logic, $events_names[$event_id], $Proj = $Proj);
 
                         if (empty($data[$event_id])) {
                             $data[$event_id] = array();
