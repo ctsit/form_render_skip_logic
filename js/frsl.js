@@ -31,8 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
             disableForm(links[i]);
         }
     }
-    var timetaken = performance.now() - start;
-    console.log(`${timetaken} ms`);
 
     /**
      * Overrides next form buttons to redirect to the next available step.
