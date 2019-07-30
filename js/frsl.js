@@ -4,13 +4,13 @@ document.addEventListener('DOMContentLoaded', function() {
     switch (formRenderSkipLogic.location) {
         case 'data_entry_form':
             overrideNextFormButtonsRedirect();
-            $links = $('.formMenuList a');
+        $links = $('.formMenuList').find('a');
             break;
         case 'record_home':
-            $links = $('#event_grid_table a');
+        $links = $('#event_grid_table').find('a');
             break;
         case 'record_status_dashboard':
-            $links = $('#record_status_table a');
+        $links = $('#record_status_table').find('a');
             break;
     }
 
