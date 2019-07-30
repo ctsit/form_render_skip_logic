@@ -29,7 +29,9 @@ Access **Manage External Modules** section of your project, click on Form Render
 The top level entry in the configuration is a Control Field. A control field is described by either:
 
 1. a selected event-field pair _or_
-2. a text that describes an equation, working as a [calculated field](https://www.ctsi.ufl.edu/files/2017/06/Calculated-Fields-%E2%80%93-REDCap-How.pdf) (you may use Piping and smart variables)
+2. a text that describes an equation, working as a [calculated field](https://www.ctsi.ufl.edu/files/2017/06/Calculated-Fields-%E2%80%93-REDCap-How.pdf) (you may use Piping and smart variables)\*  
+
+\* This option causes slowdowns on important REDCap pages in large projects and will be removed in a future version.
 
 ![advanced control field](img/advanced_control_field.png)
 
