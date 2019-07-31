@@ -1,36 +1,61 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var links;
+    start = performance.now();
+    var $links;
 
+    // start = performance.now();
     switch (formRenderSkipLogic.location) {
         case 'data_entry_form':
             overrideNextFormButtonsRedirect();
-        links = $('.formMenuList').find('a');
+        $links = $('.formMenuList').find('a');
             break;
         case 'record_home':
-        links = $('#event_grid_table').find('a');
+        $links = $('#event_grid_table').find('a');
             break;
         case 'record_status_dashboard':
-        links = $('#record_status_table a');
+        // $links = $('#record_status_table a');
+        // $links = $('#record_status_table').find('a');
+        $links = $('#record_status_table').children('tbody').find('a');
             break;
     }
+    // var timetaken = performance.now() - start;
+    // console.log(`${timetaken} ms`);
 
-    if (typeof links === 'undefined' || links.length === 0) {
+    if (typeof $links === 'undefined' || $links.length === 0) {
         return false;
     }
 
-    var l = links.length;
-    for (var i = 0; i<l; i++) {
-        var link = links[i];
-        if (links[i].href != "javascript:;" &&
-            links[i].href.indexOf(app_path_webroot + 'DataEntry/index.php?') === -1) {
-            continue;
+    var start = performance.now();
+    $links.each(function() {
+        // console.log(this);
+        if (this.href != "javascript:;" &&
+            this.href.indexOf(app_path_webroot + 'DataEntry/index.php?') === -1) {
+            return;
         }
 
-        var params = getQueryParameters(links[i].href,links[i].getAttribute('onclick'));
+        var params = getQueryParameters(this.href,this.getAttribute('onclick'));
         if (!formRenderSkipLogic.formsAccess[params.id][params.event_id][params.page]) {
-            disableForm(links[i]);
+            // console.log(this);
+            // disableForm(this);
+            $(this).addClass('disabledCell');
         }
-    }
+    });
+    // var l = links.length;
+    // for (var i = 0; i<l; i++) {
+    //     var link = links[i];
+    //     if (links[i].href != "javascript:;" &&
+    //         links[i].href.indexOf(app_path_webroot + 'DataEntry/index.php?') === -1) {
+    //         // return false;
+    //         // console.log(links[i]);
+    //         continue;
+    //     }
+
+    //     var params = getQueryParameters(links[i].href,links[i].getAttribute('onclick'));
+    //     if (!formRenderSkipLogic.formsAccess[params.id][params.event_id][params.page]) {
+    //         disableForm(links[i]);
+    //     }
+    // }
+    var timetaken = performance.now() - start;
+    console.log(`${timetaken} ms`);
 
     /**
      * Overrides next form buttons to redirect to the next available step.

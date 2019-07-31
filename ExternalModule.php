@@ -49,6 +49,7 @@ class ExternalModule extends AbstractExternalModule {
 
         $location = substr(PAGE, 10, strlen(PAGE) - 14);
         $this->loadFRSL($location, $this->getQueryParam('id'));
+        $this->includeCss('css/disabled_form.css');
     }
 
     /**
