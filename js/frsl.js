@@ -108,16 +108,17 @@ document.addEventListener('DOMContentLoaded', function() {
             return {id: tmp[1], event_id: tmp[2], page: tmp[3]};
         }
         else {
-            let queryString = getQueryString(url);
-            let params = {};
-            var loc = 0;
-            for (var i = 0; i < 3; i++) {
+            const l = neededParams.length;
+            const queryString = getQueryString(url);
+            var parameters = {};
+            let loc = 0;
+            for (let i = 0; i < l; i++) {
                 let this_param = neededParams[i];
                 loc = queryString.indexOf(this_param) + this_param.length; // record the index of the _end_ of the desired parameter
-                queryString = queryString.substr(loc); // clip the string to the remainder after the parameter
-                params[this_param.substr(1)] = queryString.substr(queryString.indexOf('=') + 1, queryString.indexOf('&') - 1); // record everything after an = and before an &
+                const partial = queryString.substr(loc + 1); // clip the string to the remainder after the parameter, store in a temp variable
+                parameters[this_param.substr(1)] = partial.substr(0, partial.indexOf('&')); // record everything until the next parameter
             }
-            return params;
+            return parameters;
         }
     }
 
