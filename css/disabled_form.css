@@ -1,0 +1,4 @@
+.disabledCell {
+    pointer-events: none;
+    opacity: 0.1;
+}

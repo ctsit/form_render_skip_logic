@@ -1,61 +1,37 @@
 document.addEventListener('DOMContentLoaded', function() {
-    start = performance.now();
-    var $links;
+    var links;
 
-    // start = performance.now();
-    switch (formRenderSkipLogic.location) {
-        case 'data_entry_form':
-            overrideNextFormButtonsRedirect();
-        $links = $('.formMenuList').find('a');
-            break;
-        case 'record_home':
-        $links = $('#event_grid_table').find('a');
-            break;
-        case 'record_status_dashboard':
-        // $links = $('#record_status_table a');
-        // $links = $('#record_status_table').find('a');
-        $links = $('#record_status_table').children('tbody').find('a');
-            break;
-    }
-    // var timetaken = performance.now() - start;
-    // console.log(`${timetaken} ms`);
-
-    if (typeof $links === 'undefined' || $links.length === 0) {
-        return false;
-    }
-
-    var start = performance.now();
-    $links.each(function() {
-        // console.log(this);
-        if (this.href != "javascript:;" &&
-            this.href.indexOf(app_path_webroot + 'DataEntry/index.php?') === -1) {
-            return;
+        switch (formRenderSkipLogic.location) {
+            case 'data_entry_form':
+                overrideNextFormButtonsRedirect();
+                links = $('.formMenuList').find('a');
+                break;
+            case 'record_home':
+                links = $('#event_grid_table').find('a');
+                break;
+            case 'record_status_dashboard':
+                links = $('#record_status_table').children('tbody').find('a');
+                break;
         }
 
-        var params = getQueryParameters(this.href,this.getAttribute('onclick'));
-        if (!formRenderSkipLogic.formsAccess[params.id][params.event_id][params.page]) {
-            // console.log(this);
-            // disableForm(this);
-            $(this).addClass('disabledCell');
+        if (typeof links === 'undefined' || links.length === 0) {
+            return false;
         }
-    });
-    // var l = links.length;
-    // for (var i = 0; i<l; i++) {
-    //     var link = links[i];
-    //     if (links[i].href != "javascript:;" &&
-    //         links[i].href.indexOf(app_path_webroot + 'DataEntry/index.php?') === -1) {
-    //         // return false;
-    //         // console.log(links[i]);
-    //         continue;
-    //     }
 
-    //     var params = getQueryParameters(links[i].href,links[i].getAttribute('onclick'));
-    //     if (!formRenderSkipLogic.formsAccess[params.id][params.event_id][params.page]) {
-    //         disableForm(links[i]);
-    //     }
-    // }
-    var timetaken = performance.now() - start;
-    console.log(`${timetaken} ms`);
+    // a for loop benchmarks marginally faster than jQuery each, though the difference is not noticable on a webpage
+    for (var i = 0, l = links.length; i<l; i++) {
+            var link = links[i];
+            if (links[i].href != "javascript:;" &&
+                    links[i].href.indexOf(app_path_webroot + 'DataEntry/index.php?') === -1) {
+                continue;
+            }
+
+            var params = getQueryParameters(links[i].href,links[i].getAttribute('onclick'));
+            if (!formRenderSkipLogic.formsAccess[params.id][params.event_id][params.page]) {
+                //disableForm(links[i]);
+                links[i].className += 'disabledCell';
+            }
+        }
 
     /**
      * Overrides next form buttons to redirect to the next available step.
@@ -115,8 +91,10 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     function getQueryString(url) {
         url = decodeURI(url);
-        return url.match(/\?.+/)[0];
+        return url.substr(url.indexOf('?'));
     }
+
+
 
     /**
      * Returns a set of key-value pairs that correspond to the query
@@ -124,23 +102,23 @@ document.addEventListener('DOMContentLoaded', function() {
      * (i.e. the url points to js) the onclick call is picked apart
      * and returned as the parameters.
      */
-    function getQueryParameters(url, click) {
+    function getQueryParameters(url, click, neededParams=['&id', '&page', '&event_id']) {
         if (url == "javascript:;") {
-            var tmp = click.replace(/ |'|\);/g,'').split(',')
-            var parameters = {id: tmp[1], event_id: tmp[2], page: tmp[3]}
+            var tmp = click.replace(/ |'|\);/g,'').split(',');
+            return {id: tmp[1], event_id: tmp[2], page: tmp[3]};
         }
         else {
-            var parameters = {};
-            var queryString = getQueryString(url);
-            var reg = /([^?&=]+)=?([^&]*)/g;
-            var keyValuePair;
-
-            while (keyValuePair = reg.exec(queryString)) {
-                parameters[keyValuePair[1]] = keyValuePair[2];
+            let queryString = getQueryString(url);
+            let params = {};
+            var loc = 0;
+            for (var i = 0; i < 3; i++) {
+                let this_param = neededParams[i];
+                loc = queryString.indexOf(this_param) + this_param.length; // record the index of the _end_ of the desired parameter
+                queryString = queryString.substr(loc); // clip the string to the remainder after the parameter
+                params[this_param.substr(1)] = queryString.substr(queryString.indexOf('=') + 1, queryString.indexOf('&') - 1); // record everything after an = and before an &
             }
+            return params;
         }
-
-        return parameters;
     }
 
     /**
