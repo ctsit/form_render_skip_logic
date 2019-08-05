@@ -21,3 +21,12 @@
 .frsl-piping-helper {
     margin-left: 10px;
 }
+
+.external-modules-input-td {
+    white-space: nowrap;
+}
+
+.external-modules-input-td label {
+    display: inline-block;
+    vertical-align: top;
+}
