@@ -259,8 +259,18 @@ class ExternalModule extends AbstractExternalModule {
         }
 
         $control_data = REDCap::getData($Proj->project_id, 'array', $record, $fields_utilized, null, null,
-            false, false, false, false, false, false, false, false, false, array(),
-            false, false, false, false, false, false, 'EVENT', false, false, true);
+                                        false, false, false, false, false, false, false, false, false, array(),
+                                        false, false, false, false, false, false, 'EVENT', false, false, true);
+
+        // only assess records which will be shown
+        if ( ($pagenum = $_GET['pagenum']) && ($num_per_page = $_GET['num_per_page']) ) {
+            if ($num_per_page !== 'ALL') {
+                $num_per_page = intval($num_per_page);
+                $index_from = ($pagenum - 1) * $num_per_page;
+                $slice_length = min([$num_per_page, sizeOf($control_data) - $index_from]); // prevent from wrapping over end of $control_data
+                $control_data = (array_slice($control_data, ($pagenum - 1) * $num_per_page, $slice_length, true));
+            }
+        }
 
         if ($record && !isset($control_data[$record])) {
             // Handling new record case.
