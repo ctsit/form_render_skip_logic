@@ -2,6 +2,16 @@
 All notable changes to the Form Render Skip Logic module will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.3.8] - 2019-09-11
+- check GET params to limit the records parsed make RSD page loads proportional to number viewed instead of entire dataset (Kyle Chesney)
+- check GET params to limit the records parsed make RSD page loads proportional to number viewed instead of entire dataset (Kyle Chesney)
+- check for arm or ID before loading FRSL (Kyle Chesney)
+- document deprecation of advanced control fields in README (Kyle Chesney)
+- use stronger language in warning message (Kyle Chesney)
+- add css to make warning message more presentable (Kyle Chesney)
+- add text under radio option warning of slowdown (Kyle Chesney)
+
+
 ## [3.3.7] - 2019-06-04
 - Update LogicTester call for new variable in v9 (Kyle Chesney)
 - Add Kyle Chesney as contributor (Kyle Chesney)
