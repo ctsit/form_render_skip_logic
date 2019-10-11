@@ -48,7 +48,7 @@ class ExternalModule extends AbstractExternalModule {
         }
 
         // Do not load FRSL on the add/edit record splash page
-        if ( strpos(PAGE, 'DataEntry/record_home.php') !== false && (!$_GET['arm'] || !$_GET['id']) ) {
+        if ( strpos(PAGE, 'DataEntry/record_home.php') !== false && !$_GET['id'] ) {
             return;
         }
 
