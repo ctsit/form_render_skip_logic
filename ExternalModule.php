@@ -258,11 +258,18 @@ class ExternalModule extends AbstractExternalModule {
             }
         }
 
-        $control_data = REDCap::getData($Proj->project_id, 'array', $record, $fields_utilized, null, null,
+        // Fetch only relevant data if a DAG is being used
+        if ($dag = $_GET['dag']) {
+            $record_list = Records::getRecordListSingleDag($Proj->project_id, $dag);
+        } else {
+           $record_list = $record;
+        }
+
+        $control_data = REDCap::getData($Proj->project_id, 'array', $record_list, $fields_utilized, null, null,
                                         false, false, false, false, false, false, false, false, false, array(),
                                         false, false, false, false, false, false, 'EVENT', false, false, true);
 
-        // only assess records which will be shown
+        // Further subset on Record Status Dashboard if limiting records per page
         if ( ($pagenum = $_GET['pagenum']) && ($num_per_page = $_GET['num_per_page']) ) {
             if ($num_per_page !== 'ALL') {
                 $num_per_page = intval($num_per_page);
