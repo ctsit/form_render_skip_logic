@@ -57,7 +57,14 @@ If you want to make sure no filled forms will be affected by FRSL rules, check "
 ![Prevent hiding of filled forms](img/prevent_hidden_data_checkbox.png)
 
 
-## Upgrading From Version 2.x - 3.x
+## Survey support
+
+FRSL works in surveys, but you must enable the `Auto-continue to next survey` option of `Survey Termination Options`. 
+
+Survey queues and FRSL are somewhat redundant in their ability to skip forms based on logic. If you want to use them together, you must skip the survey in both places, the queue and FRSL. Given that one constraint, they are completely compatible.
+
+
+## Upgrading from Version 2.x - 3.x
 
 Note that version 3.0.0 introduced a breaking change in the configuration. When you upgrade to version 3.x all of your old configurations in 2.x will be converted into the 3.x configuration scheme. Thereafter, if you decided to switch back and forth between the two versions, your configurations will not transfer. This is to ensure that all of your old 2.x configurations will still be available to you if you decide to go back to version 2.x.
 
