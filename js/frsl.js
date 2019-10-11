@@ -25,8 +25,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         var params = getQueryParameters(this.href,this.getAttribute('onclick'));
-        if (!formRenderSkipLogic.formsAccess[params.id][params.event_id][params.page]) {
-            disableForm(this);
+        try {
+            if (!formRenderSkipLogic.formsAccess[params.id][params.event_id][params.page]) {
+                disableForm(this);
+            }
+        } catch (err) {
+            if (this.firstChild.getAttribute('title') === 'Delete this event') {
+                // on record home the final row is "delete all data on event" buttons and should not be processed
+                return;
+            }
         }
     });
 
