@@ -60,7 +60,7 @@
                         },
                         {
                             "value": "advanced",
-                            "name": "Advanced (Equation with Piping and/or Smart Variables).</br><small style=\"color:red\">Warning: this feature is deprecated. It will be removed in a future version of this module.<small>"
+                            "name": "Advanced (Equation with Piping and/or Smart Variables).</br><small style=\"color:red\">Warning: the Advanced Control Field is deprecated. It will be removed in a future version of this module.<small>"
                         }
                     ]
                 },
