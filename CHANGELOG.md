@@ -2,6 +2,16 @@
 All notable changes to the Form Render Skip Logic module will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [3.3.10] - 2019-10-14
+### Changed
+- Document the limited repeating event support in FRSL (Philip Chase)
+- Document how to use FRSL with surveys (Philip Chase)
+- Go to correct instance when using Save and Go to Next Form (Kyle Chesney)
+- Fix bug on Record Home wherein FRSL would quietly fail to hide forms when returning from Save and Exit Record (Kyle Chesney)
+- Address cosmetic error caused by "Delete all data on event" row of Record Home (Kyle Chesney)
+
+
 ## [3.3.9] - 2019-10-11
 ### Changed
 - Use only the records for the DAG if one is specified in Record Status Dashboard (Kyle Chesney)

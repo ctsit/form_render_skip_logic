@@ -48,7 +48,7 @@ class ExternalModule extends AbstractExternalModule {
         }
 
         // Do not load FRSL on the add/edit record splash page
-        if ( strpos(PAGE, 'DataEntry/record_home.php') !== false && (!$_GET['arm'] || !$_GET['id']) ) {
+        if ( strpos(PAGE, 'DataEntry/record_home.php') !== false && !$_GET['id'] ) {
             return;
         }
 
@@ -59,12 +59,12 @@ class ExternalModule extends AbstractExternalModule {
     /**
      * @inheritdoc
      */
-    function redcap_data_entry_form_top($project_id, $record = null, $instrument, $event_id, $group_id = null) {
+    function redcap_data_entry_form_top($project_id, $record = null, $instrument, $event_id, $group_id = null, $instance = null) {
         if (empty($record)) {
             $record = $this->getQueryParam('id');
         }
 
-        $this->loadFRSL('data_entry_form', $record, $event_id, $instrument);
+        $this->loadFRSL('data_entry_form', $record, $event_id, $instrument, $instance);
     }
 
     /**
@@ -388,8 +388,10 @@ class ExternalModule extends AbstractExternalModule {
      *   The event ID. Only required when $location = "data_entry_form".
      * @param string $instrument
      *   The form/instrument name.
+     * @param int $instance
+     *   The repeat instance number. Only required when $location = "data_entry_form" and the form is a repeating instance
      */
-    protected function loadFRSL($location, $record = null, $event_id = null, $instrument = null) {
+    protected function loadFRSL($location, $record = null, $event_id = null, $instrument = null, $instance = null) {
         global $Proj;
 
         $next_step_path = '';
@@ -413,7 +415,7 @@ class ExternalModule extends AbstractExternalModule {
 
             if (isset($next_instrument)) {
                 // Path to the next available form in the current event.
-                $next_step_path = APP_PATH_WEBROOT . 'DataEntry/index.php?pid=' . $Proj->project_id . '&id=' . $record . '&event_id=' . $event_id . '&page=' . $next_instrument;
+                $next_step_path = APP_PATH_WEBROOT . 'DataEntry/index.php?pid=' . $Proj->project_id . '&id=' . $record . '&event_id=' . $event_id . '&page=' . $next_instrument . '&instance=' . $instance;
             }
 
             // Access denied to the current page.
