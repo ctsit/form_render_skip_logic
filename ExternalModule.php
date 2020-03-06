@@ -415,7 +415,15 @@ class ExternalModule extends AbstractExternalModule {
 
             if (isset($next_instrument)) {
                 // Path to the next available form in the current event.
-                $next_step_path = APP_PATH_WEBROOT . 'DataEntry/index.php?pid=' . $Proj->project_id . '&id=' . $record . '&event_id=' . $event_id . '&page=' . $next_instrument . '&instance=' . $instance;
+                $next_step_path = APP_PATH_WEBROOT . 'DataEntry/index.php?pid=' . $Proj->project_id . '&id=' . $record . '&event_id=' . $event_id . '&page=' . $next_instrument;
+
+                // If a repeating instrument immediately follows another repeating instrument, maintain the instance
+                if ($Proj->hasRepeatingFormsEvents() && $instance) {
+                    $this_event_repeating_forms = $Proj->getRepeatingFormsEvents()[$event_id];
+                    if ( array_key_exists($instrument, $this_event_repeating_forms) && array_key_exists($next_instrument, $this_event_repeating_forms) ) {
+                        $next_step_path .= '&instance=' . $instance;
+                    }
+                }
             }
 
             // Access denied to the current page.
