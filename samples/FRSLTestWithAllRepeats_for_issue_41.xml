@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ODM xmlns="http://www.cdisc.org/ns/odm/v1.3" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:redcap="https://projectredcap.org" xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 schema/odm/ODM1-3-1.xsd" ODMVersion="1.3.1" FileOID="000-00-0000" FileType="Snapshot" Description="FRSL test 2 with all repeat" AsOfDateTime="2020-03-20T16:19:43" CreationDateTime="2020-03-20T16:19:43" SourceSystem="REDCap" SourceSystemVersion="9.7.0">
+<Study OID="Project.FRSLTest2WithAllRepeat">
+<GlobalVariables>
+	<StudyName>FRSL test 2 with all repeat</StudyName>
+	<StudyDescription>This file contains the metadata, events, and data for REDCap project "FRSL test 2 with all repeat".</StudyDescription>
+	<ProtocolName>FRSL test 2 with all repeat</ProtocolName>
+	<redcap:RecordAutonumberingEnabled>1</redcap:RecordAutonumberingEnabled>
+	<redcap:CustomRecordLabel></redcap:CustomRecordLabel>
+	<redcap:SecondaryUniqueField></redcap:SecondaryUniqueField>
+	<redcap:SchedulingEnabled>0</redcap:SchedulingEnabled>
+	<redcap:SurveysEnabled>0</redcap:SurveysEnabled>
+	<redcap:SurveyInvitationEmailField></redcap:SurveyInvitationEmailField>
+	<redcap:Purpose>0</redcap:Purpose>
+	<redcap:PurposeOther></redcap:PurposeOther>
+	<redcap:ProjectNotes></redcap:ProjectNotes>
+	<redcap:MissingDataCodes></redcap:MissingDataCodes>
+	<redcap:RepeatingInstrumentsAndEvents>
+		<redcap:RepeatingEvent redcap:UniqueEventName="event_2_arm_1"/>
+	</redcap:RepeatingInstrumentsAndEvents>
+</GlobalVariables>
+<MetaDataVersion OID="Metadata.FRSLTest2WithAllRepeat_2020-03-20_1619" Name="FRSL test 2 with all repeat" redcap:RecordIdField="record_id">
+	<Protocol>
+		<StudyEventRef StudyEventOID="Event.event_1_arm_1" OrderNumber="1" Mandatory="No"/>
+		<StudyEventRef StudyEventOID="Event.event_2_arm_1" OrderNumber="2" Mandatory="No"/>
+		<StudyEventRef StudyEventOID="Event.event_3_arm_1" OrderNumber="3" Mandatory="No"/>
+	</Protocol>
+	<StudyEventDef OID="Event.event_1_arm_1" Name="Event 1" Type="Common" Repeating="No" redcap:EventName="Event 1" redcap:CustomEventLabel="" redcap:UniqueEventName="event_1_arm_1" redcap:ArmNum="1" redcap:ArmName="Arm 1" redcap:DayOffset="1" redcap:OffsetMin="0" redcap:OffsetMax="0">
+		<FormRef FormOID="Form.instrument_1" OrderNumber="1" Mandatory="No" redcap:FormName="instrument_1"/>
+		<FormRef FormOID="Form.instrument_2" OrderNumber="2" Mandatory="No" redcap:FormName="instrument_2"/>
+	</StudyEventDef>
+	<StudyEventDef OID="Event.event_2_arm_1" Name="Event 2" Type="Common" Repeating="No" redcap:EventName="Event 2" redcap:CustomEventLabel="" redcap:UniqueEventName="event_2_arm_1" redcap:ArmNum="1" redcap:ArmName="Arm 1" redcap:DayOffset="2" redcap:OffsetMin="0" redcap:OffsetMax="0">
+		<FormRef FormOID="Form.instrument_1" OrderNumber="1" Mandatory="No" redcap:FormName="instrument_1"/>
+		<FormRef FormOID="Form.instrument_2" OrderNumber="2" Mandatory="No" redcap:FormName="instrument_2"/>
+	</StudyEventDef>
+	<StudyEventDef OID="Event.event_3_arm_1" Name="Event 3" Type="Common" Repeating="No" redcap:EventName="Event 3" redcap:CustomEventLabel="" redcap:UniqueEventName="event_3_arm_1" redcap:ArmNum="1" redcap:ArmName="Arm 1" redcap:DayOffset="3" redcap:OffsetMin="0" redcap:OffsetMax="0">
+		<FormRef FormOID="Form.instrument_1" OrderNumber="1" Mandatory="No" redcap:FormName="instrument_1"/>
+		<FormRef FormOID="Form.instrument_2" OrderNumber="2" Mandatory="No" redcap:FormName="instrument_2"/>
+	</StudyEventDef>
+	<FormDef OID="Form.instrument_0" Name="Instrument 0" Repeating="No" redcap:FormName="instrument_0">
+		<ItemGroupRef ItemGroupOID="instrument_0.record_id" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="instrument_0.instrument_0_complete" Mandatory="No"/>
+	</FormDef>
+	<FormDef OID="Form.instrument_1" Name="Instrument 1" Repeating="No" redcap:FormName="instrument_1">
+		<ItemGroupRef ItemGroupOID="instrument_1.age" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="instrument_1.instrument_1_complete" Mandatory="No"/>
+	</FormDef>
+	<FormDef OID="Form.instrument_2" Name="Instrument 2" Repeating="No" redcap:FormName="instrument_2">
+		<ItemGroupRef ItemGroupOID="instrument_2.notes" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="instrument_2.instrument_2_complete" Mandatory="No"/>
+	</FormDef>
+	<ItemGroupDef OID="instrument_0.record_id" Name="Instrument 0" Repeating="No">
+		<ItemRef ItemOID="record_id" Mandatory="No" redcap:Variable="record_id"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="instrument_0.instrument_0_complete" Name="Form Status" Repeating="No">
+		<ItemRef ItemOID="instrument_0_complete" Mandatory="No" redcap:Variable="instrument_0_complete"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="instrument_1.age" Name="Instrument 1" Repeating="No">
+		<ItemRef ItemOID="age" Mandatory="No" redcap:Variable="age"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="instrument_1.instrument_1_complete" Name="Form Status" Repeating="No">
+		<ItemRef ItemOID="instrument_1_complete" Mandatory="No" redcap:Variable="instrument_1_complete"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="instrument_2.notes" Name="Instrument 2" Repeating="No">
+		<ItemRef ItemOID="notes" Mandatory="No" redcap:Variable="notes"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="instrument_2.instrument_2_complete" Name="Form Status" Repeating="No">
+		<ItemRef ItemOID="instrument_2_complete" Mandatory="No" redcap:Variable="instrument_2_complete"/>
+	</ItemGroupDef>
+	<ItemDef OID="record_id" Name="record_id" DataType="text" Length="999" redcap:Variable="record_id" redcap:FieldType="text">
+		<Question><TranslatedText>Record ID</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="instrument_0_complete" Name="instrument_0_complete" DataType="text" Length="1" redcap:Variable="instrument_0_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
+		<Question><TranslatedText>Complete?</TranslatedText></Question>
+		<CodeListRef CodeListOID="instrument_0_complete.choices"/>
+	</ItemDef>
+	<ItemDef OID="age" Name="age" DataType="integer" Length="999" redcap:Variable="age" redcap:FieldType="text" redcap:TextValidationType="int">
+		<Question><TranslatedText>How old are you?</TranslatedText></Question>
+		<RangeCheck Comparator="GE" SoftHard="Soft">
+			<CheckValue>0</CheckValue>
+			<ErrorMessage><TranslatedText>The value you provided is outside the suggested range. (0 - 120). This value is admissible, but you may wish to double check it.</TranslatedText></ErrorMessage>
+		</RangeCheck>
+		<RangeCheck Comparator="LE" SoftHard="Soft">
+			<CheckValue>120</CheckValue>
+			<ErrorMessage><TranslatedText>The value you provided is outside the suggested range. (0 - 120). This value is admissible, but you may wish to double check it.</TranslatedText></ErrorMessage>
+		</RangeCheck>
+	</ItemDef>
+	<ItemDef OID="instrument_1_complete" Name="instrument_1_complete" DataType="text" Length="1" redcap:Variable="instrument_1_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
+		<Question><TranslatedText>Complete?</TranslatedText></Question>
+		<CodeListRef CodeListOID="instrument_1_complete.choices"/>
+	</ItemDef>
+	<ItemDef OID="notes" Name="notes" DataType="text" Length="999" redcap:Variable="notes" redcap:FieldType="textarea">
+		<Question><TranslatedText>Notes</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="instrument_2_complete" Name="instrument_2_complete" DataType="text" Length="1" redcap:Variable="instrument_2_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
+		<Question><TranslatedText>Complete?</TranslatedText></Question>
+		<CodeListRef CodeListOID="instrument_2_complete.choices"/>
+	</ItemDef>
+	<CodeList OID="instrument_0_complete.choices" Name="instrument_0_complete" DataType="text" redcap:Variable="instrument_0_complete">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="instrument_1_complete.choices" Name="instrument_1_complete" DataType="text" redcap:Variable="instrument_1_complete">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="instrument_2_complete.choices" Name="instrument_2_complete" DataType="text" redcap:Variable="instrument_2_complete">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+</MetaDataVersion>
+</Study>
+</ODM>
