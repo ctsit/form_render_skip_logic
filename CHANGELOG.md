@@ -3,6 +3,16 @@ All notable changes to the Form Render Skip Logic module will be documented in t
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [3.3.11] - 2020-03-20
+### Changed
+- Adjust instance appending to only occur on repeating events (Kyle Chesney)
+- Update minimum RC version to 8.7.2 to ensure all core lib functions exist (Kyle Chesney)
+- Resize large images in the README that displayed poorly in REDCap (Philip Chase)
+
+### Added
+- Add repeating instance test projects for issues 41 and 67 (Philip Chase)
+
+
 ## [3.3.10] - 2019-10-14
 ### Changed
 - Document the limited repeating event support in FRSL (Philip Chase)
