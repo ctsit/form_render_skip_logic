@@ -8,7 +8,7 @@ This REDCap module hides and shows instruments based on the values of REDCap for
 
 The original use case of this tool was to facilitate a data entry workflow specific to acute brain injury diagnoses, but the tool is generalized to support the hiding (and showing) of any number of forms based on a field value. Multiple control fields can be defined to control the display of non-overlapping sets of forms. Here is an example based loosely on a multi-site trial:
 
-![venn diagram of test project forms](img/venn_diagram_of_forms_controls_and_conditions.png)
+![venn diagram of test project forms](img/venn_diagram_of_forms_controls_and_conditions.jpeg)
 
 See the original functional specification at [https://docs.google.com/document/d/1Ej7vCNpKOrC6X9KVpkZkHeY0v2VqQXrjuMIBQtbj1bw/edit#](https://docs.google.com/document/d/1Ej7vCNpKOrC6X9KVpkZkHeY0v2VqQXrjuMIBQtbj1bw/edit) for functional details.
 
