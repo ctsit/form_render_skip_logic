@@ -396,6 +396,7 @@ class ExternalModule extends AbstractExternalModule {
 
         $next_step_path = '';
         $forms_access = $this->getFormsAccessMatrix($event_id, $record);
+	$user_rights_forms = reset(REDCap::getUserRights(USERID))['forms'];
 
         if ($record && $event_id && $instrument) {
             $instruments = $Proj->eventsForms[$event_id];
@@ -405,7 +406,7 @@ class ExternalModule extends AbstractExternalModule {
             $len = count($instruments);
 
             while ($i < $len) {
-                if ($curr_forms_access[$instruments[$i]]) {
+                if ($curr_forms_access[$instruments[$i]] && $user_rights_forms[$instruments[$i]]) {
                     $next_instrument = $instruments[$i];
                     break;
                 }
