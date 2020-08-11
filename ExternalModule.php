@@ -17,6 +17,7 @@ use Records;
 use Survey;
 use RCView;
 use REDCap;
+use UserRights;
 
 /**
  * ExternalModule class for REDCap Form Render Skip Logic.
@@ -396,7 +397,8 @@ class ExternalModule extends AbstractExternalModule {
 
         $next_step_path = '';
         $forms_access = $this->getFormsAccessMatrix($event_id, $record);
-	$user_rights_forms = reset(REDCap::getUserRights(USERID))['forms'];
+	$current_user = UserRights::isImpersonatingUser() ? UserRights::getUsernameImpersonating() : USERID;
+	$user_rights_forms = reset(REDCap::getUserRights($current_user))['forms'];
 
         if ($record && $event_id && $instrument) {
             $instruments = $Proj->eventsForms[$event_id];
