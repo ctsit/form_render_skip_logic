@@ -437,12 +437,12 @@ class ExternalModule extends AbstractExternalModule {
             }
         }
 
-         // In case the record's primary key (record_id) has a space in it, escape that space to match 
+        // In case the record's primary key (record_id) has a space in it, escape that space to match 
         // the params.id on JS. escapeSpace() cannot be included as part of getQueryParam because the space
         // escaped string does not match the data that is returned by REDCap::getData and breaks the matching
         // done by getFormsAccessMatrix().
         $escapedFormsAccess = array();
-        $escapedFormsAccess[$this->escapeSpace($record)] = $forms_access[$record];
+        $escapedFormsAccess[$this->urlencode($record)] = $forms_access[$record];
 
         $settings = array(
             'location' => $location,
@@ -518,23 +518,6 @@ class ExternalModule extends AbstractExternalModule {
      */
     function getQueryParam($param, $default = null) {
         return empty($_GET[$param]) ? $default : REDCap::escapeHtml($_GET[$param]);
-    }
-
-     /**
-     * Encodes string replacing space character with '+'
-     * 
-     * @param string $s
-     *   The string to be escaped
-     * 
-     * @return string
-     *   The escaped string
-     */
-    protected function escapeSpace($s) {
-        $pattern = '/(\S*)(\s)(\S*)/i';
-        $replacement = '${1}+${3}';
-        $s = preg_replace($pattern, $replacement, $s);
-        
-        return $s;
     }
 
     /**
