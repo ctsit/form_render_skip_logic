@@ -53,7 +53,7 @@ $(document).ready(function() {
             var branchingLogicRadios = function($radio) {
                 $radio.prop('checked', true);
 
-                var suffix = '____' + $radio.attr('name').slice(-1);
+                var suffix =  $radio.attr('name').slice($radio.attr('name').search('____'),$radio.attr('name').length);
                 var selectorShow = '[name="control_event_id' + suffix + '"], [name="control_field_key' + suffix + '"]';
                 var selectorHide = '[name="control_piping' + suffix + '"]';
 
