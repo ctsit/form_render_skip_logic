@@ -2,6 +2,10 @@
 All notable changes to the Form Render Skip Logic module will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.3.12] - 2021-05-26
+### Changed
+- Fix bug that removes arm-event after 10th control field in project level configuration, credit to REDCap community user nathan.orr (mbentz)
+
 
 ## [3.3.11] - 2020-03-20
 ### Changed
