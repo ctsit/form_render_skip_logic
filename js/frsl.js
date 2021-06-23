@@ -25,6 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         var params = getQueryParameters(this.href,this.getAttribute('onclick'));
+        if(formRenderSkipLogic.location == 'record_home') {
+            params.id = params.id.replace(/\+/g,' ');
+        }
         try {
             if (!formRenderSkipLogic.formsAccess[params.id][params.event_id][params.page]) {
                 disableForm(this);
