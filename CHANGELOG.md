@@ -2,6 +2,12 @@
 All notable changes to the Form Render Skip Logic module will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [3.3.13] - 2021-06-25
+### Changed
+- Fix bug preventing FRSL from working on the record_home_page with records whose record_id values have spaces in them (Travis Wilson)
+
+
 ## [3.3.12] - 2021-05-26
 ### Changed
 - Fix bug that removes arm-event after 10th control field in project level configuration, credit to REDCap community user nathan.orr (mbentz)
