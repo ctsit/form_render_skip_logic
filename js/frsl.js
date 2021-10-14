@@ -40,6 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    tidyUpDisplay();
+
     /**
      * Overrides next form buttons to redirect to the next available step.
      */
@@ -91,6 +93,77 @@ document.addEventListener('DOMContentLoaded', function() {
     function disableForm(cell) {
         cell.style.pointerEvents = 'none';
         cell.style.opacity = '.1';
+        if ( $(cell).parent().hasClass('formMenuList') ) {
+            $(cell).parent().remove();
+        }
+    }
+
+    /**
+     * Hides all opaque elements so that we have a nicer display
+     */
+    function tidyUpDisplay() {
+        //-- for the table on the record home page, remove any empty rows
+        if ( $('#event_grid_table').length ) {
+            //-- loop over all rows
+            $('#event_grid_table').find('tr').each(function(rowIndex, r){
+                if ( rowIndex > 0 ) {
+                    var numCells = $(this).find('td').length;
+                    var numOpaque = 0;
+                    $(this).find('td').each(function(colIndex, c){
+                        if ( $(this).find('a[style*="opacity: 0.1"]').length ) {
+                            numOpaque++;
+                        }
+                        if ( c.innerHTML.length === 0 ) {
+                            numOpaque++;
+                        }
+                    });
+                    if ( numOpaque == (numCells - 1 )  ) {
+                        $(this).addClass('pleaseRemoveMeFRSL');
+                    }
+                }
+            });
+            $('.pleaseRemoveMeFRSL').remove();
+            //-- Now reset the highlighting
+            $('#event_grid_table').find('tr').each(function(rowIndex, r){
+                if ( rowIndex > 0 ) {
+                    $(this).removeClass('even');
+                    $(this).removeClass('odd');
+                    if (rowIndex % 2 === 0) {
+                        $(this).addClass('even');
+                    } else {
+                        $(this).addClass('odd');
+                    }
+                }
+            });
+            //-- Now tidy-up any columns that should be tidied up
+            var numRows = $('#event_grid_table tbody').find('tr').length - 1;
+            var numCols = $('#event_grid_table').find('th').length;
+            var emptyCol = [];
+            $('#event_grid_table').find('th').each(function(colIndex, c){
+                emptyCol[colIndex] = 1;
+            });
+            $('#event_grid_table tbody').find('tr').each(function(rowIndex, r){
+                $(this).find('td').each(function(colIndex, c){
+                    if ( c.innerHTML.length > 0 && emptyCol[colIndex] == 1 ) {
+                        emptyCol[colIndex] = 0;
+                    }
+                });
+            });
+
+            $(emptyCol).each(function(idx,val){
+                if ( val === 1 ) {
+                    $('#event_grid_table').find('tr').each(function(rowIndex, r){
+                        $(this).find('td,th').each(function(colIndex, c){
+                            if ( colIndex === idx ) {
+                                $(c).hide();
+                            }
+                        });
+                    });
+                }
+            });
+
+        }
+
     }
 
     /**
