@@ -17,6 +17,7 @@ use Records;
 use Survey;
 use RCView;
 use REDCap;
+use UserRights;
 
 /**
  * ExternalModule class for REDCap Form Render Skip Logic.
@@ -396,6 +397,8 @@ class ExternalModule extends AbstractExternalModule {
 
         $next_step_path = '';
         $forms_access = $this->getFormsAccessMatrix($event_id, $record);
+	$current_user = UserRights::isImpersonatingUser() ? UserRights::getUsernameImpersonating() : USERID;
+	$user_rights_forms = reset(REDCap::getUserRights($current_user))['forms'];
 
         if ($record && $event_id && $instrument) {
             $instruments = $Proj->eventsForms[$event_id];
@@ -405,7 +408,7 @@ class ExternalModule extends AbstractExternalModule {
             $len = count($instruments);
 
             while ($i < $len) {
-                if ($curr_forms_access[$instruments[$i]]) {
+                if ($curr_forms_access[$instruments[$i]] && $user_rights_forms[$instruments[$i]]) {
                     $next_instrument = $instruments[$i];
                     break;
                 }
@@ -415,7 +418,7 @@ class ExternalModule extends AbstractExternalModule {
 
             if (isset($next_instrument)) {
                 // Path to the next available form in the current event.
-                $next_step_path = APP_PATH_WEBROOT . 'DataEntry/index.php?pid=' . $Proj->project_id . '&id=' . $record . '&event_id=' . $event_id . '&page=' . $next_instrument;
+                $next_step_path = APP_PATH_WEBROOT . 'DataEntry/index.php?auto=1&pid=' . $Proj->project_id . '&id=' . $record . '&event_id=' . $event_id . '&page=' . $next_instrument;
 
                 // If this is a repeating event, maintain the instance
                 if ($Proj->hasRepeatingFormsEvents() && $instance) {
@@ -429,7 +432,7 @@ class ExternalModule extends AbstractExternalModule {
             if (!$forms_access[$record][$event_id][$instrument]) {
                 if (!$next_step_path) {
                     $arm = $event_id ? $Proj->eventInfo[$event_id]['arm_num'] : $this->getQueryParam('arm', 1);
-                    $next_step_path = APP_PATH_WEBROOT . 'DataEntry/record_home.php?pid=' . $Proj->project_id . '&id=' . $record . '&arm=' . $arm;
+                    $next_step_path = APP_PATH_WEBROOT . 'DataEntry/record_home.php?auto=1&pid=' . $Proj->project_id . '&id=' . $record . '&arm=' . $arm;
                 }
 
                 $this->redirect($next_step_path);
